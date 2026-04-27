@@ -1,0 +1,237 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Menu, X, Phone, ChevronRight, AtSign } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { siteConfig, whatsappLink } from "@/content/site";
+
+const desktopNav = [
+  { label: "Programa Metabólico", href: "/programa-metabolico" },
+  { label: "Láser Diodo", href: "/laser-diodo" },
+  { label: "Sueroterapia", href: "/sueroterapia" },
+  { label: "Inyectables", href: "/inyectables-metabolicos" },
+  { label: "Wellness", href: "/wellness-mujer" },
+  { label: "Resultados", href: "/resultados" },
+  { label: "Sobre Nosotros", href: "/sobre-nosotros" },
+];
+
+const mobileNav = [
+  { label: "Programa Metabólico Integral", href: "/programa-metabolico", badge: "Principal" },
+  { label: "Láser Diodo", href: "/laser-diodo" },
+  { label: "Wellness Mujer", href: "/wellness-mujer" },
+  { label: "Wellness Hombre", href: "/wellness-hombre" },
+  { label: "Nutrición Personalizada", href: "/nutricion" },
+  { label: "Suplementación", href: "/suplementacion" },
+  { label: "Sueroterapia NAD+ & Myers", href: "/sueroterapia" },
+  { label: "Inyectables Metabólicos", href: "/inyectables-metabolicos" },
+  { label: "Skin & Glow", href: "/skin-glow" },
+  { label: "Hair Support", href: "/hair-support" },
+  { label: "Coaching & Seguimiento", href: "/coaching-seguimiento" },
+  { label: "Resultados Medibles", href: "/resultados" },
+  { label: "Sobre Aurum Nova", href: "/sobre-nosotros" },
+  { label: "Preguntas Frecuentes", href: "/preguntas-frecuentes" },
+  { label: "Contacto", href: "/contacto" },
+];
+
+export default function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [isOpen]);
+
+  return (
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled || isOpen
+            ? "bg-white/98 backdrop-blur-md shadow-sm border-b border-[#E8E4DA]"
+            : "bg-transparent"
+        }`}
+      >
+        <div className="container-max px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 md:h-20">
+            {/* Logo */}
+            <Link href="/" className="flex flex-col leading-none group" onClick={() => setIsOpen(false)}>
+              <span className="text-lg md:text-xl font-semibold tracking-wide text-[#1A1A1A] group-hover:text-[#C9A84C] transition-colors">
+                Aurum Nova
+              </span>
+              <span className="text-[10px] md:text-xs tracking-[0.2em] uppercase text-[#C9A84C] font-medium">
+                Wellness Clinic
+              </span>
+            </Link>
+
+            {/* Desktop Nav */}
+            <nav className="hidden lg:flex items-center gap-5 xl:gap-6">
+              {desktopNav.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`text-sm font-medium tracking-wide transition-colors ${
+                    pathname === link.href
+                      ? "text-[#C9A84C]"
+                      : "text-[#3D3D3D] hover:text-[#C9A84C]"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+
+            {/* Desktop CTA */}
+            <div className="hidden lg:flex items-center gap-3">
+              <a
+                href={`tel:${siteConfig.phone}`}
+                className="flex items-center gap-1.5 text-sm text-[#3D3D3D] hover:text-[#C9A84C] transition-colors"
+              >
+                <Phone className="w-3.5 h-3.5" />
+                {siteConfig.phone}
+              </a>
+              <Link
+                href="/agendar-evaluacion"
+                className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-all duration-200 shadow-sm hover:shadow-md"
+              >
+                Agendar Evaluación
+              </Link>
+            </div>
+
+            {/* Mobile hamburger */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="lg:hidden p-2 text-[#1A1A1A] hover:text-[#C9A84C] transition-colors"
+              aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                {isOpen ? (
+                  <motion.span
+                    key="close"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                  >
+                    <X className="w-6 h-6" />
+                  </motion.span>
+                ) : (
+                  <motion.span
+                    key="open"
+                    initial={{ rotate: 90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                  >
+                    <Menu className="w-6 h-6" />
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile full-screen menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            transition={{ type: "tween", duration: 0.28, ease: "easeInOut" }}
+            className="fixed inset-0 z-40 bg-white lg:hidden flex flex-col"
+          >
+            {/* Spacer for header */}
+            <div className="h-16 shrink-0 border-b border-[#E8E4DA]" />
+
+            {/* Scrollable nav list */}
+            <div className="flex-1 overflow-y-auto">
+              <div className="px-4 py-4">
+                <p className="text-[10px] font-semibold uppercase tracking-widest text-[#9A9A9A] px-3 mb-3">
+                  Programas y servicios
+                </p>
+                {mobileNav.map((link, i) => (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, x: 16 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.035 }}
+                  >
+                    <Link
+                      href={link.href}
+                      className={`flex items-center justify-between px-3 py-3.5 rounded-xl mb-0.5 group transition-colors ${
+                        pathname === link.href
+                          ? "bg-[#C9A84C]/10 text-[#C9A84C]"
+                          : "hover:bg-[#FAF8F4] text-[#1A1A1A]"
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className="text-base font-medium">{link.label}</span>
+                        {link.badge && (
+                          <span className="text-[10px] font-semibold bg-[#C9A84C] text-white px-2 py-0.5 rounded-full">
+                            {link.badge}
+                          </span>
+                        )}
+                      </div>
+                      <ChevronRight
+                        className={`w-4 h-4 shrink-0 transition-colors ${
+                          pathname === link.href ? "text-[#C9A84C]" : "text-[#C9A84C]/40 group-hover:text-[#C9A84C]"
+                        }`}
+                      />
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Mobile menu footer */}
+            <div className="border-t border-[#E8E4DA] p-4 space-y-3 shrink-0 bg-[#FAF8F4]">
+              <a
+                href={whatsappLink("Hola, quisiera agendar una evaluación en Aurum Nova Wellness Clinic.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 w-full bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold py-3.5 rounded-full transition-all"
+              >
+                Contactar por WhatsApp
+              </a>
+              <div className="flex gap-3">
+                <a
+                  href={siteConfig.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 flex items-center justify-center gap-2 text-sm font-medium text-[#3D3D3D] border border-[#E8E4DA] py-2.5 rounded-full hover:border-[#C9A84C] hover:text-[#C9A84C] transition-all"
+                >
+                  <AtSign className="w-4 h-4" />
+                  Instagram
+                </a>
+                <Link
+                  href="/sobre-nosotros"
+                  className="flex-1 flex items-center justify-center gap-2 text-sm font-medium text-[#3D3D3D] border border-[#E8E4DA] py-2.5 rounded-full hover:border-[#C9A84C] hover:text-[#C9A84C] transition-all"
+                >
+                  Sobre Aurum Nova
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}

@@ -1,0 +1,149 @@
+"use client";
+
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { whatsappLink } from "@/content/site";
+
+interface PageHeroProps {
+  badge?: string;
+  title: string;
+  highlight?: string;
+  subtitle: string;
+  ctaText: string;
+  ctaMessage: string;
+  secondaryCtaText?: string;
+  secondaryCtaHref?: string;
+  disclaimer?: string;
+  accentColor?: string;
+  backHref?: string;
+  backLabel?: string;
+}
+
+export default function PageHero({
+  badge,
+  title,
+  highlight,
+  subtitle,
+  ctaText,
+  ctaMessage,
+  secondaryCtaText,
+  secondaryCtaHref,
+  disclaimer,
+  accentColor = "#C9A84C",
+  backHref = "/",
+  backLabel = "Inicio",
+}: PageHeroProps) {
+  return (
+    <section className="relative bg-[#FAF8F4] pt-28 pb-16 overflow-hidden">
+      {/* Background gradient accent */}
+      <div
+        className="absolute inset-0 opacity-20 pointer-events-none"
+        style={{
+          backgroundImage: `radial-gradient(ellipse at 80% 20%, ${accentColor}25 0%, transparent 60%)`,
+        }}
+      />
+      <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#C9A84C]/40 to-transparent" />
+
+      <div className="container-max px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Breadcrumb */}
+        <motion.div
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="flex items-center gap-2 mb-8"
+        >
+          <Link
+            href={backHref}
+            className="inline-flex items-center gap-1.5 text-xs text-[#9A9A9A] hover:text-[#C9A84C] transition-colors font-medium"
+          >
+            <ArrowLeft className="w-3 h-3" />
+            {backLabel}
+          </Link>
+          {badge && (
+            <>
+              <span className="text-[#E8E4DA]">/</span>
+              <span className="text-xs text-[#C9A84C] font-medium">{badge}</span>
+            </>
+          )}
+        </motion.div>
+
+        <div className="max-w-3xl">
+          {badge && (
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="inline-flex items-center gap-2 bg-white border border-[#E8E4DA] rounded-full px-4 py-1.5 mb-5 shadow-sm"
+            >
+              <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: accentColor }} />
+              <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: accentColor }}>
+                {badge}
+              </span>
+            </motion.div>
+          )}
+
+          <motion.h1
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15, duration: 0.6 }}
+            className="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.1] text-[#1A1A1A] mb-5"
+          >
+            {title}
+            {highlight && (
+              <>
+                {" "}
+                <span className="gold-text-gradient">{highlight}</span>
+              </>
+            )}
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.25 }}
+            className="text-lg text-[#6B6B6B] leading-relaxed mb-8 max-w-2xl"
+          >
+            {subtitle}
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35 }}
+            className="flex flex-col sm:flex-row gap-3"
+          >
+            <a
+              href={whatsappLink(ctaMessage)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 shadow-md hover:shadow-lg"
+            >
+              {ctaText}
+              <ArrowRight className="w-4 h-4" />
+            </a>
+            {secondaryCtaHref && secondaryCtaText && (
+              <Link
+                href={secondaryCtaHref}
+                className="inline-flex items-center justify-center gap-2 bg-white border border-[#E8E4DA] hover:border-[#C9A84C] text-[#1A1A1A] hover:text-[#C9A84C] font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200"
+              >
+                {secondaryCtaText}
+              </Link>
+            )}
+          </motion.div>
+
+          {disclaimer && (
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="mt-4 text-xs text-[#9A9A9A]"
+            >
+              * {disclaimer}
+            </motion.p>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
