@@ -2,9 +2,10 @@ import type { NextConfig } from "next";
 import path from "path";
 
 const nextConfig: NextConfig = {
-  // Silence the workspace root warning from the parent-directory lockfile
+  // Set root to the monorepo/project root so Turbopack can find node_modules
+  // that live in the parent directory of this git worktree.
   turbopack: {
-    root: path.join(__dirname),
+    root: path.resolve(__dirname, "../../../"),
   },
 
   // Images: allow external domains here when you add hosted images
