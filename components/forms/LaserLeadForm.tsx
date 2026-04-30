@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, CheckCircle2, User, Phone, Mail, Clock, MapPin } from "lucide-react";
 import { siteConfig } from "@/content/site";
+import { trackLeadSubmitted, trackWhatsAppClick } from "@/lib/tracking";
 
 const ZONES = [
   "Bigote", "Axilas", "Brazos", "Pecho", "Bikini",
@@ -62,6 +63,8 @@ export default function LaserLeadForm() {
     if (!form.telefono.trim()) errs.telefono = "Requerido";
     if (!form.consent) errs.consent = "Debes aceptar para continuar";
     if (Object.keys(errs).length) { setErrors(errs); return; }
+    trackLeadSubmitted("laser_lead_form");
+    trackWhatsAppClick("laser_lead_form");
     const msg = buildMsg(form);
     window.open(
       `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(msg)}`,

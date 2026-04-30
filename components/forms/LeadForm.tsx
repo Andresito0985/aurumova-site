@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Send, CheckCircle2, AlertCircle } from "lucide-react";
 import { whatsappLink } from "@/content/site";
+import { trackLeadSubmitted, trackWhatsAppClick } from "@/lib/tracking";
 import { programs } from "@/content/programs";
 
 export default function LeadForm() {
@@ -23,6 +24,8 @@ export default function LeadForm() {
       mensaje.trim() ? ` Mensaje adicional: ${mensaje.trim()}` : ""
     }`;
 
+    trackLeadSubmitted("lead_form");
+    trackWhatsAppClick("lead_form");
     window.open(whatsappLink(msg), "_blank", "noopener,noreferrer");
     setSubmitted(true);
   };

@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
-import { whatsappLink } from "@/content/site";
 
 const trust = [
   "Evaluación clínica individualizada",
@@ -85,25 +84,24 @@ export default function HomeHero() {
               transition={{ delay: 0.75 }}
               className="flex flex-col sm:flex-row gap-3"
             >
-              <a
-                href={whatsappLink("Hola, quisiera saber si califico para algún programa de Aurum Nova Wellness Clinic. ¿Cuál es el proceso de evaluación?")}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/quiz-metabolico"
                 className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 shadow-md hover:shadow-lg"
               >
-                Ver si califico
+                Hacer quiz metabólico
                 <ArrowRight className="w-4 h-4" />
-              </a>
+              </Link>
               <Link
-                href="/programa-metabolico"
+                href="/servicios"
                 className="inline-flex items-center justify-center gap-2 bg-white border border-[#E8E4DA] hover:border-[#C9A84C] text-[#1A1A1A] hover:text-[#C9A84C] font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200"
               >
-                Explorar programas
+                Ver servicios
               </Link>
             </motion.div>
 
             <p className="mt-4 text-xs text-[#9A9A9A]">
-              No todos los pacientes son candidatos. Requiere evaluación médica individual.
+              Requiere evaluación clínica. No todos los pacientes cualifican. Los
+              resultados pueden variar.
             </p>
           </motion.div>
 

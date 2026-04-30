@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import WhatsAppFloat from "@/components/layout/WhatsAppFloat";
 import JsonLd from "@/components/JsonLd";
+import AnalyticsScripts from "@/components/analytics/AnalyticsScripts";
 import { siteConfig } from "@/content/site";
 
 const geistSans = Geist({
@@ -70,6 +71,7 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${geistSans.variable} h-full`}>
       <body className="min-h-full flex flex-col bg-white text-[#1A1A1A]">
+        <AnalyticsScripts />
         <JsonLd />
         <Header />
         <main className="flex-1">{children}</main>

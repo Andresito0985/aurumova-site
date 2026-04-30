@@ -23,6 +23,13 @@ const legal = [
   { label: "Términos", href: "/terminos" },
 ];
 
+const resources = [
+  { label: "Calculadoras", href: "/calculadoras" },
+  { label: "Calculadora IMC", href: "/calculadoras/imc" },
+  { label: "Meta de peso", href: "/calculadoras/meta-de-peso" },
+  { label: "Hidratación", href: "/calculadoras/hidratacion-electrolitos" },
+];
+
 export default function Footer() {
   return (
     <footer className="bg-[#111111] text-white">
@@ -94,8 +101,20 @@ export default function Footer() {
           {/* Legal & Info */}
           <div>
             <h4 className="text-xs font-semibold tracking-widest uppercase text-[#C9A84C] mb-4">
-              Información y legal
+              Recursos e información
             </h4>
+            <ul className="space-y-2 mb-6">
+              {resources.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="text-xs text-[#6B6B6B] hover:text-[#9A9A9A] transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
             <ul className="space-y-2 mb-6">
               {legal.map((item) => (
                 <li key={item.href}>

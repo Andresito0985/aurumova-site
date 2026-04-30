@@ -1,5 +1,22 @@
 import { siteConfig } from "@/content/site";
 
+interface JsonLdScriptProps {
+  data: unknown;
+  id?: string;
+}
+
+export function JsonLdScript({ data, id }: JsonLdScriptProps) {
+  return (
+    <script
+      id={id}
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(data).replace(/</g, "\\u003c"),
+      }}
+    />
+  );
+}
+
 /**
  * Structured data (JSON-LD) for Aurum Nova Wellness Clinic.
  * Injected in the root layout so it appears on every page.
@@ -74,14 +91,8 @@ export default function JsonLd() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness) }}
-      />
+      <JsonLdScript id="organization-json-ld" data={organization} />
+      <JsonLdScript id="business-json-ld" data={localBusiness} />
     </>
   );
 }

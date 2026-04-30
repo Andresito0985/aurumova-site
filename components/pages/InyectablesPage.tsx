@@ -7,6 +7,7 @@ import FAQSection from "@/components/sections/FAQSection";
 import CTABanner from "@/components/ui/CTABanner";
 import MedicalDisclaimer from "@/components/ui/MedicalDisclaimer";
 import { whatsappLink } from "@/content/site";
+import { trackWhatsAppClick } from "@/lib/tracking";
 
 const injectables = [
   {
@@ -95,12 +96,13 @@ export default function InyectablesPage() {
     <>
       <PageHero
         badge="Inyectables Metabólicos"
-        title="Soporte inyectable"
-        highlight="para tu metabolismo"
-        subtitle="L-Carnitina, Lipo Mino MIC y MIC como complemento de apoyo a tu plan de bienestar metabólico. Administración clínica con evaluación médica previa."
-        ctaText="Consultar opciones disponibles"
-        ctaMessage="Hola, me interesan los Inyectables Metabólicos en Aurum Nova. ¿Qué opciones están disponibles y qué evaluación se requiere?"
-        disclaimer="Complemento de apoyo; no reemplaza plan médico integral. Requiere evaluación."
+        title="Apoyo wellness"
+        highlight="inyectable supervisado"
+        subtitle="Opciones de apoyo wellness complementarias al plan de bienestar metabólico, sujetas a evaluación y criterio clínico. Administración con orientación profesional en clínica."
+        ctaText="Escribir por WhatsApp"
+        ctaMessage="Hola, me interesa orientación sobre los inyectables wellness en Aurum Nova. ¿Qué opciones están disponibles y qué evaluación se requiere?"
+        disclaimer="Apoyo wellness complementario; no reemplaza el plan médico integral. Requiere evaluación clínica."
+        trackingSource="inyectables_hero"
       />
 
       {/* What they are */}
@@ -223,19 +225,20 @@ export default function InyectablesPage() {
               viewport={{ once: true }}
             >
               <h2 className="text-2xl sm:text-3xl font-semibold text-[#1A1A1A] mb-4">
-                ¿Son los inyectables metabólicos para ti?
+                ¿Es este apoyo wellness para ti?
               </h2>
               <p className="text-sm text-[#6B6B6B] leading-relaxed mb-6">
-                La evaluación médica determina qué formulación es apropiada para tu caso y cómo se
-                integra a tu plan de bienestar actual. Contacta al equipo para orientación inicial.
+                La evaluación clínica determina si una opción es apropiada según tu historial,
+                objetivos y criterio profesional, y cómo se integra a tu plan actual.
               </p>
               <a
-                href={whatsappLink("Hola, me interesan los Inyectables Metabólicos en Aurum Nova. Quisiera una orientación sobre opciones disponibles y evaluación inicial.")}
+                href={whatsappLink("Hola, me interesa orientación sobre el apoyo wellness inyectable en Aurum Nova y la evaluación inicial.")}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackWhatsAppClick("inyectables_inline_cta")}
                 className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold px-7 py-3.5 rounded-full text-sm transition-all duration-200"
               >
-                Solicitar orientación por WhatsApp
+                Escribir por WhatsApp
                 <ArrowRight className="w-4 h-4" />
               </a>
             </motion.div>
@@ -251,11 +254,12 @@ export default function InyectablesPage() {
       />
 
       <CTABanner
-        title="Complementa tu plan con soporte inyectable"
-        subtitle="Los inyectables metabólicos se evalúan individualmente y se integran como complemento de tu programa de bienestar."
-        ctaText="Consultar por WhatsApp"
-        ctaMessage="Hola, me interesan los Inyectables Metabólicos en Aurum Nova. ¿Cuáles opciones están disponibles y cuál es el proceso?"
+        title="Complementa tu plan con apoyo wellness"
+        subtitle="Cada opción se evalúa individualmente y se integra al programa de bienestar según historial, objetivos y criterio clínico."
+        ctaText="Escribir por WhatsApp"
+        ctaMessage="Hola, me interesa orientación sobre el apoyo wellness inyectable en Aurum Nova. ¿Cuáles opciones están disponibles y cuál es el proceso?"
         variant="dark"
+        trackingSource="inyectables_cta_banner"
       />
     </>
   );

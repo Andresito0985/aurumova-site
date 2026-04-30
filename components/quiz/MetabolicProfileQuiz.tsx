@@ -14,6 +14,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { whatsappLink } from "@/content/site";
+import { trackQuizStarted, trackQuizCompleted } from "@/lib/tracking";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -590,6 +591,7 @@ export default function MetabolicProfileQuiz() {
     if (screen === 8) {
       const r = computeResult(a);
       setResult(r);
+      trackQuizCompleted(r?.category);
       goTo(9);
     } else {
       goTo(screen + 1);
@@ -630,10 +632,7 @@ export default function MetabolicProfileQuiz() {
 
         {/* Quiz card */}
         <div className="max-w-2xl mx-auto" ref={cardRef}>
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+          <div
             className="bg-white rounded-3xl shadow-2xl overflow-hidden"
           >
             {/* Progress header (steps 1-8) */}
@@ -698,7 +697,7 @@ export default function MetabolicProfileQuiz() {
 
                     <button
                       type="button"
-                      onClick={() => goTo(1)}
+                      onClick={() => { trackQuizStarted(); goTo(1); }}
                       className="w-full flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold py-4 rounded-2xl text-sm transition-all duration-200 shadow-lg shadow-[#C9A84C]/20"
                     >
                       Comenzar quiz
@@ -1292,7 +1291,7 @@ export default function MetabolicProfileQuiz() {
                 </div>
               </div>
             )}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

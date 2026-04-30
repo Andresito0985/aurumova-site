@@ -46,15 +46,21 @@ npm run start
 
 No environment variables are required for core functionality — all lead capture routes to WhatsApp and no backend is needed.
 
-When you add analytics, create `.env.local` (gitignored):
+### Analytics environment variables
+
+The site loads GA4 and Meta Pixel automatically when these public env vars are set. If neither is set, no analytics scripts are emitted and the tracking helper in `lib/tracking.ts` no-ops safely.
+
+Create `.env.local` (gitignored):
 
 ```env
-# Meta Pixel — replace with your actual Pixel ID when ready
-# NEXT_PUBLIC_META_PIXEL_ID=XXXXXXXXXXXXXXXXXX
+# Google Analytics 4 — Measurement ID
+# NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 
-# Google Analytics 4 — replace with your Measurement ID when ready
-# NEXT_PUBLIC_GA4_MEASUREMENT_ID=G-XXXXXXXXXX
+# Meta Pixel — Pixel ID
+# NEXT_PUBLIC_META_PIXEL_ID=XXXXXXXXXXXXXXXXXX
 ```
+
+Both are loaded via `next/script` with `strategy="afterInteractive"` from `components/analytics/AnalyticsScripts.tsx`. The site is statically generated, so changing these values requires a redeploy.
 
 Never commit `.env.local` to version control.
 

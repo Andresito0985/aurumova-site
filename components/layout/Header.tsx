@@ -9,17 +9,21 @@ import { siteConfig, whatsappLink } from "@/content/site";
 
 const desktopNav = [
   { label: "Programa Metabólico", href: "/programa-metabolico" },
+  { label: "Quiz", href: "/quiz-metabolico" },
   { label: "Láser Diodo", href: "/laser-diodo" },
-  { label: "Sueroterapia", href: "/sueroterapia" },
-  { label: "Inyectables", href: "/inyectables-metabolicos" },
-  { label: "Wellness", href: "/wellness-mujer" },
+  { label: "Servicios", href: "/servicios" },
   { label: "Resultados", href: "/resultados" },
-  { label: "Sobre Nosotros", href: "/sobre-nosotros" },
+  { label: "Contacto", href: "/contacto" },
 ];
 
 const mobileNav = [
   { label: "Programa Metabólico Integral", href: "/programa-metabolico", badge: "Principal" },
+  { label: "Quiz Metabólico", href: "/quiz-metabolico", badge: "Nuevo" },
+  { label: "Calculadoras educativas", href: "/calculadoras", badge: "Recurso" },
   { label: "Láser Diodo", href: "/laser-diodo" },
+  { label: "Servicios", href: "/servicios" },
+  { label: "Resultados Medibles", href: "/resultados" },
+  { label: "Contacto", href: "/contacto" },
   { label: "Wellness Mujer", href: "/wellness-mujer" },
   { label: "Wellness Hombre", href: "/wellness-hombre" },
   { label: "Nutrición Personalizada", href: "/nutricion" },
@@ -29,10 +33,8 @@ const mobileNav = [
   { label: "Skin & Glow", href: "/skin-glow" },
   { label: "Hair Support", href: "/hair-support" },
   { label: "Coaching & Seguimiento", href: "/coaching-seguimiento" },
-  { label: "Resultados Medibles", href: "/resultados" },
   { label: "Sobre Aurum Nova", href: "/sobre-nosotros" },
   { label: "Preguntas Frecuentes", href: "/preguntas-frecuentes" },
-  { label: "Contacto", href: "/contacto" },
 ];
 
 export default function Header() {
@@ -45,10 +47,6 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
 
   useEffect(() => {
     if (isOpen) {
@@ -176,6 +174,7 @@ export default function Header() {
                   >
                     <Link
                       href={link.href}
+                      onClick={() => setIsOpen(false)}
                       className={`flex items-center justify-between px-3 py-3.5 rounded-xl mb-0.5 group transition-colors ${
                         pathname === link.href
                           ? "bg-[#C9A84C]/10 text-[#C9A84C]"
@@ -223,6 +222,7 @@ export default function Header() {
                 </a>
                 <Link
                   href="/sobre-nosotros"
+                  onClick={() => setIsOpen(false)}
                   className="flex-1 flex items-center justify-center gap-2 text-sm font-medium text-[#3D3D3D] border border-[#E8E4DA] py-2.5 rounded-full hover:border-[#C9A84C] hover:text-[#C9A84C] transition-all"
                 >
                   Sobre Aurum Nova

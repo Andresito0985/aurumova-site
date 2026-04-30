@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, CheckCircle2, User, Phone, Mail, Clock, MapPin, Target } from "lucide-react";
 import { siteConfig } from "@/content/site";
+import { trackLeadSubmitted, trackWhatsAppClick } from "@/lib/tracking";
 
 const SERVICES = [
   "Programa Metabólico Integral",
@@ -105,6 +106,8 @@ export default function GeneralLeadForm({
     ev.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length) { setErrors(errs); return; }
+    trackLeadSubmitted("general_lead_form");
+    trackWhatsAppClick("general_lead_form");
     const msg = buildMsg(form);
     window.open(
       `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(msg)}`,

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { whatsappLink } from "@/content/site";
+import { trackWhatsAppClick } from "@/lib/tracking";
 
 interface PageHeroProps {
   badge?: string;
@@ -18,6 +19,7 @@ interface PageHeroProps {
   accentColor?: string;
   backHref?: string;
   backLabel?: string;
+  trackingSource?: string;
 }
 
 export default function PageHero({
@@ -33,6 +35,7 @@ export default function PageHero({
   accentColor = "#C9A84C",
   backHref = "/",
   backLabel = "Inicio",
+  trackingSource = "page_hero",
 }: PageHeroProps) {
   return (
     <section className="relative bg-[#FAF8F4] pt-28 pb-16 overflow-hidden">
@@ -117,6 +120,7 @@ export default function PageHero({
               href={whatsappLink(ctaMessage)}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackWhatsAppClick(trackingSource)}
               className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 shadow-md hover:shadow-lg"
             >
               {ctaText}

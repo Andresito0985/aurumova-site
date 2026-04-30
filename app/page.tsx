@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 import HomeHero from "@/components/sections/HomeHero";
-import CategoryStrip from "@/components/sections/CategoryStrip";
+import HomeJourney from "@/components/sections/HomeJourney";
+import StatsSection from "@/components/sections/StatsSection";
 import FeaturedPrograma from "@/components/sections/FeaturedPrograma";
-import FeaturedLaser from "@/components/sections/FeaturedLaser";
+import HomeQuizCTA from "@/components/sections/HomeQuizCTA";
+import HomeCalculatorBridge from "@/components/sections/HomeCalculatorBridge";
 import HomeWellnessGrid from "@/components/sections/HomeWellnessGrid";
 import MetodoAurum from "@/components/sections/MetodoAurum";
 import ResultsTracking from "@/components/sections/ResultsTracking";
-import TeamSection from "@/components/sections/TeamSection";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
-import GeneralLeadForm from "@/components/forms/GeneralLeadForm";
+import HomeFAQPreview from "@/components/sections/HomeFAQPreview";
 import CTASection from "@/components/sections/CTASection";
-import StatsSection from "@/components/sections/StatsSection";
 
 export const metadata: Metadata = {
   title: "Aurum Nova Wellness Clinic | Medicina Metabólica de Precisión en Arecibo",
@@ -50,16 +50,16 @@ export default function HomePage() {
   return (
     <>
       <HomeHero />
-      <CategoryStrip />
+      <HomeJourney />
       <StatsSection />
       <FeaturedPrograma />
-      <FeaturedLaser />
+      <HomeQuizCTA />
+      <HomeCalculatorBridge />
       <HomeWellnessGrid />
       <MetodoAurum />
       <ResultsTracking />
-      <TeamSection />
       <TestimonialsSection />
-      <GeneralLeadForm />
+      <HomeFAQPreview />
       <CTASection />
     </>
   );

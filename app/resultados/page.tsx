@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowRight, Calculator } from "lucide-react";
 import PageHero from "@/components/sections/PageHero";
 import ResultsTracking from "@/components/sections/ResultsTracking";
 import BMICalculator from "@/components/calculators/BMICalculator";
@@ -43,6 +45,40 @@ export default function ResultadosPage() {
       />
 
       <ResultsTracking />
+
+      <section className="bg-[#FAF8F4] px-4 py-10 sm:px-6 lg:px-8">
+        <div className="container-max">
+          <div className="rounded-2xl border border-[#E8E4DA] bg-white p-5 sm:p-6">
+            <div className="grid gap-5 lg:grid-cols-[auto_1fr_auto] lg:items-center">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#C9A84C]/10">
+                <Calculator className="h-5 w-5 text-[#C9A84C]" />
+              </div>
+              <div>
+                <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-[#C9A84C]">
+                  Herramienta educativa
+                </p>
+                <h2 className="text-2xl font-semibold text-[#1A1A1A]">
+                  Explora tus números
+                </h2>
+                <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[#6B6B6B]">
+                  Antes de interpretar resultados, puedes usar nuestras calculadoras educativas
+                  de IMC, meta de peso, hidratación y déficit calórico como punto de partida.
+                </p>
+                <p className="mt-2 text-xs leading-relaxed text-[#9A9A9A]">
+                  Son orientativas, no diagnostican, no prescriben y no sustituyen evaluación clínica.
+                </p>
+              </div>
+              <Link
+                href="/calculadoras"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-5 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-[#A8872E] hover:shadow-md focus:outline-none focus:ring-3 focus:ring-[#C9A84C]/30"
+              >
+                Ver calculadoras
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* What we don't promise */}
       <section className="section-padding bg-white">

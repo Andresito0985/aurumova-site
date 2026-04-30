@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, CheckCircle2, User, Phone, Mail, Clock, Droplets } from "lucide-react";
 import { siteConfig } from "@/content/site";
+import { trackLeadSubmitted, trackWhatsAppClick } from "@/lib/tracking";
 
 const PROTOCOLOS = [
   "NAD+ (energía, neuro-recuperación)",
@@ -88,6 +89,8 @@ export default function IVTherapyLeadForm() {
     ev.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length) { setErrors(errs); return; }
+    trackLeadSubmitted("iv_therapy_lead_form");
+    trackWhatsAppClick("iv_therapy_lead_form");
     const msg = buildMsg(form);
     window.open(
       `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(msg)}`,

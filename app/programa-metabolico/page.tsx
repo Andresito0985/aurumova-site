@@ -7,6 +7,7 @@ import MetabolicPricing from "@/components/sections/programa-metabolico/Metaboli
 import MetabolicDashboard from "@/components/sections/programa-metabolico/MetabolicDashboard";
 import MetabolicProgressCalculator from "@/components/calculators/metabolic-progress-calculator";
 import MetabolicProfileQuiz from "@/components/quiz/MetabolicProfileQuiz";
+import MetabolicCalculatorLinks from "@/components/sections/programa-metabolico/MetabolicCalculatorLinks";
 import MetabolicSafety from "@/components/sections/programa-metabolico/MetabolicSafety";
 import MetabolicCompounding from "@/components/sections/programa-metabolico/MetabolicCompounding";
 import MetabolicLeadForm from "@/components/forms/MetabolicLeadForm";
@@ -94,9 +95,10 @@ export default function ProgramaMetabolicoPage() {
   return (
     <>
       <MetabolicHero />
+      <MetabolicProfileQuiz />
+      <MetabolicCalculatorLinks />
       <MetabolicWhatIs />
       <MetabolicWho />
-      <MetabolicProfileQuiz />
       <MetabolicIncludes />
       <MetabolicPricing />
       <MetabolicProgressCalculator />

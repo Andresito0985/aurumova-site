@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 import { whatsappLink, defaultWhatsappMessage } from "@/content/site";
+import { trackWhatsAppClick } from "@/lib/tracking";
 
 export default function WhatsAppFloat() {
   return (
@@ -10,6 +11,7 @@ export default function WhatsAppFloat() {
       href={whatsappLink(defaultWhatsappMessage)}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={() => trackWhatsAppClick("floating_button")}
       aria-label="Contáctanos por WhatsApp"
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}

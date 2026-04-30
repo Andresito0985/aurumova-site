@@ -1,17 +1,21 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { whatsappLink } from "@/content/site";
+import { trackWhatsAppClick } from "@/lib/tracking";
 
 interface CTABannerProps {
   title?: string;
   subtitle?: string;
   ctaText?: string;
   ctaMessage?: string;
+  ctaHref?: string;
   variant?: "gold" | "dark" | "cream";
   secondaryHref?: string;
   secondaryText?: string;
+  trackingSource?: string;
 }
 
 export default function CTABanner({
@@ -19,9 +23,11 @@ export default function CTABanner({
   subtitle = "Agenda tu evaluación médica inicial y descubre qué programa es el adecuado para ti.",
   ctaText = "Agendar por WhatsApp",
   ctaMessage = "Hola, quisiera agendar mi evaluación médica en Aurum Nova Wellness Clinic.",
+  ctaHref,
   variant = "gold",
   secondaryHref,
   secondaryText,
+  trackingSource = "cta_banner",
 }: CTABannerProps) {
   const isDark = variant === "dark";
   const isGold = variant === "gold";
@@ -53,21 +59,38 @@ export default function CTABanner({
             {subtitle}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a
-              href={whatsappLink(ctaMessage)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`inline-flex items-center justify-center gap-2 font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 shadow-sm hover:shadow-md ${
+            {ctaHref ? (
+              <Link
+                href={ctaHref}
+                className={`inline-flex items-center justify-center gap-2 font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 shadow-sm hover:shadow-md ${
+                  isDark
+                    ? "bg-[#C9A84C] hover:bg-[#A8872E] text-white"
+                    : isGold
+                    ? "bg-white hover:bg-[#FAF8F4] text-[#C9A84C]"
+                    : "bg-[#C9A84C] hover:bg-[#A8872E] text-white"
+                }`}
+              >
+                <ArrowRight className="w-4 h-4" />
+                {ctaText}
+              </Link>
+            ) : (
+              <a
+                href={whatsappLink(ctaMessage)}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackWhatsAppClick(trackingSource)}
+                className={`inline-flex items-center justify-center gap-2 font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 shadow-sm hover:shadow-md ${
                 isDark
                   ? "bg-[#C9A84C] hover:bg-[#A8872E] text-white"
                   : isGold
                   ? "bg-white hover:bg-[#FAF8F4] text-[#C9A84C]"
                   : "bg-[#C9A84C] hover:bg-[#A8872E] text-white"
-              }`}
-            >
-              <MessageCircle className="w-4 h-4" />
-              {ctaText}
-            </a>
+                }`}
+              >
+                <MessageCircle className="w-4 h-4" />
+                {ctaText}
+              </a>
+            )}
             {secondaryHref && secondaryText && (
               <a
                 href={secondaryHref}

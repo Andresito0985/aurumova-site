@@ -3,74 +3,82 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
-  Heart, Shield, Apple, Droplets, Syringe,
-  Sparkles, Leaf, ArrowRight,
+  Heart,
+  Shield,
+  Apple,
+  Droplets,
+  Syringe,
+  Sparkles,
+  Leaf,
+  ArrowRight,
+  type LucideIcon,
 } from "lucide-react";
 
-const services = [
+type Service = {
+  icon: LucideIcon;
+  category: string;
+  title: string;
+  description: string;
+  href: string;
+  cta?: string;
+};
+
+const services: Service[] = [
   {
     icon: Heart,
+    category: "Wellness mujer",
     title: "Wellness Mujer",
-    description: "Peso, energía, metabolismo, piel, cabello y salud hormonal con seguimiento clínico.",
+    description:
+      "Programa con seguimiento clínico para metas metabólicas, energía, piel, cabello y bienestar femenino.",
     href: "/wellness-mujer",
-    color: "#A0687A",
-    bg: "#FAF0F4",
   },
   {
     icon: Shield,
+    category: "Wellness hombre",
     title: "Wellness Hombre",
-    description: "Control de grasa abdominal, energía, rendimiento y salud metabólica masculina.",
+    description:
+      "Apoyo clínico para composición corporal, energía, rendimiento y salud metabólica masculina.",
     href: "/wellness-hombre",
-    color: "#4A6B8A",
-    bg: "#EFF4FA",
   },
   {
     icon: Apple,
+    category: "Nutrición",
     title: "Nutrición Personalizada",
-    description: "Plan nutricional de un mes diseñado a partir de tu perfil metabólico y objetivos clínicos.",
+    description:
+      "Plan alimentario diseñado según tu perfil metabólico, objetivos y criterio clínico.",
     href: "/nutricion",
-    color: "#6B8F6B",
-    bg: "#EFF5EF",
   },
   {
     icon: Droplets,
+    category: "Sueroterapia",
     title: "Sueroterapia NAD+ & Myers",
-    description: "Terapias intravenosas de nutrientes bajo supervisión médica. Requiere evaluación.",
+    description:
+      "Protocolos IV de hidratación y soporte wellness, sujetos a evaluación y criterio clínico.",
     href: "/sueroterapia",
-    color: "#5B7FA6",
-    bg: "#EEF3FA",
   },
   {
     icon: Syringe,
+    category: "Inyectables wellness",
     title: "Inyectables Metabólicos",
-    description: "L-Carnitina, Lipo Mino MIC y MIC como apoyo complementario al plan médico.",
+    description:
+      "Apoyo wellness complementario al plan médico, sujeto a evaluación y criterio clínico.",
     href: "/inyectables-metabolicos",
-    color: "#7B6FA0",
-    bg: "#F3F0FA",
   },
   {
     icon: Sparkles,
+    category: "Estética médica",
     title: "Skin & Glow",
-    description: "Medicina estética de precisión. Bioestimulación, luminosidad y protocolos personalizados.",
+    description:
+      "Protocolos médico-estéticos para luminosidad, calidad de piel y bienestar integral.",
     href: "/skin-glow",
-    color: "#A08060",
-    bg: "#FAF3EC",
   },
   {
     icon: Leaf,
+    category: "Capilar",
     title: "Hair Support",
-    description: "Salud capilar desde una perspectiva médica. Causas subyacentes y soluciones clínicas.",
+    description:
+      "Apoyo capilar desde un enfoque clínico: causas subyacentes, evaluación y seguimiento.",
     href: "/hair-support",
-    color: "#7B6B5B",
-    bg: "#F5F0EA",
-  },
-  {
-    icon: ArrowRight,
-    title: "Ver todos los programas",
-    description: "Coaching & Seguimiento, Suplementación y más programas disponibles.",
-    href: "/programa-metabolico",
-    color: "#C9A84C",
-    bg: "#FDF6E8",
   },
 ];
 
@@ -82,17 +90,17 @@ export default function HomeWellnessGrid() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="max-w-3xl mb-12"
         >
           <span className="inline-block text-xs font-semibold tracking-widest uppercase text-[#C9A84C] mb-3">
             Todos los servicios
           </span>
-          <h2 className="text-3xl sm:text-4xl font-semibold text-[#1A1A1A] mb-3">
+          <h2 className="text-3xl sm:text-4xl font-semibold text-[#1A1A1A] mb-3 leading-tight">
             Más allá del control de peso
           </h2>
-          <p className="text-base text-[#6B6B6B] max-w-xl mx-auto leading-relaxed">
-            Aurum Nova ofrece programas clínicos para múltiples objetivos de salud y bienestar,
-            todos supervisados médicamente y personalizados individualmente.
+          <p className="text-base text-[#6B6B6B] max-w-xl leading-relaxed">
+            Aurum Nova ofrece servicios clínicos para distintos objetivos de salud y
+            bienestar, todos con evaluación, seguimiento y experiencia premium.
           </p>
         </motion.div>
 
@@ -101,38 +109,89 @@ export default function HomeWellnessGrid() {
             const Icon = service.icon;
             return (
               <motion.div
-                key={service.href + service.title}
+                key={service.href}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.06 }}
+                transition={{ delay: i * 0.05 }}
               >
                 <Link
                   href={service.href}
-                  className="group flex flex-col bg-white border border-[#E8E4DA] rounded-2xl p-5 hover:border-[#C9A84C]/40 hover:shadow-lg transition-all duration-300 h-full"
+                  className="group flex h-full flex-col rounded-2xl border border-[#E8E4DA] bg-white p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#C9A84C]/50 hover:shadow-lg hover:shadow-[#1A1A1A]/5"
                 >
-                  <div
-                    className="w-11 h-11 rounded-xl flex items-center justify-center mb-3 transition-transform group-hover:scale-105"
-                    style={{ backgroundColor: service.bg }}
-                  >
-                    <Icon className="w-5 h-5" style={{ color: service.color }} />
+                  <div className="mb-5 flex items-start justify-between gap-4">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#C9A84C]/10">
+                      <Icon className="h-5 w-5 text-[#C9A84C]" />
+                    </div>
+                    <ArrowRight className="h-4 w-4 text-[#C9A84C] opacity-40 transition-all duration-200 group-hover:translate-x-1 group-hover:opacity-100" />
                   </div>
-                  <h3 className="text-sm font-semibold text-[#1A1A1A] mb-1.5 group-hover:text-[#C9A84C] transition-colors">
+                  <p className="mb-2 text-[10px] font-semibold uppercase tracking-widest text-[#9A9A9A]">
+                    {service.category}
+                  </p>
+                  <h3 className="text-base font-semibold text-[#1A1A1A] mb-2 leading-snug">
                     {service.title}
                   </h3>
-                  <p className="text-xs text-[#6B6B6B] leading-relaxed flex-1">{service.description}</p>
-                  <div className="flex items-center gap-1 mt-3 text-xs text-[#C9A84C] font-medium">
-                    Ver más
-                    <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
-                  </div>
+                  <p className="text-xs text-[#6B6B6B] leading-relaxed flex-1">
+                    {service.description}
+                  </p>
+                  <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-[#C9A84C]">
+                    {service.cta ?? "Ver servicio"}
+                    <ArrowRight className="h-3 w-3" />
+                  </span>
                 </Link>
               </motion.div>
             );
           })}
+
+          {/* Featured: link back to the primary funnel */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: services.length * 0.05 }}
+          >
+            <Link
+              href="/programa-metabolico"
+              className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[#1A1A1A] bg-[#1A1A1A] p-5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl"
+            >
+              <div
+                className="absolute inset-0 opacity-25 pointer-events-none"
+                style={{
+                  backgroundImage:
+                    "radial-gradient(ellipse at 80% 20%, rgba(201,168,76,0.4) 0%, transparent 60%)",
+                }}
+              />
+              <div className="relative z-10 flex h-full flex-col">
+                <div className="mb-5 flex items-start justify-between gap-4">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#C9A84C]/15 border border-[#C9A84C]/30">
+                    <ArrowRight className="h-5 w-5 text-[#C9A84C]" />
+                  </div>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#C9A84C]">
+                    Principal
+                  </span>
+                </div>
+                <p className="mb-2 text-[10px] font-semibold uppercase tracking-widest text-[#C9A84C]">
+                  Servicio destacado
+                </p>
+                <h3 className="text-base font-semibold text-white mb-2 leading-snug">
+                  Programa Metabólico Integral
+                </h3>
+                <p className="text-xs text-[#9A9A9A] leading-relaxed flex-1">
+                  Evaluación clínica, plan personalizado y seguimiento para metas de peso,
+                  apetito y hábitos.
+                </p>
+                <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-[#C9A84C]">
+                  Ver programa
+                  <ArrowRight className="h-3 w-3" />
+                </span>
+              </div>
+            </Link>
+          </motion.div>
         </div>
 
-        <p className="text-center text-xs text-[#9A9A9A] mt-6">
-          Todos los programas requieren evaluación médica previa. No todos los pacientes califican para todos los servicios.
+        <p className="mt-8 text-xs text-[#9A9A9A] max-w-2xl">
+          Requiere evaluación clínica. No todos los pacientes cualifican. Los resultados
+          pueden variar.
         </p>
       </div>
     </section>

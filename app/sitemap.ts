@@ -7,7 +7,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // High-priority service pages — most SEO value
   const servicePages: MetadataRoute.Sitemap = [
+    "/servicios",
     "/programa-metabolico",
+    "/quiz-metabolico",
     "/laser-diodo",
     "/sueroterapia",
     "/inyectables-metabolicos",
@@ -23,6 +25,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: now,
     changeFrequency: "monthly" as const,
     priority: 0.9,
+  }));
+
+  const calculatorPages: MetadataRoute.Sitemap = [
+    "/calculadoras",
+    "/calculadoras/imc",
+    "/calculadoras/meta-de-peso",
+    "/calculadoras/deficit-calorico",
+    "/calculadoras/hidratacion-electrolitos",
+  ].map((path) => ({
+    url: `${BASE_URL}${path}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: path === "/calculadoras" ? 0.85 : 0.8,
   }));
 
   // Core pages
@@ -54,5 +69,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.3,
   }));
 
-  return [...corePages, ...servicePages, ...legalPages];
+  return [...corePages, ...servicePages, ...calculatorPages, ...legalPages];
 }

@@ -1,0 +1,956 @@
+=== APP ROUTES ===
+app/agendar-evaluacion/page.tsx
+app/coaching-seguimiento/page.tsx
+app/contacto/page.tsx
+app/disclaimer-medico/page.tsx
+app/enfoque-clinico/page.tsx
+app/favicon.ico
+app/globals.css
+app/hair-support/page.tsx
+app/inyectables-metabolicos/page.tsx
+app/laser-diodo/page.tsx
+app/layout.tsx
+app/nutricion/page.tsx
+app/page.tsx
+app/preguntas-frecuentes/page.tsx
+app/privacidad/page.tsx
+app/programa-metabolico/page.tsx
+app/resultados/page.tsx
+app/robots.ts
+app/seguridad-elegibilidad/page.tsx
+app/sitemap.ts
+app/skin-glow/page.tsx
+app/sobre-nosotros/page.tsx
+app/sueroterapia/page.tsx
+app/suplementacion/page.tsx
+app/terminos/page.tsx
+app/wellness-hombre/page.tsx
+app/wellness-mujer/page.tsx
+
+=== COMPONENTS ===
+components/JsonLd.tsx
+components/calculators/BMICalculator.tsx
+components/calculators/metabolic-progress-calculator.tsx
+components/forms/GeneralLeadForm.tsx
+components/forms/IVTherapyLeadForm.tsx
+components/forms/LaserLeadForm.tsx
+components/forms/LeadForm.tsx
+components/forms/MetabolicLeadForm.tsx
+components/layout/Footer.tsx
+components/layout/Header.tsx
+components/layout/WhatsAppFloat.tsx
+components/pages/CoachingPage.tsx
+components/pages/HairSupportPage.tsx
+components/pages/InyectablesPage.tsx
+components/pages/NutricionPage.tsx
+components/pages/SkinGlowPage.tsx
+components/pages/SueroterapiaPage.tsx
+components/pages/SuplementacionPage.tsx
+components/pages/WellnessHombrePage.tsx
+components/pages/WellnessMujerPage.tsx
+components/quiz/MetabolicProfileQuiz.tsx
+components/sections/CTASection.tsx
+components/sections/CategoryStrip.tsx
+components/sections/ContactSection.tsx
+components/sections/FAQSection.tsx
+components/sections/FeaturedLaser.tsx
+components/sections/FeaturedPrograma.tsx
+components/sections/GroupedFAQAccordion.tsx
+components/sections/HeroSection.tsx
+components/sections/HomeHero.tsx
+components/sections/HomeLeadCapture.tsx
+components/sections/HomeWellnessGrid.tsx
+components/sections/IVSection.tsx
+components/sections/LaserSection.tsx
+components/sections/MetodoAurum.tsx
+components/sections/PageHero.tsx
+components/sections/PharmacySection.tsx
+components/sections/ProcessSection.tsx
+components/sections/ProgramsSection.tsx
+components/sections/ResultsTracking.tsx
+components/sections/StatsSection.tsx
+components/sections/TeamSection.tsx
+components/sections/TestimonialsSection.tsx
+components/sections/WellnessSection.tsx
+components/sections/laser-diodo/LaserHero.tsx
+components/sections/laser-diodo/LaserPackages.tsx
+components/sections/laser-diodo/LaserPrepAftercare.tsx
+components/sections/laser-diodo/LaserWhyDiode.tsx
+components/sections/laser-diodo/LaserZones.tsx
+components/sections/programa-metabolico/MetabolicCompounding.tsx
+components/sections/programa-metabolico/MetabolicDashboard.tsx
+components/sections/programa-metabolico/MetabolicHero.tsx
+components/sections/programa-metabolico/MetabolicIncludes.tsx
+components/sections/programa-metabolico/MetabolicPricing.tsx
+components/sections/programa-metabolico/MetabolicSafety.tsx
+components/sections/programa-metabolico/MetabolicWhatIs.tsx
+components/sections/programa-metabolico/MetabolicWho.tsx
+components/templates/ProgramPage.tsx
+components/ui/CTABanner.tsx
+components/ui/MedicalDisclaimer.tsx
+components/ui/PricingCard.tsx
+components/ui/badge.tsx
+components/ui/button.tsx
+components/ui/card.tsx
+components/ui/separator.tsx
+
+=== CONTENT ===
+content/faq.ts
+content/program-pages.ts
+content/programs.ts
+content/site.ts
+
+=== LIB ===
+lib/seo.ts
+lib/utils.ts
+
+=== PACKAGE JSON ===
+{
+  "name": "aurumova-site",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@base-ui/react": "^1.4.1",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.38.0",
+    "lucide-react": "^1.11.0",
+    "next": "16.2.4",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "recharts": "^3.8.1",
+    "shadcn": "^4.5.0",
+    "tailwind-merge": "^3.5.0",
+    "tw-animate-css": "^1.4.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.4",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
+
+=== SITE CONFIG ===
+export const siteConfig = {
+  name: "Aurum Nova Wellness Clinic",
+  tagline: "Medicina Metabólica de Precisión",
+  description:
+    "Clínica wellness en Arecibo, Puerto Rico. Programa metabólico integral, depilación láser diodo, sueroterapia NAD+, inyectables metabólicos y seguimiento clínico personalizado.",
+  phone: "939-641-0504",
+  whatsapp: "19396410504",
+  instagram: "@aurumnovawc",
+  instagramUrl: "https://instagram.com/aurumnovawc",
+  email: "aurumnovawc@gmail.com",
+  address: "Arecibo Medical Plaza, Suite 201, Arecibo, Puerto Rico",
+  city: "Arecibo",
+  state: "PR",
+  country: "US",
+  zip: "00612",
+  domain: "aurumnovawellnessclinic.com",
+  url: "https://aurumnovawellnessclinic.com",
+  locale: "es-PR",
+  ogLocale: "es_PR",
+};
+
+export const whatsappLink = (message: string) =>
+  `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(message)}`;
+
+export const defaultWhatsappMessage =
+  "Hola, me gustaría obtener más información sobre los programas de Aurum Nova Wellness Clinic.";
+
+=== HOME PAGE ===
+import type { Metadata } from "next";
+import HomeHero from "@/components/sections/HomeHero";
+import CategoryStrip from "@/components/sections/CategoryStrip";
+import FeaturedPrograma from "@/components/sections/FeaturedPrograma";
+import FeaturedLaser from "@/components/sections/FeaturedLaser";
+import HomeWellnessGrid from "@/components/sections/HomeWellnessGrid";
+import MetodoAurum from "@/components/sections/MetodoAurum";
+import ResultsTracking from "@/components/sections/ResultsTracking";
+import TeamSection from "@/components/sections/TeamSection";
+import TestimonialsSection from "@/components/sections/TestimonialsSection";
+import GeneralLeadForm from "@/components/forms/GeneralLeadForm";
+import CTASection from "@/components/sections/CTASection";
+import StatsSection from "@/components/sections/StatsSection";
+
+export const metadata: Metadata = {
+  title: "Aurum Nova Wellness Clinic | Medicina Metabólica de Precisión en Arecibo",
+  description:
+    "Clínica wellness en Arecibo, Puerto Rico. Programa metabólico integral, depilación láser diodo, sueroterapia NAD+, inyectables metabólicos y seguimiento clínico personalizado.",
+  keywords: [
+    "clínica wellness Arecibo",
+    "control de peso Arecibo",
+    "programa metabólico Arecibo",
+    "depilación láser diodo Arecibo",
+    "láser diodo Puerto Rico",
+    "sueroterapia NAD Puerto Rico",
+    "sueroterapia Arecibo",
+    "inyectables metabólicos Arecibo",
+    "wellness clinic Puerto Rico",
+    "control metabólico Puerto Rico",
+  ],
+  alternates: { canonical: "https://aurumnovawellnessclinic.com" },
+  openGraph: {
+    title: "Aurum Nova Wellness Clinic | Medicina Metabólica de Precisión en Arecibo",
+    description:
+      "Clínica wellness en Arecibo, Puerto Rico. Programa metabólico integral, depilación láser diodo, sueroterapia NAD+, inyectables metabólicos y seguimiento clínico personalizado.",
+    url: "https://aurumnovawellnessclinic.com",
+    siteName: "Aurum Nova Wellness Clinic",
+    locale: "es_PR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Aurum Nova Wellness Clinic | Medicina Metabólica de Precisión en Arecibo",
+    description:
+      "Clínica wellness en Arecibo, Puerto Rico. Programa metabólico integral, depilación láser diodo, sueroterapia NAD+, inyectables metabólicos y seguimiento clínico personalizado.",
+  },
+};
+
+export default function HomePage() {
+  return (
+    <>
+      <HomeHero />
+      <CategoryStrip />
+      <StatsSection />
+      <FeaturedPrograma />
+      <FeaturedLaser />
+      <HomeWellnessGrid />
+      <MetodoAurum />
+      <ResultsTracking />
+      <TeamSection />
+      <TestimonialsSection />
+      <GeneralLeadForm />
+      <CTASection />
+    </>
+  );
+}
+
+=== PROGRAMA METABOLICO ===
+import type { Metadata } from "next";
+import MetabolicHero from "@/components/sections/programa-metabolico/MetabolicHero";
+import MetabolicWhatIs from "@/components/sections/programa-metabolico/MetabolicWhatIs";
+import MetabolicWho from "@/components/sections/programa-metabolico/MetabolicWho";
+import MetabolicIncludes from "@/components/sections/programa-metabolico/MetabolicIncludes";
+import MetabolicPricing from "@/components/sections/programa-metabolico/MetabolicPricing";
+import MetabolicDashboard from "@/components/sections/programa-metabolico/MetabolicDashboard";
+import MetabolicProgressCalculator from "@/components/calculators/metabolic-progress-calculator";
+import MetabolicProfileQuiz from "@/components/quiz/MetabolicProfileQuiz";
+import MetabolicSafety from "@/components/sections/programa-metabolico/MetabolicSafety";
+import MetabolicCompounding from "@/components/sections/programa-metabolico/MetabolicCompounding";
+import MetabolicLeadForm from "@/components/forms/MetabolicLeadForm";
+import FAQSection from "@/components/sections/FAQSection";
+import CTABanner from "@/components/ui/CTABanner";
+
+export const metadata: Metadata = {
+  title: "Programa Metabólico Integral | Aurum Nova Wellness Clinic",
+  description:
+    "Programa clínico supervisado de manejo del peso con evaluación médica, plan personalizado, terapia semanal si cualificas, apoyo lipotrópico y seguimiento continuo. Arecibo, Puerto Rico.",
+  keywords: [
+    "programa metabólico", "manejo de peso", "obesidad", "sobrepeso",
+    "resistencia a la insulina", "síndrome metabólico", "médico Arecibo",
+    "clínica wellness Puerto Rico", "semaglutide alternativo", "inyectable peso",
+  ],
+
+  alternates: { canonical: "https://aurumnovawellnessclinic.com/programa-metabolico" },
+  openGraph: {
+    title: "Programa Metabólico Integral | Aurum Nova Wellness Clinic",
+    description: "Programa clínico supervisado de manejo del peso con evaluación médica, plan personalizado, terapia semanal si cualificas, apoyo lipotrópico y seguimiento continuo. Arecibo, Puerto Rico.",
+    url: "https://aurumnovawellnessclinic.com/programa-metabolico",
+    siteName: "Aurum Nova Wellness Clinic",
+    locale: "es_PR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Programa Metabólico Integral | Aurum Nova Wellness Clinic",
+    description: "Programa clínico supervisado de manejo del peso con evaluación médica, plan personalizado, terapia semanal si cualificas, apoyo lipotrópico y seguimiento continuo. Arecibo, Puerto Rico.",
+  },
+};
+
+const faqs = [
+  {
+    question: "¿Quién determina si soy candidato para el programa?",
+    answer:
+      "El médico tratante, exclusivamente, durante la evaluación médica inicial. La elegibilidad depende de tu historial clínico, laboratorios, medicamentos actuales y condiciones preexistentes. No existe forma de determinar candidatura sin evaluación presencial.",
+  },
+  {
+    question: "¿El programa incluye algún inyectable de forma automática?",
+    answer:
+      "No. Los inyectables, incluidos los medicamentos de apoyo metabólico, son prescritos únicamente cuando el médico determina que están indicados clínicamente para tu caso. No todos los pacientes del programa reciben inyectables.",
+  },
+  {
+    question: "¿Qué tan rápido voy a perder peso?",
+    answer:
+      "Aurum Nova no garantiza resultados específicos de pérdida de peso ni velocidad de progreso. Los resultados dependen de tu perfil metabólico, adherencia al protocolo, condiciones subyacentes y respuesta individual a las terapias. El médico puede establecer metas clínicas realistas después de tu evaluación.",
+  },
+  {
+    question: "¿Los medicamentos formulados son seguros?",
+    answer:
+      "Los medicamentos formulados no son aprobados por FDA y no han sido evaluados por FDA en cuanto a seguridad, efectividad ni calidad. Su uso implica riesgos que se discuten individualmente con el médico durante la evaluación. Son preparados por farmacias de formulación acreditadas bajo prescripción médica individual.",
+  },
+  {
+    question: "¿Cuánto tiempo dura el programa?",
+    answer:
+      "La duración es individualizada y la determina el médico según tu respuesta al protocolo y tus objetivos clínicos. No hay un plazo fijo estándar — algunos pacientes requieren menos tiempo y otros un acompañamiento más prolongado.",
+  },
+  {
+    question: "¿Tengo que hacer dieta o ejercicio para que funcione?",
+    answer:
+      "El programa incluye guía nutricional médica. El médico puede indicar cambios de hábitos como parte del protocolo. El nivel de actividad física recomendado se individualiza según tu condición. El programa no reemplaza el valor de hábitos saludables — los complementa clínicamente.",
+  },
+  {
+    question: "¿Puedo estar en el programa si tengo diabetes o hipertensión?",
+    answer:
+      "Algunas condiciones como diabetes o hipertensión pueden ser compatibles con el programa si están bajo control médico. Otras pueden ser contraindicaciones dependiendo del estado actual. El médico evaluará tu caso específico durante la consulta inicial.",
+  },
+  {
+    question: "¿Qué pasa si no tolero algún elemento del protocolo?",
+    answer:
+      "El seguimiento semanal existe precisamente para detectar esto. Si hay intolerancia a algún elemento — inyectable, suplemento o cualquier otra intervención — el médico ajusta o suspende ese componente. Tu seguridad y tolerancia tienen prioridad sobre el ritmo del programa.",
+  },
+  {
+    question: "¿Cómo empiezo? ¿Hay que pagar la evaluación?",
+    answer:
+      "El primer paso es contactarnos por WhatsApp o el formulario de esta página. Te informamos sobre la disponibilidad y los detalles de la evaluación médica inicial. El equipo te explica el proceso completo antes de coordinar la cita.",
+  },
+];
+
+const CTA_MESSAGE =
+  "Hola, me interesa saber si cualifico para el Programa Metabólico Integral de Aurum Nova. ¿Cuáles son los próximos pasos?";
+
+export default function ProgramaMetabolicoPage() {
+  return (
+    <>
+      <MetabolicHero />
+      <MetabolicWhatIs />
+      <MetabolicWho />
+      <MetabolicProfileQuiz />
+      <MetabolicIncludes />
+      <MetabolicPricing />
+      <MetabolicProgressCalculator />
+      <MetabolicDashboard />
+      <MetabolicSafety />
+      <MetabolicCompounding />
+      <FAQSection
+        faqs={faqs}
+        title="Preguntas frecuentes sobre el programa"
+        subtitle="Respuestas claras sobre elegibilidad, terapias, seguridad y qué esperar del proceso."
+        variant="dark"
+      />
+      <MetabolicLeadForm />
+      <CTABanner
+        title="El primer paso es la evaluación médica"
+        subtitle="Sin evaluación no hay protocolo. Así garantizamos que lo que te ofrecemos es apropiado para ti."
+        ctaText="Agendar evaluación por WhatsApp"
+        ctaMessage={CTA_MESSAGE}
+        variant="dark"
+      />
+    </>
+  );
+}
+
+=== LASER DIODO ===
+import type { Metadata } from "next";
+import LaserHero from "@/components/sections/laser-diodo/LaserHero";
+import LaserWhyDiode from "@/components/sections/laser-diodo/LaserWhyDiode";
+import LaserZones from "@/components/sections/laser-diodo/LaserZones";
+import LaserPackages from "@/components/sections/laser-diodo/LaserPackages";
+import LaserPrepAftercare from "@/components/sections/laser-diodo/LaserPrepAftercare";
+import LaserLeadForm from "@/components/forms/LaserLeadForm";
+import FAQSection from "@/components/sections/FAQSection";
+import CTABanner from "@/components/ui/CTABanner";
+
+export const metadata: Metadata = {
+  title: "Láser Diodo High-Tech | Aurum Nova Wellness Clinic",
+  description:
+    "Depilación láser avanzada con tecnología diodo para rostro y cuerpo. Planes personalizados por zona, evaluación individualizada y experiencia clínica premium en Arecibo, Puerto Rico.",
+  keywords: [
+    "láser diodo", "depilación láser", "láser diodo Puerto Rico", "láser Arecibo",
+    "reducción de vello", "láser high-tech", "bikini láser", "piernas láser",
+    "axilas láser", "paquetes láser Puerto Rico",
+  ],
+
+  alternates: { canonical: "https://aurumnovawellnessclinic.com/laser-diodo" },
+  openGraph: {
+    title: "Láser Diodo High-Tech | Aurum Nova Wellness Clinic",
+    description: "Depilación láser avanzada con tecnología diodo para rostro y cuerpo. Planes personalizados por zona, evaluación individualizada y experiencia clínica premium en Arecibo, Puerto Rico.",
+    url: "https://aurumnovawellnessclinic.com/laser-diodo",
+    siteName: "Aurum Nova Wellness Clinic",
+    locale: "es_PR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Láser Diodo High-Tech | Aurum Nova Wellness Clinic",
+    description: "Depilación láser avanzada con tecnología diodo para rostro y cuerpo. Planes personalizados por zona, evaluación individualizada y experiencia clínica premium en Arecibo, Puerto Rico.",
+  },
+};
+
+const faqs = [
+  {
+    question: "¿Cuántas sesiones necesito?",
+    answer:
+      "El número de sesiones varía según la zona, el tipo de piel, el color y grosor del vello, y tu respuesta individual al tratamiento. El proveedor orienta sobre el plan recomendado durante la evaluación inicial. No hay un número fijo estándar para todas las personas.",
+  },
+  {
+    question: "¿Los resultados son permanentes?",
+    answer:
+      "El láser diodo busca reducir progresivamente el vello no deseado sobre una serie de sesiones. Los resultados varían entre personas y no se garantiza eliminación permanente. La mayoría de las personas experimenta reducción significativa en la densidad y grosor del vello. Algunas zonas pueden requerir sesiones de mantenimiento.",
+  },
+  {
+    question: "¿Duele?",
+    answer:
+      "La experiencia varía según la zona, el tipo de piel y la sensibilidad individual. El proveedor orienta sobre qué esperar en cada sesión y cómo minimizar la incomodidad. La tecnología diodo está diseñada para ofrecer una experiencia cómoda, aunque las sensaciones varían por persona.",
+  },
+  {
+    question: "¿Puedo hacerme láser si estoy bronceado?",
+    answer:
+      "La exposición solar reciente puede afectar la seguridad y efectividad del tratamiento. Es recomendable evitar el bronceado en la zona a tratar antes de las sesiones. Si tienes bronceado reciente o quemadura solar, informa al equipo durante la evaluación para determinar el mejor momento para comenzar.",
+  },
+  {
+    question: "¿Qué zonas trabajan?",
+    answer:
+      "Trabajamos múltiples zonas de rostro y cuerpo: bigote, axilas, brazos, pecho, bikini, Brazilian, full Brazilian, media pierna, piernas completas y espalda. También ofrecemos planes combinados para varias zonas. Contacta para consultar sobre zonas adicionales no listadas.",
+  },
+  {
+    question: "¿Hay paquetes?",
+    answer:
+      "Sí. Ofrecemos paquetes por zona, planes combinados de múltiples zonas, plan full body y plan de mantenimiento. Los paquetes ofrecen mejor valor por sesión que las sesiones individuales. El plan recomendado y sus precios se determinan durante la evaluación según tu caso específico.",
+  },
+  {
+    question: "¿Puedo combinarlo con el Programa Metabólico Integral?",
+    answer:
+      "Sí, muchos de nuestros pacientes combinan el Programa Metabólico Integral con el láser diodo como parte de su plan de bienestar integral. Cada servicio tiene su propia evaluación y plan independiente. El equipo orienta sobre la mejor forma de coordinar ambos programas.",
+  },
+];
+
+const CTA_MSG =
+  "Hola, me interesa una evaluación para Láser Diodo High-Tech en Aurum Nova. Zona de interés: ___. Me gustaría conocer opciones de paquetes.";
+
+export default function LaserDiodoPage() {
+  return (
+    <>
+      <LaserHero />
+      <LaserWhyDiode />
+      <LaserZones />
+      <LaserPackages />
+      <LaserPrepAftercare />
+      <FAQSection
+        faqs={faqs}
+        title="Preguntas frecuentes sobre láser diodo"
+        subtitle="Respuestas claras sobre sesiones, resultados, preparación y paquetes."
+        variant="dark"
+      />
+      <LaserLeadForm />
+      <CTABanner
+        title="Diseña tu plan láser personalizado"
+        subtitle="Cuéntanos tu zona de interés y te orientamos sobre opciones, sesiones y paquetes disponibles."
+        ctaText="Solicitar orientación por WhatsApp"
+        ctaMessage={CTA_MSG}
+        variant="dark"
+      />
+    </>
+  );
+}
+
+=== SERVICIOS ===
+NO EXISTE app/servicios/page.tsx
+
+=== RESULTADOS ===
+import type { Metadata } from "next";
+import PageHero from "@/components/sections/PageHero";
+import ResultsTracking from "@/components/sections/ResultsTracking";
+import BMICalculator from "@/components/calculators/BMICalculator";
+import TestimonialsSection from "@/components/sections/TestimonialsSection";
+import CTABanner from "@/components/ui/CTABanner";
+import MedicalDisclaimer from "@/components/ui/MedicalDisclaimer";
+
+export const metadata: Metadata = {
+  title: "Resultados Medibles | Aurum Nova Wellness Clinic",
+  description:
+    "Cómo Aurum Nova mide el progreso clínico: peso, IMC, circunferencias, composición corporal, adherencia y seguimiento. Sin promesas vacías — métricas reales.",
+
+  alternates: { canonical: "https://aurumnovawellnessclinic.com/resultados" },
+  openGraph: {
+    title: "Resultados Medibles | Aurum Nova Wellness Clinic",
+    description: "Cómo Aurum Nova mide el progreso clínico: peso, IMC, circunferencias, composición corporal, adherencia y seguimiento. Sin promesas vacías — métricas reales.",
+    url: "https://aurumnovawellnessclinic.com/resultados",
+    siteName: "Aurum Nova Wellness Clinic",
+    locale: "es_PR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Resultados Medibles | Aurum Nova Wellness Clinic",
+    description: "Cómo Aurum Nova mide el progreso clínico: peso, IMC, circunferencias, composición corporal, adherencia y seguimiento. Sin promesas vacías — métricas reales.",
+  },
+};
+
+export default function ResultadosPage() {
+  return (
+    <>
+      <PageHero
+        badge="Resultados Medibles"
+        title="Progreso que"
+        highlight="se documenta"
+        subtitle="En Aurum Nova medimos el progreso con métricas clínicas objetivas, no con promesas. Peso, IMC, circunferencias, composición corporal, adherencia y respuesta clínica — todo documentado."
+        ctaText="Comenzar mi evaluación"
+        ctaMessage="Hola, me interesa comenzar mi evaluación médica en Aurum Nova para empezar a medir mi progreso real."
+        secondaryCtaText="Ver programas"
+        secondaryCtaHref="/programa-metabolico"
+        disclaimer="Los resultados individuales varían. Aurum Nova no garantiza resultados específicos."
+      />
+
+      <ResultsTracking />
+
+      {/* What we don't promise */}
+      <section className="section-padding bg-white">
+        <div className="container-max max-w-3xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-[#1A1A1A] mb-6 text-center">
+            Honestidad como parte del protocolo
+          </h2>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {[
+              {
+                title: "Lo que SÍ hacemos",
+                items: [
+                  "Evaluación clínica completa antes de empezar",
+                  "Métricas objetivas en cada seguimiento",
+                  "Ajuste del protocolo según tu respuesta real",
+                  "Identificación de obstáculos médicos subyacentes",
+                  "Comunicación transparente sobre el progreso",
+                  "Documentación del historial de cada paciente",
+                ],
+                color: "#6B8F6B",
+                bg: "#EFF5EF",
+              },
+              {
+                title: "Lo que NO prometemos",
+                items: [
+                  "Pérdida de peso garantizada",
+                  "Resultados específicos en plazos fijos",
+                  "El mismo protocolo para todos",
+                  "Resultados sin adherencia al programa",
+                  "Terapias sin evaluación médica previa",
+                  "Medicamentos sin prescripción individual",
+                ],
+                color: "#A07060",
+                bg: "#FAF0EA",
+              },
+            ].map((col) => (
+              <div
+                key={col.title}
+                className="rounded-2xl border border-[#E8E4DA] p-5"
+                style={{ backgroundColor: col.bg + "50" }}
+              >
+                <p className="text-sm font-bold mb-4" style={{ color: col.color }}>
+                  {col.title}
+                </p>
+                <ul className="space-y-2">
+                  {col.items.map((item) => (
+                    <li key={item} className="flex items-start gap-2 text-sm text-[#3D3D3D]">
+                      <span className="mt-1.5 w-1 h-1 rounded-full shrink-0" style={{ backgroundColor: col.color }} />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <BMICalculator />
+      <TestimonialsSection />
+
+      <section className="py-8 px-4 sm:px-6 lg:px-8 bg-[#FAF8F4]">
+        <div className="container-max max-w-2xl">
+          <MedicalDisclaimer
+            variant="box"
+            custom="Los resultados individuales varían significativamente según historial médico, adherencia, perfil metabólico y respuesta individual. Aurum Nova no garantiza resultados específicos de pérdida de peso ni de ningún otro parámetro clínico. Los testimonios publicados serán autorizados por cada paciente y reflejan experiencias individuales."
+          />
+        </div>
+      </section>
+
+      <CTABanner
+        title="¿Listo para medir tu progreso real?"
+        subtitle="Agenda tu evaluación inicial y comienza con métricas de partida documentadas."
+        ctaText="Agendar evaluación"
+        ctaMessage="Hola, quiero comenzar mi evaluación médica en Aurum Nova para establecer mis métricas de partida."
+        variant="dark"
+      />
+    </>
+  );
+}
+
+=== CONTACTO ===
+import type { Metadata } from "next";
+import PageHero from "@/components/sections/PageHero";
+import GeneralLeadForm from "@/components/forms/GeneralLeadForm";
+import { MapPin, Phone, Mail, AtSign, Clock, MessageCircle } from "lucide-react";
+import { siteConfig, whatsappLink } from "@/content/site";
+
+export const metadata: Metadata = {
+  title: "Contacto | Aurum Nova Wellness Clinic",
+  description:
+    "Contacta a Aurum Nova Wellness Clinic en Arecibo, Puerto Rico. WhatsApp, teléfono, email e Instagram. Agenda tu evaluación médica inicial.",
+
+  alternates: { canonical: "https://aurumnovawellnessclinic.com/contacto" },
+  openGraph: {
+    title: "Contacto | Aurum Nova Wellness Clinic",
+    description: "Contacta a Aurum Nova Wellness Clinic en Arecibo, Puerto Rico. WhatsApp, teléfono, email e Instagram. Agenda tu evaluación médica inicial.",
+    url: "https://aurumnovawellnessclinic.com/contacto",
+    siteName: "Aurum Nova Wellness Clinic",
+    locale: "es_PR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contacto | Aurum Nova Wellness Clinic",
+    description: "Contacta a Aurum Nova Wellness Clinic en Arecibo, Puerto Rico. WhatsApp, teléfono, email e Instagram. Agenda tu evaluación médica inicial.",
+  },
+};
+
+export default function ContactoPage() {
+  return (
+    <>
+      <PageHero
+        badge="Contacto"
+        title="Hablemos"
+        highlight="hoy"
+        subtitle="Contáctanos por el canal que prefieras. Nuestro equipo responde consultas sobre programas, elegibilidad y cómo agendar tu evaluación médica inicial."
+        ctaText="Escribir por WhatsApp"
+        ctaMessage="Hola, tengo algunas preguntas sobre los programas de Aurum Nova Wellness Clinic."
+        secondaryCtaText="Ver preguntas frecuentes"
+        secondaryCtaHref="/preguntas-frecuentes"
+      />
+
+      {/* Contact cards */}
+      <section className="section-padding bg-white">
+        <div className="container-max">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+            {[
+              {
+                icon: MessageCircle,
+                title: "WhatsApp",
+                value: siteConfig.phone,
+                detail: "Respuesta rápida",
+                href: whatsappLink("Hola, tengo preguntas sobre Aurum Nova Wellness Clinic."),
+                cta: "Escribir ahora",
+                external: true,
+              },
+              {
+                icon: Phone,
+                title: "Teléfono",
+                value: siteConfig.phone,
+                detail: "Llamadas directas",
+                href: `tel:${siteConfig.phone}`,
+                cta: "Llamar",
+                external: false,
+              },
+              {
+                icon: Mail,
+                title: "Email",
+                value: siteConfig.email,
+                detail: "Consultas formales",
+                href: `mailto:${siteConfig.email}`,
+                cta: "Enviar email",
+                external: false,
+              },
+              {
+                icon: AtSign,
+                title: "Instagram",
+                value: siteConfig.instagram,
+                detail: "Novedades y contenido",
+                href: siteConfig.instagramUrl,
+                cta: "Ver perfil",
+                external: true,
+              },
+            ].map((item) => {
+              const Icon = item.icon;
+              return (
+                <a
+                  key={item.title}
+                  href={item.href}
+                  target={item.external ? "_blank" : undefined}
+                  rel={item.external ? "noopener noreferrer" : undefined}
+                  className="group bg-white border border-[#E8E4DA] hover:border-[#C9A84C]/40 rounded-2xl p-5 text-center hover:shadow-md transition-all duration-300"
+                >
+                  <div className="w-11 h-11 rounded-xl bg-[#C9A84C]/10 flex items-center justify-center mx-auto mb-3">
+                    <Icon className="w-5 h-5 text-[#C9A84C]" />
+                  </div>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-[#9A9A9A] mb-1">
+                    {item.title}
+                  </p>
+                  <p className="text-sm font-semibold text-[#1A1A1A] break-all mb-0.5">{item.value}</p>
+                  <p className="text-xs text-[#9A9A9A] mb-3">{item.detail}</p>
+                  <span className="text-xs font-semibold text-[#C9A84C] group-hover:underline">
+                    {item.cta} →
+                  </span>
+                </a>
+              );
+            })}
+          </div>
+
+          {/* Address */}
+          <div className="bg-[#FAF8F4] border border-[#E8E4DA] rounded-2xl p-6 flex items-start gap-4">
+            <div className="w-10 h-10 rounded-xl bg-[#C9A84C]/10 flex items-center justify-center shrink-0">
+              <MapPin className="w-5 h-5 text-[#C9A84C]" />
+            </div>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wider text-[#9A9A9A] mb-1">Ubicación</p>
+              <p className="text-sm font-semibold text-[#1A1A1A]">{siteConfig.address}</p>
+              <p className="text-xs text-[#9A9A9A] mt-1">
+                Confirma disponibilidad de cita antes de visitarnos.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <GeneralLeadForm
+        heading="Envíanos tu consulta"
+        subheading="Completa el formulario y te contactamos por WhatsApp para orientarte y coordinar tu evaluación médica inicial."
+      />
+    </>
+  );
+}
+
+=== LAYOUT ===
+import type { Metadata } from "next";
+import { Geist } from "next/font/google";
+import "./globals.css";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import WhatsAppFloat from "@/components/layout/WhatsAppFloat";
+import JsonLd from "@/components/JsonLd";
+import { siteConfig } from "@/content/site";
+
+const geistSans = Geist({
+  variable: "--font-sans",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: `${siteConfig.name} | ${siteConfig.tagline}`,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  keywords: [
+    "clínica wellness Arecibo",
+    "control de peso Arecibo",
+    "programa metabólico Arecibo",
+    "depilación láser diodo Arecibo",
+    "láser diodo Puerto Rico",
+    "sueroterapia NAD Puerto Rico",
+    "sueroterapia Arecibo",
+    "inyectables metabólicos Arecibo",
+    "wellness clinic Puerto Rico",
+    "control metabólico Puerto Rico",
+  ],
+  authors: [{ name: siteConfig.name }],
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: `${siteConfig.name} | ${siteConfig.tagline}`,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    locale: siteConfig.ogLocale,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.name} | ${siteConfig.tagline}`,
+    description: siteConfig.description,
+    creator: siteConfig.instagram,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="es" className={`${geistSans.variable} h-full`}>
+      <body className="min-h-full flex flex-col bg-white text-[#1A1A1A]">
+        <JsonLd />
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
+        <WhatsAppFloat />
+      </body>
+    </html>
+  );
+}
+
+=== GLOBAL CSS ===
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-sans);
+
+  /* Aurum Nova brand tokens */
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-dark: var(--gold-dark);
+  --color-cream: var(--cream);
+  --color-beige: var(--beige);
+  --color-graphite: var(--graphite);
+  --color-graphite-light: var(--graphite-light);
+
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  /* Aurum Nova brand colors */
+  --gold: #C9A84C;
+  --gold-light: #E2C97E;
+  --gold-dark: #A8872E;
+  --cream: #FAF8F4;
+  --beige: #EDE8DC;
+  --graphite: #3D3D3D;
+  --graphite-light: #6B6B6B;
+
+  /* Base tokens mapped to brand */
+  --background: #FFFFFF;
+  --foreground: #1A1A1A;
+  --card: #FFFFFF;
+  --card-foreground: #1A1A1A;
+  --popover: #FFFFFF;
+  --popover-foreground: #1A1A1A;
+  --primary: #1A1A1A;
+  --primary-foreground: #FFFFFF;
+  --secondary: #FAF8F4;
+  --secondary-foreground: #1A1A1A;
+  --muted: #EDE8DC;
+  --muted-foreground: #6B6B6B;
+  --accent: #C9A84C;
+  --accent-foreground: #FFFFFF;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: #E8E4DA;
+  --input: #E8E4DA;
+  --ring: #C9A84C;
+  --radius: 0.75rem;
+  --sidebar: #FAF8F4;
+  --sidebar-foreground: #1A1A1A;
+  --sidebar-primary: #1A1A1A;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #EDE8DC;
+  --sidebar-accent-foreground: #1A1A1A;
+  --sidebar-border: #E8E4DA;
+  --sidebar-ring: #C9A84C;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  html {
+    @apply font-sans scroll-smooth;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply tracking-tight;
+  }
+}
+
+@layer utilities {
+  .text-gold { color: var(--gold); }
+  .text-gold-light { color: var(--gold-light); }
+  .bg-gold { background-color: var(--gold); }
+  .bg-gold-light { background-color: var(--gold-light); }
+  .bg-cream { background-color: var(--cream); }
+  .bg-beige { background-color: var(--beige); }
+  .border-gold { border-color: var(--gold); }
+  .text-graphite { color: var(--graphite); }
+  .text-graphite-light { color: var(--graphite-light); }
+  .bg-graphite { background-color: var(--graphite); }
+
+  .section-padding {
+    @apply py-16 md:py-24 px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-max {
+    @apply max-w-6xl mx-auto;
+  }
+
+  .gold-gradient {
+    background: linear-gradient(135deg, #C9A84C 0%, #E2C97E 50%, #A8872E 100%);
+  }
+
+  .gold-text-gradient {
+    background: linear-gradient(135deg, #C9A84C 0%, #E2C97E 60%, #A8872E 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
