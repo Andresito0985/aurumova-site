@@ -14,7 +14,11 @@ import CTABanner from "@/components/ui/CTABanner";
 import MedicalDisclaimer from "@/components/ui/MedicalDisclaimer";
 import { JsonLdScript } from "@/components/JsonLd";
 import FAQBlock from "@/components/seo/FAQBlock";
-import { buildFaqPageSchema, calculatorHubFaqs } from "@/content/calculator-faqs";
+import {
+  buildBreadcrumbSchema,
+  buildFaqPageSchema,
+  calculatorHubFaqs,
+} from "@/content/calculator-faqs";
 
 export const metadata: Metadata = {
   title: {
@@ -92,6 +96,13 @@ export default function CalculadorasPage() {
       <JsonLdScript
         id="calculadoras-faq-json-ld"
         data={buildFaqPageSchema("/calculadoras", calculatorHubFaqs)}
+      />
+      <JsonLdScript
+        id="calculadoras-breadcrumb-json-ld"
+        data={buildBreadcrumbSchema([
+          { name: "Inicio", path: "/" },
+          { name: "Calculadoras", path: "/calculadoras" },
+        ])}
       />
 
       <section className="relative overflow-hidden bg-[#FAF8F4] pt-28 pb-16">

@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import { JsonLdScript } from "@/components/JsonLd";
 import CalculatorShell from "@/components/calculators/CalculatorShell";
 import HydrationElectrolytesCalculator from "@/components/calculators/HydrationElectrolytesCalculator";
-import { buildFaqPageSchema, hydrationFaqs } from "@/content/calculator-faqs";
+import {
+  buildBreadcrumbSchema,
+  buildFaqPageSchema,
+  hydrationFaqs,
+} from "@/content/calculator-faqs";
 
 export const metadata: Metadata = {
   title: {
@@ -35,6 +39,17 @@ export default function CalculadoraHidratacionPage() {
         id="hidratacion-faq-json-ld"
         data={buildFaqPageSchema("/calculadoras/hidratacion-electrolitos", hydrationFaqs)}
       />
+      <JsonLdScript
+        id="hidratacion-breadcrumb-json-ld"
+        data={buildBreadcrumbSchema([
+          { name: "Inicio", path: "/" },
+          { name: "Calculadoras", path: "/calculadoras" },
+          {
+            name: "Hidratación y Electrolitos",
+            path: "/calculadoras/hidratacion-electrolitos",
+          },
+        ])}
+      />
       <CalculatorShell
         badge="Hidratación y electrolitos"
         title="Estima tu hidratación"
@@ -49,6 +64,17 @@ export default function CalculadoraHidratacionPage() {
           "Esta herramienta no indica dosis de sodio, potasio, magnesio ni productos específicos.",
         ]}
         disclaimer="Esta herramienta no sustituye evaluación médica, especialmente si tienes enfermedad renal, cardíaca, presión alta o usas diuréticos. No diagnostica, no prescribe y no determina candidatura."
+        methodology={{
+          formula: "30–35 mL/kg/día + ajustes por actividad y sudoración",
+          points: [
+            "Usa un rango general de 30 a 35 mL por kilogramo de peso al día.",
+            "Añade ajustes simples por nivel de actividad y sudoración reportada.",
+            "Convierte el resultado a litros y botellas aproximadas de 16.9 oz.",
+            "No prescribe dosis de electrolitos ni productos específicos.",
+            "Historial renal, cardíaco, presión arterial o uso de diuréticos requiere guía clínica.",
+          ],
+          note: "Este cálculo es educativo y orientativo. No diagnostica, no prescribe líquidos o electrolitos y no sustituye evaluación clínica.",
+        }}
         faqs={hydrationFaqs}
         faqTitle="Preguntas frecuentes sobre hidratación y electrolitos"
         faqSubtitle="Los líquidos y electrolitos pueden requerir cautela clínica, especialmente con condiciones médicas o medicamentos."

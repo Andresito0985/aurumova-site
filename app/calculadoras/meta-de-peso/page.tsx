@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import { JsonLdScript } from "@/components/JsonLd";
 import CalculatorShell from "@/components/calculators/CalculatorShell";
 import WeightGoalCalculator from "@/components/calculators/WeightGoalCalculator";
-import { buildFaqPageSchema, weightGoalFaqs } from "@/content/calculator-faqs";
+import {
+  buildBreadcrumbSchema,
+  buildFaqPageSchema,
+  weightGoalFaqs,
+} from "@/content/calculator-faqs";
 
 export const metadata: Metadata = {
   title: {
@@ -35,6 +39,14 @@ export default function CalculadoraMetaDePesoPage() {
         id="meta-de-peso-faq-json-ld"
         data={buildFaqPageSchema("/calculadoras/meta-de-peso", weightGoalFaqs)}
       />
+      <JsonLdScript
+        id="meta-de-peso-breadcrumb-json-ld"
+        data={buildBreadcrumbSchema([
+          { name: "Inicio", path: "/" },
+          { name: "Calculadoras", path: "/calculadoras" },
+          { name: "Meta de Peso", path: "/calculadoras/meta-de-peso" },
+        ])}
+      />
       <CalculatorShell
         badge="Meta de peso"
         title="Evalúa tu meta"
@@ -49,6 +61,16 @@ export default function CalculadoraMetaDePesoPage() {
           "La meta adecuada puede cambiar según medicamentos, condiciones médicas y adherencia.",
         ]}
         disclaimer="Esta calculadora no determina si tu meta es adecuada para tu salud. La evaluación clínica es necesaria para interpretar tu caso. No diagnostica, no prescribe y no determina candidatura."
+        methodology={{
+          points: [
+            "Usa tu peso actual, peso meta y plazo seleccionado.",
+            "Estima el cambio promedio semanal necesario para alcanzar esa meta.",
+            "Clasifica el ritmo como conservador, moderado o agresivo según libras por semana.",
+            "No determina un peso recomendado ni reemplaza la conversación clínica sobre seguridad y sostenibilidad.",
+            "Las metas agresivas requieren discusión clínica antes de intentar alcanzarlas.",
+          ],
+          note: "Este cálculo es educativo y orientativo. No diagnostica, no prescribe, no determina candidatura y no sustituye evaluación clínica.",
+        }}
         faqs={weightGoalFaqs}
         faqTitle="Preguntas frecuentes sobre meta de peso"
         faqSubtitle="La meta de peso debe interpretarse con seguridad, contexto clínico y expectativas realistas."

@@ -5,6 +5,17 @@ export interface CalculatorFAQ {
   answer: string;
 }
 
+export interface BreadcrumbEntry {
+  name: string;
+  path: string;
+}
+
+export interface CalculatorMethodology {
+  formula?: string;
+  points: string[];
+  note: string;
+}
+
 export const calculatorHubFaqs: CalculatorFAQ[] = [
   {
     question: "¿Para qué sirven estas calculadoras?",
@@ -142,6 +153,22 @@ export function buildFaqPageSchema(path: string, faqs: CalculatorFAQ[]) {
         "@type": "Answer",
         text: faq.answer,
       },
+    })),
+  };
+}
+
+export function buildBreadcrumbSchema(items: BreadcrumbEntry[]) {
+  const current = items[items.length - 1];
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "@id": `${siteConfig.url}${current.path}#breadcrumb`,
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: `${siteConfig.url}${item.path}`,
     })),
   };
 }

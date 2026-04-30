@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import { JsonLdScript } from "@/components/JsonLd";
 import CalculatorShell from "@/components/calculators/CalculatorShell";
 import CalorieDeficitCalculator from "@/components/calculators/CalorieDeficitCalculator";
-import { buildFaqPageSchema, calorieDeficitFaqs } from "@/content/calculator-faqs";
+import {
+  buildBreadcrumbSchema,
+  buildFaqPageSchema,
+  calorieDeficitFaqs,
+} from "@/content/calculator-faqs";
 
 export const metadata: Metadata = {
   title: {
@@ -35,6 +39,14 @@ export default function CalculadoraDeficitCaloricoPage() {
         id="deficit-calorico-faq-json-ld"
         data={buildFaqPageSchema("/calculadoras/deficit-calorico", calorieDeficitFaqs)}
       />
+      <JsonLdScript
+        id="deficit-calorico-breadcrumb-json-ld"
+        data={buildBreadcrumbSchema([
+          { name: "Inicio", path: "/" },
+          { name: "Calculadoras", path: "/calculadoras" },
+          { name: "Déficit Calórico", path: "/calculadoras/deficit-calorico" },
+        ])}
+      />
       <CalculatorShell
         badge="Déficit calórico"
         title="Estima tu mantenimiento"
@@ -49,6 +61,17 @@ export default function CalculadoraDeficitCaloricoPage() {
           "La planificación nutricional debe individualizarse, especialmente si hay condiciones médicas.",
         ]}
         disclaimer="No uses esta herramienta para dietas extremas. La planificación nutricional debe individualizarse. Esta calculadora es educativa, no diagnostica, no prescribe y no determina elegibilidad."
+        methodology={{
+          formula: "Mifflin-St Jeor + multiplicador de actividad",
+          points: [
+            "Convierte internamente peso y estatura a kilogramos y centímetros.",
+            "Estima metabolismo basal con Mifflin-St Jeor usando sexo, edad, peso y estatura.",
+            "Aplica un multiplicador de actividad para estimar calorías de mantenimiento.",
+            "Muestra un rango educativo de déficit moderado, no un plan de comidas.",
+            "Estimaciones muy bajas requieren supervisión clínica o nutricional individual.",
+          ],
+          note: "Este cálculo es educativo y orientativo. No diagnostica, no prescribe, no crea un plan nutricional y no sustituye evaluación clínica.",
+        }}
         faqs={calorieDeficitFaqs}
         faqTitle="Preguntas frecuentes sobre déficit calórico"
         faqSubtitle="Una estimación calórica puede orientar preguntas, pero no crea un plan nutricional por sí sola."

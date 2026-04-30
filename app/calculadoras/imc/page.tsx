@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { JsonLdScript } from "@/components/JsonLd";
 import CalculatorShell from "@/components/calculators/CalculatorShell";
 import BMICalculatorTool from "@/components/calculators/BMICalculatorTool";
-import { bmiFaqs, buildFaqPageSchema } from "@/content/calculator-faqs";
+import { bmiFaqs, buildBreadcrumbSchema, buildFaqPageSchema } from "@/content/calculator-faqs";
 
 export const metadata: Metadata = {
   title: {
@@ -35,6 +35,14 @@ export default function CalculadoraIMCPage() {
         id="imc-faq-json-ld"
         data={buildFaqPageSchema("/calculadoras/imc", bmiFaqs)}
       />
+      <JsonLdScript
+        id="imc-breadcrumb-json-ld"
+        data={buildBreadcrumbSchema([
+          { name: "Inicio", path: "/" },
+          { name: "Calculadoras", path: "/calculadoras" },
+          { name: "Calculadora de IMC", path: "/calculadoras/imc" },
+        ])}
+      />
       <CalculatorShell
         badge="Calculadora de IMC"
         title="Calcula tu IMC"
@@ -49,6 +57,16 @@ export default function CalculadoraIMCPage() {
           "Se interpreta mejor junto a cintura, laboratorios, medicamentos, hábitos y síntomas.",
         ]}
         disclaimer="El IMC es orientativo y no sustituye evaluación clínica. Esta herramienta no diagnostica, no prescribe y no determina candidatura a ningún tratamiento."
+        methodology={{
+          formula: "IMC = weight_lb / height_in² × 703",
+          points: [
+            "Usa peso en libras y estatura total en pulgadas.",
+            "Sirve como herramienta inicial de tamizaje o punto de partida educativo.",
+            "No mide masa muscular, porcentaje de grasa corporal, distribución de grasa ni historial metabólico.",
+            "La interpretación clínica puede variar según síntomas, laboratorios, medicamentos y composición corporal.",
+          ],
+          note: "Este cálculo es educativo y orientativo. No diagnostica, no prescribe y no sustituye una evaluación clínica individual.",
+        }}
         faqs={bmiFaqs}
         faqTitle="Preguntas frecuentes sobre el IMC"
         faqSubtitle="El IMC puede ser útil como referencia inicial, pero no reemplaza una interpretación clínica completa."

@@ -3,9 +3,10 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, BarChart3, ClipboardList, ShieldCheck } from "lucide-react";
 import CTABanner from "@/components/ui/CTABanner";
 import CalculatorDisclaimer from "@/components/calculators/CalculatorDisclaimer";
+import CalculatorMethodologySection from "@/components/calculators/CalculatorMethodology";
 import RelatedCalculators from "@/components/calculators/RelatedCalculators";
 import FAQBlock from "@/components/seo/FAQBlock";
-import type { CalculatorFAQ } from "@/content/calculator-faqs";
+import type { CalculatorFAQ, CalculatorMethodology } from "@/content/calculator-faqs";
 
 interface CalculatorShellProps {
   badge: string;
@@ -18,6 +19,7 @@ interface CalculatorShellProps {
   educationCopy: string;
   educationItems: string[];
   disclaimer: string;
+  methodology?: CalculatorMethodology;
   faqs?: CalculatorFAQ[];
   faqTitle?: string;
   faqSubtitle?: string;
@@ -37,6 +39,7 @@ export default function CalculatorShell({
   educationCopy,
   educationItems,
   disclaimer,
+  methodology,
   faqs,
   faqTitle,
   faqSubtitle,
@@ -144,6 +147,8 @@ export default function CalculatorShell({
           </div>
         </div>
       </section>
+
+      {methodology && <CalculatorMethodologySection methodology={methodology} />}
 
       <RelatedCalculators currentPath={currentPath} />
 
