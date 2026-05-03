@@ -40,7 +40,7 @@ export default function MetabolicSafety() {
               Seguridad clínica
             </span>
             <h2 className="text-2xl sm:text-3xl font-semibold text-[#1A1A1A] mb-5 leading-tight">
-              Cómo garantizamos un protocolo seguro y supervisado
+              Cómo mantenemos un protocolo seguro y supervisado
             </h2>
             <div className="space-y-4 text-[#6B6B6B] text-sm leading-relaxed">
               <p>

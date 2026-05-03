@@ -31,6 +31,7 @@ import {
   trackQuizCompleted,
   trackWhatsAppClick,
 } from "@/lib/tracking";
+import { buildMetabolicQuizWhatsAppMessage } from "@/lib/metabolic-whatsapp";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -70,6 +71,12 @@ interface Answers {
   metabolicConditions: string[];
   currentMedications: string[];
   safetyConditions: string[];
+  firstName: string;
+  lastName: string;
+  phone: string;
+  hasRecentLabs: string;
+  recentLabTiming: string;
+  wantsLabAnalysis: string;
 }
 
 type ResultCategory = "A" | "B" | "C" | "D";
@@ -85,7 +92,8 @@ const INIT: Answers = {
   fastingSymptoms: "", dailyWater: "", electrolyteUse: "",
   dehydrationSymptoms: [], currentActivity: "", physicalLimitations: [],
   daysWilling: "", metabolicConditions: [], currentMedications: [],
-  safetyConditions: [],
+  safetyConditions: [], firstName: "", lastName: "", phone: "",
+  hasRecentLabs: "", recentLabTiming: "", wantsLabAnalysis: "",
 };
 
 // ─── Options ──────────────────────────────────────────────────────────────────
@@ -256,6 +264,18 @@ const SAFETY_OPTS = [
   { v: "pregnancy", l: "Embarazo, lactancia o buscando embarazo" },
   { v: "none", l: "Ninguna" }, { v: "not_sure", l: "No estoy seguro/a" },
 ];
+const LAB_STATUS_OPTS = [
+  { v: "yes", l: "Sí" },
+  { v: "no", l: "No" },
+  { v: "not_sure", l: "No estoy seguro/a" },
+];
+const LAB_TIMING_OPTS = [
+  { v: "less_30", l: "Menos de 30 días" },
+  { v: "1_3_months", l: "1 a 3 meses" },
+  { v: "3_6_months", l: "3 a 6 meses" },
+  { v: "over_6_months", l: "Más de 6 meses" },
+  { v: "dont_remember", l: "No recuerdo" },
+];
 
 // ─── Steps metadata ───────────────────────────────────────────────────────────
 
@@ -267,7 +287,7 @@ const STEPS = [
   { label: "Ayuno intermitente", sub: "Experiencia y tolerancia" },
   { label: "Hidratación", sub: "Agua y electrolitos" },
   { label: "Actividad física", sub: "Movimiento y limitaciones" },
-  { label: "Salud y seguridad", sub: "Condiciones y medicamentos" },
+  { label: "Salud, laboratorios y contacto", sub: "Seguridad y seguimiento" },
 ];
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -330,7 +350,21 @@ function isStepComplete(step: number, a: Answers): boolean {
     }
     case 6: return !!(a.dailyWater && a.electrolyteUse && a.dehydrationSymptoms.length > 0);
     case 7: return !!(a.currentActivity && a.physicalLimitations.length > 0 && a.daysWilling);
-    case 8: return !!(a.metabolicConditions.length > 0 && a.currentMedications.length > 0 && a.safetyConditions.length > 0);
+    case 8: {
+      const hasContact = !!(a.firstName.trim() && a.lastName.trim() && a.phone.trim());
+      const hasLabs = !!(
+        a.hasRecentLabs &&
+        a.wantsLabAnalysis &&
+        (a.hasRecentLabs !== "yes" || a.recentLabTiming)
+      );
+      return !!(
+        a.metabolicConditions.length > 0 &&
+        a.currentMedications.length > 0 &&
+        a.safetyConditions.length > 0 &&
+        hasContact &&
+        hasLabs
+      );
+    }
     default: return true;
   }
 }
@@ -531,6 +565,28 @@ function getActivitySummary(a: Answers) {
   return getOptionLabel(ACTIVITY_OPTS, a.currentActivity, "Se revisa en evaluación");
 }
 
+function getHeightSummary(a: Answers) {
+  if (a.heightUnit === "cm") return a.heightCm ? `${a.heightCm} cm` : "No especificado";
+  const feet = a.heightFt || "0";
+  const inches = a.heightIn || "0";
+  return `${feet}'${inches}"`;
+}
+
+function getYesNoLabel(value?: string) {
+  return getOptionLabel(LAB_STATUS_OPTS, value, "No especificado");
+}
+
+function getLabTimingLabel(a: Answers) {
+  if (a.hasRecentLabs === "no") return "No aplica";
+  if (a.hasRecentLabs === "not_sure") return "No estoy seguro/a";
+  return getOptionLabel(LAB_TIMING_OPTS, a.recentLabTiming, "No especificado");
+}
+
+function getPriorTherapySummary(a: Answers) {
+  if (a.prevMedication === "none") return "Sin experiencia previa";
+  return getOptionLabel(PREV_MED_OPTS, a.prevMedication, "No especificado");
+}
+
 function getToleranceSummary(result: QuizResult) {
   if (result.tolerance === "high") return "Historial de tolerancia favorable";
   if (result.tolerance === "cautious") return "Requiere vigilancia de tolerancia";
@@ -548,20 +604,38 @@ function getWeightReference(result: QuizResult) {
   return `Referencia 5-10%: ${result.targets.p5}-${result.targets.p10} lb`;
 }
 
-function buildProtocolWAMsg(result: QuizResult, suggestion: SuggestedProtocolResult): string {
+function getWhatsAppProtocolLabel(suggestion: SuggestedProtocolResult) {
+  if (suggestion.id === "clinical_review_first") {
+    return "Evaluación clínica individualizada primero";
+  }
+  return suggestion.protocol?.name.replace("Protocolo ", "") ?? "Por confirmar";
+}
+
+function buildProtocolWAMsg(a: Answers, result: QuizResult, suggestion: SuggestedProtocolResult): string {
   const protocolLabel =
     suggestion.id === "clinical_review_first"
       ? "Evaluación clínica individualizada primero"
-      : suggestion.protocol?.name ?? "Protocolo por confirmar";
-  const lines = [
-    "Hola, completé el quiz metabólico de Aurum Nova.",
-    "Me gustaría orientación sobre el protocolo sugerido y agendar evaluación.",
-    `Protocolo sugerido para discutir: ${protocolLabel}.`,
-    result.bmiInfo?.label && `Categoría de IMC: ${result.bmiInfo.label}.`,
-    suggestion.mainNeed && `Necesidad principal: ${suggestion.mainNeed}.`,
-  ];
-
-  return lines.filter(Boolean).join("\n");
+      : getWhatsAppProtocolLabel(suggestion);
+  return buildMetabolicQuizWhatsAppMessage({
+    firstName: a.firstName.trim(),
+    lastName: a.lastName.trim(),
+    phone: a.phone.trim(),
+    age: getOptionLabel(AGE_OPTS, a.ageGroup, "No especificado"),
+    height: getHeightSummary(a),
+    weight: result.weightLb > 0 ? `${result.weightLb} lb` : "No especificado",
+    bmi: result.bmi ? `${result.bmi}` : "No disponible",
+    bmiCategory: result.bmiInfo?.label ?? "No disponible",
+    primaryGoal: getOptionLabel(GOAL_OPTS, a.mainGoal, "No especificado"),
+    activityLevel: getActivitySummary(a),
+    nutritionPattern: getNutritionSummary(a),
+    priorTherapyCategory: getPriorTherapySummary(a),
+    hasRecentLabs: getYesNoLabel(a.hasRecentLabs),
+    recentLabTiming: getLabTimingLabel(a),
+    wantsLabAnalysis: getYesNoLabel(a.wantsLabAnalysis),
+    suggestedProtocol: protocolLabel,
+    mainNeed: suggestion.mainNeed,
+    clinicalReviewFirst: suggestion.id === "clinical_review_first",
+  });
 }
 
 function SummaryTile({
@@ -608,11 +682,12 @@ function ProtocolComparisonCard({
         <h5 className="text-base font-semibold text-[#1A1A1A]">{protocol.name}</h5>
         <p className="mt-1 text-xs text-[#6B6B6B]">{protocol.duration}</p>
         <p className="mt-3 text-sm font-semibold text-[#C9A84C]">{protocol.priceLabel}</p>
-        {protocol.valueContext?.[0] && protocol.savingsLabel && (
-          <p className="mt-1 text-[11px] leading-relaxed text-[#6B6B6B]">
-            {protocol.valueContext[0]} · {protocol.savingsLabel}
-          </p>
-        )}
+        <p className="mt-1 text-[11px] leading-relaxed text-[#6B6B6B]">
+          {protocol.individualValueLabel}
+        </p>
+        <p className="mt-1 text-[11px] leading-relaxed text-[#6B6B6B]">
+          {protocol.savingsLabel}
+        </p>
       </div>
 
       <div className="mb-4 rounded-xl bg-[#FAF8F4] p-3">
@@ -638,7 +713,7 @@ function ProtocolComparisonCard({
         onClick={() => trackAppointmentClick(`quiz_protocol_${protocol.id}`)}
         className="mt-auto inline-flex items-center justify-center gap-2 rounded-full border border-[#E8E4DA] px-4 py-2.5 text-xs font-semibold text-[#1A1A1A] transition-colors hover:border-[#C9A84C] hover:text-[#C9A84C]"
       >
-        Discutir en evaluación
+        Discutir este protocolo
         <ArrowRight className="h-3.5 w-3.5" />
       </Link>
     </div>
@@ -726,7 +801,7 @@ export default function MetabolicProfileQuiz() {
 
   const showPrevExp = a.prevMedication && !["none", "not_sure"].includes(a.prevMedication);
   const showFastingSx = a.fastingPractice && !["never", "not_sure_f", "tried_failed"].includes(a.fastingPractice);
-  const resultWhatsappMessage = result && suggestion ? buildProtocolWAMsg(result, suggestion) : "";
+  const resultWhatsappMessage = result && suggestion ? buildProtocolWAMsg(a, result, suggestion) : "";
 
   return (
     <section className="section-padding bg-[#0E0E0E]" id="quiz-metabolico">
@@ -1177,6 +1252,88 @@ export default function MetabolicProfileQuiz() {
                         ))}
                       </div>
                     </div>
+
+                    <div className="rounded-2xl border border-[#E8E4DA] bg-[#FAF8F4] p-4">
+                      <SectionLabel>Contacto para orientación</SectionLabel>
+                      <StepHeading>¿Cómo podemos identificar tu resultado si decides enviarlo?</StepHeading>
+                      <div className="grid gap-3 sm:grid-cols-2">
+                        <div>
+                          <label className="mb-1.5 block text-xs font-medium text-[#6B6B6B]">
+                            Nombre
+                          </label>
+                          <input
+                            type="text"
+                            autoComplete="given-name"
+                            value={a.firstName}
+                            onChange={(e) => set("firstName", e.target.value)}
+                            className="w-full rounded-xl border-2 border-[#E8E4DA] px-4 py-3 text-sm text-[#1A1A1A] outline-none transition-colors focus:border-[#C9A84C]"
+                            placeholder="ej. María"
+                          />
+                        </div>
+                        <div>
+                          <label className="mb-1.5 block text-xs font-medium text-[#6B6B6B]">
+                            Apellido
+                          </label>
+                          <input
+                            type="text"
+                            autoComplete="family-name"
+                            value={a.lastName}
+                            onChange={(e) => set("lastName", e.target.value)}
+                            className="w-full rounded-xl border-2 border-[#E8E4DA] px-4 py-3 text-sm text-[#1A1A1A] outline-none transition-colors focus:border-[#C9A84C]"
+                            placeholder="ej. López"
+                          />
+                        </div>
+                        <div className="sm:col-span-2">
+                          <label className="mb-1.5 block text-xs font-medium text-[#6B6B6B]">
+                            Teléfono
+                          </label>
+                          <input
+                            type="tel"
+                            autoComplete="tel"
+                            value={a.phone}
+                            onChange={(e) => set("phone", e.target.value)}
+                            className="w-full rounded-xl border-2 border-[#E8E4DA] px-4 py-3 text-sm text-[#1A1A1A] outline-none transition-colors focus:border-[#C9A84C]"
+                            placeholder="ej. 787-000-0000"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <SectionLabel>Laboratorios recientes</SectionLabel>
+                      <StepHeading>¿Tienes laboratorios recientes de los últimos 3 a 6 meses?</StepHeading>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                        {LAB_STATUS_OPTS.map((o) => (
+                          <OptionCard key={o.v} label={o.l} selected={a.hasRecentLabs === o.v} onClick={() => set("hasRecentLabs", o.v)} />
+                        ))}
+                      </div>
+                    </div>
+
+                    {a.hasRecentLabs === "yes" && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.25 }}
+                      >
+                        <SectionLabel>Fecha aproximada</SectionLabel>
+                        <StepHeading>¿Hace cuánto fueron realizados?</StepHeading>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          {LAB_TIMING_OPTS.map((o) => (
+                            <OptionCard key={o.v} label={o.l} selected={a.recentLabTiming === o.v} onClick={() => set("recentLabTiming", o.v)} />
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+
+                    <div>
+                      <SectionLabel>Análisis de laboratorios</SectionLabel>
+                      <StepHeading>¿Te gustaría que revisemos tus laboratorios como parte de tu evaluación?</StepHeading>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                        {LAB_STATUS_OPTS.map((o) => (
+                          <OptionCard key={o.v} label={o.l} selected={a.wantsLabAnalysis === o.v} onClick={() => set("wantsLabAnalysis", o.v)} />
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 )}
 
@@ -1258,6 +1415,11 @@ export default function MetabolicProfileQuiz() {
                           helper="Punto de conversación para la consulta."
                         />
                         <SummaryTile
+                          label="Laboratorios"
+                          value={getYesNoLabel(a.hasRecentLabs)}
+                          helper={a.hasRecentLabs === "yes" ? getLabTimingLabel(a) : "Se revisa en evaluación."}
+                        />
+                        <SummaryTile
                           label="Seguimiento sugerido"
                           value={suggestion.followUpIntensity}
                           helper="Se confirma durante evaluación clínica."
@@ -1305,7 +1467,12 @@ export default function MetabolicProfileQuiz() {
                               <SummaryTile
                                 label="Inversión"
                                 value={suggestion.protocol?.priceLabel ?? "Se confirma en evaluación"}
-                                helper="Precios sujetos a evaluación clínica."
+                                helper={suggestion.protocol?.individualValueLabel ?? "Precios sujetos a evaluación clínica."}
+                              />
+                              <SummaryTile
+                                label="Ahorro estimado"
+                                value={suggestion.protocol?.savingsLabel ?? "Se confirma en evaluación"}
+                                helper="El contenido exacto puede variar según criterio clínico."
                               />
                             </div>
                           )}
@@ -1319,6 +1486,10 @@ export default function MetabolicProfileQuiz() {
                             {suggestion.id === "clinical_review_first"
                               ? "No se sugiere un protocolo comercial primero cuando hay factores que requieren revisión clínica. La elegibilidad se confirma durante evaluación clínica."
                               : "Este protocolo es una orientación para conversar, no una aprobación. Está sujeto a evaluación clínica, historial, metas, seguridad y criterio clínico."}
+                          </p>
+                          <p className="mt-3 text-xs leading-relaxed text-[#9A9A9A]">
+                            Esta herramienta no diagnostica, no prescribe y no confirma elegibilidad.
+                            La recomendación final depende de una evaluación clínica individualizada.
                           </p>
                         </div>
                       </div>
@@ -1434,9 +1605,10 @@ export default function MetabolicProfileQuiz() {
                       <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#C9A84C]" />
                       <p className="text-xs leading-relaxed text-[#6B6B6B]">
                         Este resultado es educativo y orientativo. No diagnostica, no prescribe,
-                        no determina candidatura y no sustituye una evaluación clínica. No todos
+                        no confirma elegibilidad y no sustituye una evaluación clínica. No todos
                         los pacientes cualifican para terapia metabólica semanal. Los resultados
-                        pueden variar.
+                        pueden variar. La recomendación final depende de una evaluación clínica
+                        individualizada.
                       </p>
                     </div>
 

@@ -64,9 +64,9 @@ export const faqs: FAQItem[] = [
   },
   {
     category: "Programa Metabólico Integral",
-    question: "¿Garantizan pérdida de peso?",
+    question: "¿Prometen pérdida de peso?",
     answer:
-      "No se garantizan resultados específicos de pérdida de peso. Los resultados dependen de múltiples factores: historial médico, adherencia al plan, perfil metabólico individual, condiciones subyacentes y respuesta individual. Lo que garantizamos es un protocolo médico serio, supervisado y documentado.",
+      "No prometemos resultados específicos de pérdida de peso. Los resultados dependen de múltiples factores: historial médico, adherencia al plan, perfil metabólico individual, condiciones subyacentes y respuesta individual. Lo que ofrecemos es un protocolo médico serio, supervisado y documentado.",
   },
   {
     category: "Programa Metabólico Integral",

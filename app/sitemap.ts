@@ -34,6 +34,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/calculadoras/deficit-calorico",
     "/calculadoras/hidratacion-electrolitos",
     "/perfil-metabolico",
+    "/analisis-laboratorios",
   ].map((path) => ({
     url: `${BASE_URL}${path}`,
     lastModified: now,

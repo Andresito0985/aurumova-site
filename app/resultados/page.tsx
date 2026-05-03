@@ -104,7 +104,7 @@ export default function ResultadosPage() {
               {
                 title: "Lo que NO prometemos",
                 items: [
-                  "Pérdida de peso garantizada",
+                  "Pérdida de peso específica",
                   "Resultados específicos en plazos fijos",
                   "El mismo protocolo para todos",
                   "Resultados sin adherencia al programa",

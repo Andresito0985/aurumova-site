@@ -20,6 +20,7 @@ const mobileNav = [
   { label: "Programa Metabólico Integral", href: "/programa-metabolico", badge: "Principal" },
   { label: "Quiz Metabólico", href: "/quiz-metabolico", badge: "Nuevo" },
   { label: "Calculadoras educativas", href: "/calculadoras", badge: "Recurso" },
+  { label: "Análisis de laboratorios", href: "/analisis-laboratorios", badge: "Recurso" },
   { label: "Láser Diodo", href: "/laser-diodo" },
   { label: "Servicios", href: "/servicios" },
   { label: "Resultados Medibles", href: "/resultados" },

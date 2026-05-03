@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   keywords: [
     "programa metabólico", "manejo de peso", "obesidad", "sobrepeso",
     "resistencia a la insulina", "síndrome metabólico", "médico Arecibo",
-    "clínica wellness Puerto Rico", "semaglutide alternativo", "inyectable peso",
+    "clínica wellness Puerto Rico", "terapia metabólica semanal", "seguimiento metabólico",
   ],
 
   alternates: { canonical: "https://aurumnovawellnessclinic.com/programa-metabolico" },
@@ -89,7 +89,7 @@ const faqs = [
 ];
 
 const CTA_MESSAGE =
-  "Hola, me interesa saber si cualifico para el Programa Metabólico Integral de Aurum Nova. ¿Cuáles son los próximos pasos?";
+  "Hola, me interesa comenzar una evaluación para discutir el Programa Metabólico de Aurum Nova. ¿Cuáles son los próximos pasos?";
 
 export default function ProgramaMetabolicoPage() {
   return (
@@ -114,7 +114,7 @@ export default function ProgramaMetabolicoPage() {
       <MetabolicLeadForm />
       <CTABanner
         title="El primer paso es la evaluación médica"
-        subtitle="Sin evaluación no hay protocolo. Así garantizamos que lo que te ofrecemos es apropiado para ti."
+        subtitle="Sin evaluación no hay protocolo. Así confirmamos que lo que se discute sea apropiado para tu caso."
         ctaText="Agendar evaluación por WhatsApp"
         ctaMessage={CTA_MESSAGE}
         variant="dark"

@@ -60,7 +60,7 @@ export default function AgendarEvaluacionPage() {
         badge="Agendar Evaluación"
         title="Tu evaluación médica"
         highlight="inicial"
-        subtitle="El primer paso es una evaluación médica completa. Sin evaluación no hay protocolo — así garantizamos que lo que te ofrecemos es apropiado para ti específicamente."
+        subtitle="El primer paso es una evaluación médica completa. Sin evaluación no hay protocolo; primero confirmamos qué opciones pueden ser apropiadas para tu caso."
         ctaText="Agendar por WhatsApp ahora"
         ctaMessage="Hola, quisiera agendar mi evaluación médica inicial en Aurum Nova Wellness Clinic. ¿Cuál es la disponibilidad?"
         disclaimer="La evaluación es el primer paso, no el compromiso final. Puedes decidir después de conocer tus opciones."

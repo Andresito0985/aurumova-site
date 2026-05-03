@@ -167,7 +167,7 @@ export default function HairSupportPage() {
               Cómo apoyamos la salud de tu cabello
             </h2>
             <p className="text-sm text-[#9A9A9A] max-w-lg mx-auto leading-relaxed">
-              Sin promesas de regrowth garantizado. Con evaluación real, corrección de deficiencias
+              Sin promesas de recrecimiento específico. Con evaluación real, corrección de deficiencias
               y soporte nutricional basado en tu caso individual.
             </p>
           </motion.div>

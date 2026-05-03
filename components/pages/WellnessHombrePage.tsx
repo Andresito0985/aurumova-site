@@ -28,7 +28,7 @@ const pillars = [
       "Evaluación de síntomas de fatiga y energía",
       "Laboratorios de referencia cuando indicados",
       "Orientación sobre hábitos de recuperación",
-      "Enfoque clínico sin promesas de rendimiento garantizado",
+      "Enfoque clínico sin promesas de rendimiento específico",
     ],
   },
   {

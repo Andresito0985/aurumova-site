@@ -5,7 +5,7 @@ import { ArrowRight, ChevronLeft, ShieldCheck, TrendingDown, Activity } from "lu
 import Link from "next/link";
 import { whatsappLink } from "@/content/site";
 
-const CTA_MESSAGE = "Hola, me interesa saber si cualifico para el Programa Metabólico Integral de Aurum Nova. ¿Cuáles son los próximos pasos?";
+const CTA_MESSAGE = "Hola, me interesa comenzar una evaluación para discutir el Programa Metabólico de Aurum Nova. ¿Cuáles son los próximos pasos?";
 
 const stats = [
   { icon: Activity, label: "Evaluación médica incluida", value: "1ra cita" },
@@ -99,7 +99,7 @@ export default function MetabolicHero() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold px-6 py-3.5 rounded-full text-sm transition-all duration-200 shadow-lg shadow-[#C9A84C]/20"
             >
-              Ver si cualifico
+              Comenzar evaluación
               <ArrowRight className="w-4 h-4" />
             </a>
             <a
