@@ -24,6 +24,7 @@ const legal = [
 ];
 
 const resources = [
+  { label: "Perfil metabólico integral", href: "/perfil-metabolico" },
   { label: "Calculadoras", href: "/calculadoras" },
   { label: "Calculadora IMC", href: "/calculadoras/imc" },
   { label: "Meta de peso", href: "/calculadoras/meta-de-peso" },

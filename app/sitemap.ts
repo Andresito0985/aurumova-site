@@ -33,11 +33,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/calculadoras/meta-de-peso",
     "/calculadoras/deficit-calorico",
     "/calculadoras/hidratacion-electrolitos",
+    "/perfil-metabolico",
   ].map((path) => ({
     url: `${BASE_URL}${path}`,
     lastModified: now,
     changeFrequency: "monthly" as const,
-    priority: path === "/calculadoras" ? 0.85 : 0.8,
+    priority:
+      path === "/perfil-metabolico"
+        ? 0.9
+        : path === "/calculadoras"
+          ? 0.85
+          : 0.8,
   }));
 
   // Core pages

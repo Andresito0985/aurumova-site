@@ -1,7 +1,21 @@
 import Link from "next/link";
-import { ArrowRight, Calculator, Droplets, Flame, Target } from "lucide-react";
+import {
+  ArrowRight,
+  Calculator,
+  Droplets,
+  Flame,
+  Sparkles,
+  Target,
+} from "lucide-react";
 
 const relatedCalculators = [
+  {
+    title: "Perfil Metabólico Integral",
+    description:
+      "Combina IMC, ritmo, energía e hidratación en un solo reporte educativo.",
+    href: "/perfil-metabolico",
+    icon: Sparkles,
+  },
   {
     title: "IMC",
     description: "Índice de masa corporal como punto de partida orientativo.",

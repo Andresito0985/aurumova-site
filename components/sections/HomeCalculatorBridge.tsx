@@ -1,9 +1,15 @@
 import Link from "next/link";
-import { ArrowRight, Calculator, ClipboardList, ShieldCheck } from "lucide-react";
+import {
+  ArrowRight,
+  Calculator,
+  ClipboardList,
+  ShieldCheck,
+  Sparkles,
+} from "lucide-react";
 
 const points = [
-  "IMC, meta de peso, déficit calórico e hidratación.",
-  "Resultados educativos y orientativos.",
+  "Perfil Metabólico Integral combina todo en un solo reporte.",
+  "También calculadoras individuales: IMC, meta, déficit, hidratación.",
   "El quiz sigue siendo el próximo paso para orientación personalizada.",
 ];
 
@@ -47,7 +53,14 @@ export default function HomeCalculatorBridge() {
                 ))}
               </div>
 
-              <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <Link
+                  href="/perfil-metabolico"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1A1A1A] px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-[#3D3D3D] hover:shadow-md focus:outline-none focus:ring-3 focus:ring-[#1A1A1A]/30"
+                >
+                  <Sparkles className="h-4 w-4" />
+                  Perfil Metabólico Integral
+                </Link>
                 <Link
                   href="/calculadoras"
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-[#A8872E] hover:shadow-md focus:outline-none focus:ring-3 focus:ring-[#C9A84C]/30"

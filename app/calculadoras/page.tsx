@@ -8,6 +8,7 @@ import {
   Droplets,
   Flame,
   ShieldCheck,
+  Sparkles,
   Target,
 } from "lucide-react";
 import CTABanner from "@/components/ui/CTABanner";
@@ -188,6 +189,37 @@ export default function CalculadorasPage() {
               inicial, no como diagnóstico ni prescripción.
             </p>
           </div>
+
+          <Link
+            href="/perfil-metabolico"
+            className="group relative mb-6 flex flex-col gap-5 overflow-hidden rounded-3xl border border-[#1A1A1A] bg-[#1A1A1A] p-6 text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl sm:p-8 lg:flex-row lg:items-center lg:justify-between"
+          >
+            <div
+              className="absolute inset-0 opacity-30 pointer-events-none"
+              style={{
+                backgroundImage:
+                  "radial-gradient(ellipse at 85% 15%, rgba(201,168,76,0.45) 0%, transparent 55%)",
+              }}
+            />
+            <div className="relative z-10 flex flex-col gap-3 lg:max-w-2xl">
+              <span className="inline-flex w-fit items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-widest text-[#E2C97E]">
+                <Sparkles className="h-3 w-3" />
+                Nuevo · Recomendado
+              </span>
+              <h3 className="text-2xl font-semibold leading-tight sm:text-3xl">
+                Perfil Metabólico Integral
+              </h3>
+              <p className="text-sm leading-relaxed text-white/70 sm:text-base">
+                Una sola herramienta combina IMC, ritmo, energía e hidratación
+                con cautelas clínicas. Ingresa tus datos una vez y revisa todo
+                el contexto en un reporte educativo.
+              </p>
+            </div>
+            <span className="relative z-10 inline-flex items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-6 py-3 text-sm font-semibold text-[#1A1A1A] transition-colors group-hover:bg-[#E2C97E]">
+              Comenzar perfil
+              <ArrowRight className="h-4 w-4" />
+            </span>
+          </Link>
 
           <div className="grid gap-4 md:grid-cols-2">
             {calculatorCards.map((calculator) => {

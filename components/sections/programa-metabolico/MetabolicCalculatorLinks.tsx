@@ -1,7 +1,22 @@
 import Link from "next/link";
-import { ArrowRight, Calculator, Droplets, Flame, ShieldCheck, Target } from "lucide-react";
+import {
+  ArrowRight,
+  Calculator,
+  Droplets,
+  Flame,
+  ShieldCheck,
+  Sparkles,
+  Target,
+} from "lucide-react";
 
 const tools = [
+  {
+    title: "Perfil Metabólico Integral",
+    description: "Reporte educativo unificado: IMC, ritmo, energía e hidratación.",
+    href: "/perfil-metabolico",
+    icon: Sparkles,
+    featured: true,
+  },
   {
     title: "IMC",
     description: "Conoce tu categoría inicial de forma orientativa.",
@@ -47,23 +62,53 @@ export default function MetabolicCalculatorLinks() {
           </p>
         </div>
 
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {tools.map((tool) => {
             const Icon = tool.icon;
+            const featured = tool.featured;
             return (
               <Link
                 key={tool.href}
                 href={tool.href}
-                className="group flex h-full flex-col rounded-2xl border border-[#E8E4DA] bg-white p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#C9A84C]/50 hover:shadow-lg hover:shadow-[#1A1A1A]/5"
+                className={`group flex h-full flex-col rounded-2xl border p-4 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg ${
+                  featured
+                    ? "border-[#1A1A1A] bg-[#1A1A1A] text-white sm:col-span-2 lg:col-span-2"
+                    : "border-[#E8E4DA] bg-white hover:border-[#C9A84C]/50 hover:shadow-[#1A1A1A]/5"
+                }`}
               >
                 <div className="mb-4 flex items-start justify-between gap-3">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#C9A84C]/10">
+                  <div
+                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
+                      featured ? "bg-[#C9A84C]/15" : "bg-[#C9A84C]/10"
+                    }`}
+                  >
                     <Icon className="h-4 w-4 text-[#C9A84C]" />
                   </div>
-                  <ArrowRight className="h-4 w-4 text-[#C9A84C] opacity-40 transition-all duration-200 group-hover:translate-x-1 group-hover:opacity-100" />
+                  <ArrowRight
+                    className={`h-4 w-4 transition-all duration-200 group-hover:translate-x-1 ${
+                      featured
+                        ? "text-[#E2C97E] opacity-80"
+                        : "text-[#C9A84C] opacity-40 group-hover:opacity-100"
+                    }`}
+                  />
                 </div>
-                <h3 className="text-sm font-semibold text-[#1A1A1A]">{tool.title}</h3>
-                <p className="mt-2 flex-1 text-xs leading-relaxed text-[#6B6B6B]">
+                {featured && (
+                  <span className="mb-1 text-[10px] font-semibold uppercase tracking-widest text-[#E2C97E]">
+                    Recomendado
+                  </span>
+                )}
+                <h3
+                  className={`text-sm font-semibold ${
+                    featured ? "text-white" : "text-[#1A1A1A]"
+                  }`}
+                >
+                  {tool.title}
+                </h3>
+                <p
+                  className={`mt-2 flex-1 text-xs leading-relaxed ${
+                    featured ? "text-white/70" : "text-[#6B6B6B]"
+                  }`}
+                >
                   {tool.description}
                 </p>
               </Link>

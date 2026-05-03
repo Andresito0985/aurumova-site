@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs";
 import { siteConfig } from "@/content/site";
 
 interface JsonLdScriptProps {
@@ -17,6 +18,11 @@ export function JsonLdScript({ data, id }: JsonLdScriptProps) {
   );
 }
 
+const brandLogoPath = "/brand/logo.png";
+const brandLogoUrl = existsSync(`${process.cwd()}/public${brandLogoPath}`)
+  ? `${siteConfig.url}${brandLogoPath}`
+  : undefined;
+
 /**
  * Structured data (JSON-LD) for Aurum Nova Wellness Clinic.
  * Injected in the root layout so it appears on every page.
@@ -32,7 +38,7 @@ export default function JsonLd() {
     "@id": `${siteConfig.url}/#organization`,
     name: siteConfig.name,
     url: siteConfig.url,
-    logo: `${siteConfig.url}/brand/logo.png`,
+    ...(brandLogoUrl ? { logo: brandLogoUrl } : {}),
     contactPoint: [
       {
         "@type": "ContactPoint",
@@ -54,7 +60,7 @@ export default function JsonLd() {
     url: siteConfig.url,
     telephone: `+1-${siteConfig.phone}`,
     email: siteConfig.email,
-    image: `${siteConfig.url}/brand/logo.png`,
+    ...(brandLogoUrl ? { image: brandLogoUrl } : {}),
     priceRange: "$$",
     currenciesAccepted: "USD",
     paymentAccepted: "Cash, Credit Card",

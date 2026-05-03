@@ -14,8 +14,14 @@ const benefits = [
 ];
 
 const areas = [
-  "Piernas", "Axilas", "Bikini", "Espalda",
-  "Abdomen", "Brazos", "Rostro", "Cuello",
+  "Piernas",
+  "Axilas",
+  "Bikini",
+  "Espalda",
+  "Abdomen",
+  "Brazos",
+  "Rostro",
+  "Cuello",
 ];
 
 export default function LaserSection() {
@@ -32,13 +38,17 @@ export default function LaserSection() {
           >
             <div className="relative">
               <div className="aspect-square rounded-3xl bg-gradient-to-br from-[#EDE8DC] to-[#D8D0C0] flex items-center justify-center overflow-hidden">
-                {/* Placeholder for laser treatment photo */}
+                {/* Editorial laser visual fallback */}
                 <div className="text-center p-8">
                   <div className="w-20 h-20 rounded-full bg-[#C9A84C]/20 flex items-center justify-center mx-auto mb-4">
                     <Zap className="w-10 h-10 text-[#C9A84C]" />
                   </div>
-                  <p className="text-[#6B6B6B] text-sm font-medium">Tecnología Láser de Diodo</p>
-                  <p className="text-[#9A9A9A] text-xs mt-1">Foto del equipo próximamente</p>
+                  <p className="text-[#6B6B6B] text-sm font-medium">
+                    Tecnología Láser de Diodo
+                  </p>
+                  <p className="text-[#9A9A9A] text-xs mt-1">
+                    Evaluación por zona y fototipo
+                  </p>
                 </div>
               </div>
 
@@ -80,9 +90,9 @@ export default function LaserSection() {
               <span className="gold-text-gradient">de alta tecnología</span>
             </h2>
             <p className="text-base text-[#6B6B6B] leading-relaxed mb-8">
-              Sistema de láser de diodo de última generación para remoción permanente de
-              vello. Eficaz en múltiples tipos de piel, con tratamientos diseñados y
-              supervisados por nuestro equipo clínico.
+              Sistema de láser de diodo de última generación para remoción
+              permanente de vello. Eficaz en múltiples tipos de piel, con
+              tratamientos diseñados y supervisados por nuestro equipo clínico.
             </p>
 
             <ul className="space-y-3 mb-8">
@@ -102,7 +112,9 @@ export default function LaserSection() {
             </ul>
 
             <a
-              href={whatsappLink("Hola, quisiera información sobre el tratamiento de remoción de vello láser en Aurum Nova. ¿Cómo agendar mi consulta?")}
+              href={whatsappLink(
+                "Hola, quisiera información sobre el tratamiento de remoción de vello láser en Aurum Nova. ¿Cómo agendar mi consulta?",
+              )}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 shadow-md hover:shadow-lg"

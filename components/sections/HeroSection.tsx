@@ -56,8 +56,9 @@ export default function HeroSection() {
             </h1>
 
             <p className="text-lg text-[#6B6B6B] leading-relaxed mb-8 max-w-lg">
-              Programas clínicos personalizados diseñados para transformar tu salud metabólica con
-              resultados medibles, bajo supervisión médica continua en Puerto Rico.
+              Programas clínicos personalizados diseñados para transformar tu
+              salud metabólica con resultados medibles, bajo supervisión médica
+              continua en Puerto Rico.
             </p>
 
             {/* Pillars */}
@@ -84,7 +85,9 @@ export default function HeroSection() {
               className="flex flex-col sm:flex-row gap-3"
             >
               <a
-                href={whatsappLink("Hola, quisiera agendar mi consulta inicial en Aurum Nova Wellness Clinic.")}
+                href={whatsappLink(
+                  "Hola, quisiera agendar mi consulta inicial en Aurum Nova Wellness Clinic.",
+                )}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 shadow-md hover:shadow-lg"
@@ -101,7 +104,8 @@ export default function HeroSection() {
             </motion.div>
 
             <p className="mt-4 text-xs text-[#9A9A9A]">
-              * Todos los programas requieren evaluación médica previa. No todos los pacientes califican.
+              * Todos los programas requieren evaluación médica previa. No todos
+              los pacientes califican.
             </p>
           </motion.div>
 
@@ -113,17 +117,17 @@ export default function HeroSection() {
             className="relative"
           >
             <div className="relative aspect-[4/5] rounded-3xl overflow-hidden bg-gradient-to-br from-[#EDE8DC] to-[#D8D0C0] flex items-center justify-center">
-              {/* Placeholder visual — replace with actual clinic photo */}
+              {/* Editorial fallback visual */}
               <div className="absolute inset-0 bg-gradient-to-br from-[#EDE8DC] via-[#E5DDD0] to-[#D4C9B0]" />
               <div className="relative z-10 text-center p-8">
                 <div className="w-24 h-24 rounded-full gold-gradient mx-auto mb-6 flex items-center justify-center">
                   <span className="text-3xl text-white font-bold">AN</span>
                 </div>
                 <p className="text-[#6B6B6B] text-sm font-medium">
-                  Foto de clínica próximamente
+                  Aurum Nova Wellness Clinic
                 </p>
                 <p className="text-[#9A9A9A] text-xs mt-1">
-                  Arecibo Medical Plaza, Suite 201
+                  Ruta clínica inicial · Arecibo Medical Plaza
                 </p>
               </div>
 
@@ -138,7 +142,9 @@ export default function HeroSection() {
                   Programas
                 </p>
                 <p className="text-2xl font-bold text-[#1A1A1A]">9+</p>
-                <p className="text-xs text-[#C9A84C] font-medium">Especializados</p>
+                <p className="text-xs text-[#C9A84C] font-medium">
+                  Especializados
+                </p>
               </motion.div>
 
               <motion.div
@@ -150,8 +156,12 @@ export default function HeroSection() {
                 <p className="text-xs text-[#9A9A9A] font-medium uppercase tracking-wider mb-1">
                   Enfoque
                 </p>
-                <p className="text-sm font-bold text-[#1A1A1A] leading-tight">Medicina de Precisión</p>
-                <p className="text-xs text-[#C9A84C] font-medium mt-0.5">Supervisión médica</p>
+                <p className="text-sm font-bold text-[#1A1A1A] leading-tight">
+                  Medicina de Precisión
+                </p>
+                <p className="text-xs text-[#C9A84C] font-medium mt-0.5">
+                  Supervisión médica
+                </p>
               </motion.div>
             </div>
 

@@ -98,11 +98,11 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply overflow-x-hidden bg-background text-foreground antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
   html {
-    @apply font-sans scroll-smooth;
+    @apply overflow-x-hidden font-sans scroll-smooth;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply tracking-tight;
