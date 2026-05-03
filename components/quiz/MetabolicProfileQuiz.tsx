@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -8,13 +9,28 @@ import {
   CheckCircle2,
   ShieldCheck,
   AlertCircle,
-  XCircle,
-  AlertTriangle,
   Check,
   ChevronRight,
+  ClipboardList,
+  CalendarCheck,
+  MessageCircle,
 } from "lucide-react";
 import { whatsappLink } from "@/content/site";
-import { trackQuizStarted, trackQuizCompleted } from "@/lib/tracking";
+import {
+  CGM_ADDON_NOTE,
+  GENERAL_PROTOCOL_PRICING_DISCLAIMER,
+  getSuggestedProtocol,
+  metabolicProtocols,
+  type MetabolicProtocol,
+  type SuggestedProtocolResult,
+} from "@/content/metabolic-protocols";
+import {
+  trackAppointmentClick,
+  trackEvent,
+  trackQuizStarted,
+  trackQuizCompleted,
+  trackWhatsAppClick,
+} from "@/lib/tracking";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -110,9 +126,9 @@ const HAPPENS_OPTS = [
   { v: "no_follow", l: "Nunca he tenido seguimiento profesional" },
 ];
 const PREV_MED_OPTS = [
-  { v: "tirzepatide", l: "Sí, tirzepatida" },
-  { v: "semaglutide", l: "Sí, semaglutida" },
-  { v: "liraglutide", l: "Sí, liraglutida" },
+  { v: "metabolic_injection", l: "Sí, terapia metabólica inyectable" },
+  { v: "oral_weight_med", l: "Sí, medicamento oral para bajar de peso" },
+  { v: "wellness_peptide", l: "Sí, péptido o terapia wellness" },
   { v: "other_med", l: "Sí, otro medicamento para bajar de peso" },
   { v: "none", l: "No, nunca" },
   { v: "not_sure", l: "No estoy seguro/a" },
@@ -409,43 +425,6 @@ function computeResult(a: Answers) {
   };
 }
 
-// ─── Result config ────────────────────────────────────────────────────────────
-
-const RESULT_CFG = {
-  A: {
-    label: "Candidato fuerte",
-    color: "#C9A84C",
-    Icon: CheckCircle2,
-    title: "Tu perfil sugiere que podrías ser un candidato sólido",
-    description: "Un BMI ≥ 30, o ≥ 27 con condición metabólica asociada, sin contraindicaciones absolutas. Una evaluación clínica puede confirmar elegibilidad y definir tu protocolo.",
-    recommendation: "Programa Metabólico Integral con evaluación médica completa.",
-  },
-  B: {
-    label: "Candidato posible con evaluación",
-    color: "#7B9AB5",
-    Icon: AlertCircle,
-    title: "Una evaluación individualizada puede orientarte",
-    description: "Tu perfil presenta factores que requieren valoración clínica para determinar opciones disponibles, seguridad y plan apropiado.",
-    recommendation: "Evaluación médica inicial para determinar elegibilidad y opciones.",
-  },
-  C: {
-    label: "Requiere revisión médica primero",
-    color: "#E8934C",
-    Icon: AlertTriangle,
-    title: "Tu caso necesita valoración médica antes de iniciar",
-    description: "Algunas condiciones o medicamentos en tu perfil requieren revisión médica previa para determinar si es seguro proceder y en qué condiciones.",
-    recommendation: "Consulta médica obligatoria. El médico determina si y cómo puede proceder.",
-  },
-  D: {
-    label: "No recomendado actualmente",
-    color: "#D64545",
-    Icon: XCircle,
-    title: "Este programa no es apropiado para tu perfil actual",
-    description: "Tu perfil incluye contraindicaciones para este tipo de terapias. Te recomendamos hablar con tu médico de cabecera sobre las alternativas más seguras.",
-    recommendation: "Consulta con tu médico sobre alternativas apropiadas para tu situación.",
-  },
-};
-
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
 function OptionCard({
@@ -526,27 +505,144 @@ function StepHeading({ children }: { children: React.ReactNode }) {
   );
 }
 
-// ─── WhatsApp message ─────────────────────────────────────────────────────────
+type QuizResult = NonNullable<ReturnType<typeof computeResult>>;
+type OptionItem = { v: string; l: string };
 
-function buildWAMsg(a: Answers, r: ReturnType<typeof computeResult>): string {
-  const resultLabel = RESULT_CFG[r.category].label;
-  const bmiText = r.bmi ? `${r.bmi} — ${r.bmiInfo?.label}` : "No disponible";
+function getOptionLabel(options: OptionItem[], value?: string, fallback = "No especificado") {
+  if (!value) return fallback;
+  return options.find((option) => option.v === value)?.l ?? fallback;
+}
+
+function getNutritionSummary(a: Answers) {
+  if (!a.eatingHabits && !a.dailyProtein) return "No especificado";
+  if (["structured", "healthy_no_loss"].includes(a.eatingHabits)) {
+    return "Estructura presente, se interpreta en evaluación";
+  }
+  if (["no_structure", "skip_binge", "eat_out", "carbs_sugar"].includes(a.eatingHabits)) {
+    return "Podría beneficiarse de más estructura";
+  }
+  if (["dont_know", "very_little", "1meal"].includes(a.dailyProtein)) {
+    return "Proteína y estructura por revisar";
+  }
+  return getOptionLabel(EATING_OPTS, a.eatingHabits, "Se revisa en evaluación");
+}
+
+function getActivitySummary(a: Answers) {
+  return getOptionLabel(ACTIVITY_OPTS, a.currentActivity, "Se revisa en evaluación");
+}
+
+function getToleranceSummary(result: QuizResult) {
+  if (result.tolerance === "high") return "Historial de tolerancia favorable";
+  if (result.tolerance === "cautious") return "Requiere vigilancia de tolerancia";
+  return "Sin historial previo";
+}
+
+function getSafetySummary(result: QuizResult, suggestion: SuggestedProtocolResult) {
+  if (suggestion.hasMajorCaution) return "Revisión clínica primero";
+  if (result.category === "C" || result.category === "D") return "Requiere evaluación individual";
+  return "Sujeto a evaluación clínica";
+}
+
+function getWeightReference(result: QuizResult) {
+  if (result.weightLb <= 0) return "Pendiente de evaluación clínica";
+  return `Referencia 5-10%: ${result.targets.p5}-${result.targets.p10} lb`;
+}
+
+function buildProtocolWAMsg(result: QuizResult, suggestion: SuggestedProtocolResult): string {
+  const protocolLabel =
+    suggestion.id === "clinical_review_first"
+      ? "Evaluación clínica individualizada primero"
+      : suggestion.protocol?.name ?? "Protocolo por confirmar";
   const lines = [
-    "Hola, completé el Quiz de Perfil Metabólico de Aurum Nova.",
-    "",
-    `📊 *RESULTADO: ${resultLabel.toUpperCase()}*`,
-    `IMC: ${bmiText}`,
-    r.weightLb > 0 && `Peso actual: ${r.weightLb} lb`,
-    "",
-    "📋 *MI PERFIL*",
-    a.ageGroup && `Grupo de edad: ${a.ageGroup}`,
-    a.sex === "female" ? "Sexo: Femenino" : a.sex === "male" ? "Sexo: Masculino" : "",
-    a.mainGoal && `Meta: ${GOAL_OPTS.find((o) => o.v === a.mainGoal)?.l ?? ""}`,
-    "",
-    "⚠️ Entiendo que este quiz es orientativo y no sustituye evaluación médica.",
-    "Quiero saber más sobre el Programa Metabólico Integral de Aurum Nova.",
+    "Hola, completé el quiz metabólico de Aurum Nova.",
+    "Me gustaría orientación sobre el protocolo sugerido y agendar evaluación.",
+    `Protocolo sugerido para discutir: ${protocolLabel}.`,
+    result.bmiInfo?.label && `Categoría de IMC: ${result.bmiInfo.label}.`,
+    suggestion.mainNeed && `Necesidad principal: ${suggestion.mainNeed}.`,
   ];
+
   return lines.filter(Boolean).join("\n");
+}
+
+function SummaryTile({
+  label,
+  value,
+  helper,
+}: {
+  label: string;
+  value: string;
+  helper?: string;
+}) {
+  return (
+    <div className="rounded-2xl border border-[#E8E4DA] bg-white p-4">
+      <p className="text-[10px] font-bold uppercase tracking-widest text-[#9A9A9A] mb-1.5">
+        {label}
+      </p>
+      <p className="text-sm font-semibold leading-snug text-[#1A1A1A]">{value}</p>
+      {helper && <p className="mt-1 text-[11px] leading-relaxed text-[#6B6B6B]">{helper}</p>}
+    </div>
+  );
+}
+
+function ProtocolComparisonCard({
+  protocol,
+  isSuggested,
+}: {
+  protocol: MetabolicProtocol;
+  isSuggested: boolean;
+}) {
+  return (
+    <div
+      className={`relative flex h-full flex-col rounded-2xl border p-5 transition-colors ${
+        isSuggested
+          ? "border-[#C9A84C]/60 bg-[#C9A84C]/5"
+          : "border-[#E8E4DA] bg-white"
+      }`}
+    >
+      {isSuggested && (
+        <span className="mb-3 inline-flex w-fit rounded-full bg-[#C9A84C] px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white">
+          Protocolo sugerido
+        </span>
+      )}
+      <div className="mb-4">
+        <h5 className="text-base font-semibold text-[#1A1A1A]">{protocol.name}</h5>
+        <p className="mt-1 text-xs text-[#6B6B6B]">{protocol.duration}</p>
+        <p className="mt-3 text-sm font-semibold text-[#C9A84C]">{protocol.priceLabel}</p>
+        {protocol.valueContext?.[0] && protocol.savingsLabel && (
+          <p className="mt-1 text-[11px] leading-relaxed text-[#6B6B6B]">
+            {protocol.valueContext[0]} · {protocol.savingsLabel}
+          </p>
+        )}
+      </div>
+
+      <div className="mb-4 rounded-xl bg-[#FAF8F4] p-3">
+        <p className="text-[10px] font-bold uppercase tracking-widest text-[#9A9A9A] mb-1">
+          Ideal para
+        </p>
+        <p className="text-xs leading-relaxed text-[#3D3D3D]">
+          {protocol.bestFor.slice(0, 2).join(" · ")}
+        </p>
+      </div>
+
+      <ul className="mb-5 space-y-2">
+        {protocol.includes.slice(0, 5).map((item) => (
+          <li key={item} className="flex items-start gap-2 text-xs leading-relaxed text-[#3D3D3D]">
+            <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#C9A84C]" />
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+
+      <Link
+        href="/agendar-evaluacion"
+        onClick={() => trackAppointmentClick(`quiz_protocol_${protocol.id}`)}
+        className="mt-auto inline-flex items-center justify-center gap-2 rounded-full border border-[#E8E4DA] px-4 py-2.5 text-xs font-semibold text-[#1A1A1A] transition-colors hover:border-[#C9A84C] hover:text-[#C9A84C]"
+      >
+        Discutir en evaluación
+        <ArrowRight className="h-3.5 w-3.5" />
+      </Link>
+    </div>
+  );
 }
 
 // ─── Animation variants ───────────────────────────────────────────────────────
@@ -561,6 +657,7 @@ export default function MetabolicProfileQuiz() {
   const [dir, setDir] = useState(1);
   const [a, setA] = useState<Answers>(INIT);
   const [result, setResult] = useState<ReturnType<typeof computeResult> | null>(null);
+  const [suggestion, setSuggestion] = useState<SuggestedProtocolResult | null>(null);
   const [stepError, setStepError] = useState("");
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -590,8 +687,29 @@ export default function MetabolicProfileQuiz() {
     }
     if (screen === 8) {
       const r = computeResult(a);
+      const protocolSuggestion = getSuggestedProtocol({
+        ageGroup: a.ageGroup,
+        bmi: r.bmi,
+        bmiCategory: r.bmiInfo?.label,
+        mainGoal: a.mainGoal,
+        timeAttempting: a.timeAttempting,
+        whatHappens: a.whatHappens,
+        eatingHabits: a.eatingHabits,
+        foodChallenge: a.foodChallenge,
+        dailyProtein: a.dailyProtein,
+        currentActivity: a.currentActivity,
+        lifestyle: r.lifestyle,
+        hydrationHigh: r.hydrationHigh,
+        tolerance: r.tolerance,
+        metabolicConditions: a.metabolicConditions,
+        currentMedications: a.currentMedications,
+        safetyConditions: a.safetyConditions,
+        priorities: r.priorities,
+      });
       setResult(r);
+      setSuggestion(protocolSuggestion);
       trackQuizCompleted(r?.category);
+      trackEvent("ProtocolSuggested", { protocol: protocolSuggestion.id });
       goTo(9);
     } else {
       goTo(screen + 1);
@@ -601,12 +719,14 @@ export default function MetabolicProfileQuiz() {
   function restart() {
     setA(INIT);
     setResult(null);
+    setSuggestion(null);
     setStepError("");
     goTo(0);
   }
 
   const showPrevExp = a.prevMedication && !["none", "not_sure"].includes(a.prevMedication);
   const showFastingSx = a.fastingPractice && !["never", "not_sure_f", "tried_failed"].includes(a.fastingPractice);
+  const resultWhatsappMessage = result && suggestion ? buildProtocolWAMsg(result, suggestion) : "";
 
   return (
     <section className="section-padding bg-[#0E0E0E]" id="quiz-metabolico">
@@ -631,9 +751,9 @@ export default function MetabolicProfileQuiz() {
         </motion.div>
 
         {/* Quiz card */}
-        <div className="max-w-2xl mx-auto" ref={cardRef}>
+        <div className={`${screen === 9 ? "max-w-5xl" : "max-w-2xl"} mx-auto`} ref={cardRef}>
           <div
-            className="bg-white rounded-3xl shadow-2xl overflow-hidden"
+            className={`${screen === 9 ? "bg-[#FAF8F4]" : "bg-white"} rounded-3xl shadow-2xl overflow-hidden`}
           >
             {/* Progress header (steps 1-8) */}
             {screen >= 1 && screen <= 8 && (
@@ -667,8 +787,8 @@ export default function MetabolicProfileQuiz() {
                         Descubre tu Perfil Metabólico
                       </h3>
                       <p className="text-sm text-[#6B6B6B] leading-relaxed max-w-md mx-auto">
-                        Completa este quiz clínico de 2–3 minutos para conocer si podrías ser
-                        candidato a nuestro programa de control de peso.
+                        Completa este quiz clínico de 2–3 minutos para organizar tu punto
+                        de partida antes de una evaluación clínica.
                       </p>
                     </div>
 
@@ -1061,199 +1181,269 @@ export default function MetabolicProfileQuiz() {
                 )}
 
                 {/* ── RESULT ── */}
-                {screen === 9 && result && (
-                  <div className="px-6 py-6 sm:px-8 space-y-5">
-                    {/* Result header */}
-                    <div className="text-center pb-2">
-                      <p className="text-[11px] font-bold uppercase tracking-widest text-[#C9A84C] mb-2">
-                        Tu Perfil Metabólico está listo
-                      </p>
-                      <h3 className="text-lg font-semibold text-[#1A1A1A] mb-1">
-                        {RESULT_CFG[result.category].title}
-                      </h3>
+                {screen === 9 && result && suggestion && (
+                  <div className="space-y-6 px-4 py-5 sm:px-8 sm:py-8">
+                    {/* Section 1: completion header */}
+                    <div className="rounded-3xl border border-[#E8E4DA] bg-white p-6 sm:p-8">
+                      <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
+                        <div className="max-w-2xl">
+                          <p className="mb-3 text-[11px] font-bold uppercase tracking-widest text-[#C9A84C]">
+                            Perfil metabólico inicial
+                          </p>
+                          <h3 className="text-2xl font-semibold leading-tight text-[#1A1A1A] sm:text-3xl">
+                            Tu perfil inicial ya está listo
+                          </h3>
+                          <p className="mt-3 text-sm leading-relaxed text-[#6B6B6B] sm:text-base">
+                            Completaste una primera orientación sobre peso, hábitos, metas y
+                            seguridad clínica. Este resultado no sustituye una evaluación médica,
+                            pero te ayuda a llegar a tu consulta con mayor claridad.
+                          </p>
+                        </div>
+                        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#C9A84C]/10 text-[#C9A84C]">
+                          <ClipboardList className="h-7 w-7" />
+                        </div>
+                      </div>
                     </div>
 
-                    {/* Category badge */}
-                    {(() => {
-                      const cfg = RESULT_CFG[result.category];
-                      const Icon = cfg.Icon;
-                      return (
-                        <div
-                          className="rounded-2xl border-2 p-5"
-                          style={{ borderColor: cfg.color, backgroundColor: `${cfg.color}0D` }}
-                        >
-                          <div className="flex items-start gap-4">
-                            <div
-                              className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-                              style={{ backgroundColor: `${cfg.color}20` }}
-                            >
-                              <Icon className="w-5 h-5" style={{ color: cfg.color }} />
-                            </div>
-                            <div>
-                              <p className="text-xs font-bold uppercase tracking-wider mb-1" style={{ color: cfg.color }}>
-                                {cfg.label}
-                              </p>
-                              <p className="text-sm text-[#3D3D3D] leading-relaxed">{cfg.description}</p>
-                              <p className="text-xs font-semibold text-[#1A1A1A] mt-2">
-                                Recomendación: <span className="font-normal text-[#6B6B6B]">{cfg.recommendation}</span>
-                              </p>
-                            </div>
-                          </div>
+                    {/* Section 2: profile summary */}
+                    <section className="rounded-3xl border border-[#E8E4DA] bg-[#FDFCF9] p-5 sm:p-6">
+                      <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                        <div>
+                          <p className="text-[11px] font-bold uppercase tracking-widest text-[#C9A84C]">
+                            Resumen de tu perfil
+                          </p>
+                          <h4 className="mt-1 text-xl font-semibold text-[#1A1A1A]">
+                            Lo que tus respuestas sugieren inicialmente
+                          </h4>
                         </div>
-                      );
-                    })()}
-
-                    {/* BMI card */}
-                    {result.bmi && result.bmiInfo && (
-                      <div className="bg-[#FAF8F4] border border-[#E8E4DA] rounded-2xl p-4">
-                        <p className="text-[11px] font-bold uppercase tracking-widest text-[#9A9A9A] mb-3">
-                          Índice de Masa Corporal
+                        <p className="text-xs text-[#6B6B6B]">
+                          Resultados orientativos, sujetos a evaluación clínica.
                         </p>
-                        <div className="flex items-end justify-between mb-2">
-                          <div>
-                            <span className="text-3xl font-bold" style={{ color: result.bmiInfo.color }}>
-                              {result.bmi}
-                            </span>
-                            <span className="text-sm text-[#9A9A9A] ml-1.5">IMC</span>
-                          </div>
-                          <span
-                            className="text-sm font-semibold px-3 py-1 rounded-full"
-                            style={{ color: result.bmiInfo.color, backgroundColor: `${result.bmiInfo.color}15` }}
-                          >
-                            {result.bmiInfo.label}
-                          </span>
+                      </div>
+
+                      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                        <SummaryTile
+                          label="IMC"
+                          value={result.bmi ? `${result.bmi}` : "No disponible"}
+                          helper={result.bmiInfo?.label ?? "Se revisa en evaluación"}
+                        />
+                        <SummaryTile
+                          label="Referencia de peso"
+                          value={getWeightReference(result)}
+                          helper="No es una promesa ni una meta automática."
+                        />
+                        <SummaryTile
+                          label="Actividad"
+                          value={getActivitySummary(a)}
+                          helper={`Preparación: ${result.lifestyle}`}
+                        />
+                        <SummaryTile
+                          label="Nutrición"
+                          value={getNutritionSummary(a)}
+                          helper="Se interpreta junto a hábitos, apetito y contexto clínico."
+                        />
+                        <SummaryTile
+                          label="Tolerancia"
+                          value={getToleranceSummary(result)}
+                          helper="Se revisa según historial y seguridad."
+                        />
+                        <SummaryTile
+                          label="Seguridad"
+                          value={getSafetySummary(result, suggestion)}
+                          helper="No determina candidatura ni aprobación."
+                        />
+                        <SummaryTile
+                          label="Necesidad principal"
+                          value={suggestion.mainNeed}
+                          helper="Punto de conversación para la consulta."
+                        />
+                        <SummaryTile
+                          label="Seguimiento sugerido"
+                          value={suggestion.followUpIntensity}
+                          helper="Se confirma durante evaluación clínica."
+                        />
+                      </div>
+                    </section>
+
+                    {/* Section 3: suggested protocol */}
+                    <section
+                      className={`rounded-3xl border p-5 sm:p-6 ${
+                        suggestion.id === "clinical_review_first"
+                          ? "border-[#E8934C]/40 bg-[#FFF8EF]"
+                          : "border-[#C9A84C]/50 bg-white"
+                      }`}
+                    >
+                      <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
+                        <div>
+                          <p className="text-[11px] font-bold uppercase tracking-widest text-[#C9A84C]">
+                            Protocolo sugerido para discutir en evaluación
+                          </p>
+                          <h4 className="mt-2 text-2xl font-semibold text-[#1A1A1A]">
+                            {suggestion.title}
+                          </h4>
+                          <p className="mt-3 text-sm leading-relaxed text-[#6B6B6B]">
+                            {suggestion.id === "clinical_review_first"
+                              ? "Tus respuestas incluyen factores que requieren revisión clínica antes de sugerir un protocolo. Podemos orientarte, revisar tu historial y determinar si alguno de los protocolos es apropiado para ti."
+                              : "Según tus respuestas, este protocolo podría ser el punto de partida más adecuado para discutir durante tu evaluación clínica."}
+                          </p>
+
+                          {suggestion.id === "clinical_review_first" ? (
+                            <Link
+                              href="/agendar-evaluacion"
+                              onClick={() => trackAppointmentClick("quiz_clinical_review_first")}
+                              className="mt-5 inline-flex items-center justify-center gap-2 rounded-full bg-[#1A1A1A] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#C9A84C]"
+                            >
+                              Agendar evaluación clínica
+                              <CalendarCheck className="h-4 w-4" />
+                            </Link>
+                          ) : (
+                            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                              <SummaryTile
+                                label="Duración"
+                                value={suggestion.protocol?.duration ?? "Se confirma en evaluación"}
+                              />
+                              <SummaryTile
+                                label="Inversión"
+                                value={suggestion.protocol?.priceLabel ?? "Se confirma en evaluación"}
+                                helper="Precios sujetos a evaluación clínica."
+                              />
+                            </div>
+                          )}
                         </div>
-                        <div className="h-2.5 bg-gradient-to-r from-[#6B9FD4] via-[#4CAF82] via-[#E8C547] via-[#E8934C] to-[#D64545] rounded-full relative overflow-hidden">
+
+                        <div className="rounded-2xl bg-[#1A1A1A] p-5 text-white">
+                          <p className="text-[11px] font-bold uppercase tracking-widest text-[#C9A84C]">
+                            Importante
+                          </p>
+                          <p className="mt-3 text-sm leading-relaxed text-[#D8D2C7]">
+                            {suggestion.id === "clinical_review_first"
+                              ? "No se sugiere un protocolo comercial primero cuando hay factores que requieren revisión clínica. La elegibilidad se confirma durante evaluación clínica."
+                              : "Este protocolo es una orientación para conversar, no una aprobación. Está sujeto a evaluación clínica, historial, metas, seguridad y criterio clínico."}
+                          </p>
+                        </div>
+                      </div>
+                    </section>
+
+                    {/* Section 4: why this protocol */}
+                    <section className="rounded-3xl border border-[#E8E4DA] bg-white p-5 sm:p-6">
+                      <p className="text-[11px] font-bold uppercase tracking-widest text-[#C9A84C]">
+                        ¿Por qué este protocolo?
+                      </p>
+                      <div className="mt-4 grid gap-3 md:grid-cols-2">
+                        {suggestion.reasons.map((reason) => (
                           <div
-                            className="absolute top-0 h-full w-0.5 bg-white rounded-full shadow-sm"
-                            style={{ left: `${result.bmiInfo.pct}%` }}
-                          />
-                        </div>
-                        <div className="flex justify-between mt-1">
-                          <span className="text-[10px] text-[#9A9A9A]">10</span>
-                          <span className="text-[10px] text-[#9A9A9A]">25</span>
-                          <span className="text-[10px] text-[#9A9A9A]">30</span>
-                          <span className="text-[10px] text-[#9A9A9A]">40+</span>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Weight targets */}
-                    {result.weightLb > 0 && (
-                      <div>
-                        <p className="text-[11px] font-bold uppercase tracking-widest text-[#9A9A9A] mb-3">
-                          Metas de referencia educativas
-                        </p>
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                          {([
-                            { pct: 5, loss: result.targets.p5, proj: result.targets.w5 },
-                            { pct: 10, loss: result.targets.p10, proj: result.targets.w10 },
-                            { pct: 15, loss: result.targets.p15, proj: result.targets.w15 },
-                            { pct: 20, loss: result.targets.p20, proj: result.targets.w20 },
-                          ] as const).map((t) => (
-                            <motion.div
-                              key={t.pct}
-                              initial={{ opacity: 0, y: 8 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: t.pct / 100 }}
-                              className="bg-white border border-[#E8E4DA] rounded-xl p-3 text-center"
-                            >
-                              <p className="text-[10px] font-bold text-[#C9A84C] mb-1">Meta {t.pct}%</p>
-                              <p className="text-base font-bold text-[#1A1A1A]">−{t.loss} lb</p>
-                              <p className="text-[10px] text-[#9A9A9A] mt-0.5">{t.proj} lb</p>
-                            </motion.div>
-                          ))}
-                        </div>
-                        <p className="text-[10px] text-[#9A9A9A] mt-2 leading-relaxed">
-                          Estos rangos son referencias educativas y no garantizan resultados. Los resultados reales dependen del perfil clínico y supervisión médica.
-                        </p>
-                      </div>
-                    )}
-
-                    {/* Indicators row */}
-                    <div className="grid grid-cols-3 gap-3">
-                      {[
-                        {
-                          label: "Tolerancia previa",
-                          value: result.tolerance === "high" ? "Alta" : result.tolerance === "cautious" ? "Cautelosa" : "Sin historial",
-                          color: result.tolerance === "high" ? "#4CAF82" : result.tolerance === "cautious" ? "#E8934C" : "#9A9A9A",
-                        },
-                        {
-                          label: "Hidratación",
-                          value: result.hydrationHigh ? "Prioritaria" : "Adecuada",
-                          color: result.hydrationHigh ? "#E8934C" : "#4CAF82",
-                        },
-                        {
-                          label: "Readiness",
-                          value: result.lifestyle,
-                          color: result.lifestyle === "Alta" ? "#4CAF82" : result.lifestyle === "Moderada" ? "#E8C547" : "#E8934C",
-                        },
-                      ].map((ind) => (
-                        <div key={ind.label} className="bg-[#FAF8F4] border border-[#E8E4DA] rounded-xl p-3 text-center">
-                          <p className="text-[9px] font-bold uppercase tracking-wider text-[#9A9A9A] mb-1">{ind.label}</p>
-                          <p className="text-sm font-bold" style={{ color: ind.color }}>{ind.value}</p>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Priorities */}
-                    <div>
-                      <p className="text-[11px] font-bold uppercase tracking-widest text-[#9A9A9A] mb-3">
-                        Prioridades iniciales personalizadas
-                      </p>
-                      <div className="space-y-2">
-                        {result.priorities.map((p, i) => (
-                          <motion.div
-                            key={i}
-                            initial={{ opacity: 0, x: -8 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: i * 0.08 }}
-                            className="flex items-center gap-3 bg-white border border-[#E8E4DA] rounded-xl px-4 py-3"
+                            key={reason}
+                            className="flex items-start gap-3 rounded-2xl border border-[#E8E4DA] bg-[#FAF8F4] p-4"
                           >
-                            <ChevronRight className="w-4 h-4 text-[#C9A84C] shrink-0" />
-                            <span className="text-sm text-[#3D3D3D]">{p}</span>
-                          </motion.div>
+                            <ChevronRight className="mt-0.5 h-4 w-4 shrink-0 text-[#C9A84C]" />
+                            <p className="text-sm leading-relaxed text-[#3D3D3D]">{reason}</p>
+                          </div>
                         ))}
                       </div>
-                    </div>
+                    </section>
 
-                    {/* CTAs */}
-                    <div className="bg-[#1A1A1A] rounded-2xl p-5 space-y-3">
-                      <p className="text-sm font-semibold text-white">¿Quieres hablar con nuestro equipo?</p>
-                      <p className="text-xs text-[#9A9A9A] leading-relaxed">
-                        La elegibilidad final se determina solo con evaluación médica presencial.
-                      </p>
-                      <a
-                        href={whatsappLink(buildWAMsg(a, result))}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-2 w-full bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold py-3.5 rounded-2xl text-sm transition-all duration-200 shadow-lg shadow-[#C9A84C]/20"
-                      >
-                        Agendar evaluación médica
-                        <ArrowRight className="w-4 h-4" />
-                      </a>
-                      <a
-                        href={whatsappLink(buildWAMsg(a, result))}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-2 w-full bg-transparent border border-[#2D2D2D] hover:border-[#C9A84C]/40 text-[#9A9A9A] hover:text-white font-medium py-3 rounded-2xl text-sm transition-all duration-200"
-                      >
-                        Enviar mi resultado por WhatsApp
-                      </a>
-                    </div>
+                    {/* Section 5: protocol comparison */}
+                    <section>
+                      <div className="mb-4">
+                        <p className="text-[11px] font-bold uppercase tracking-widest text-[#C9A84C]">
+                          Compara tus opciones
+                        </p>
+                        <h4 className="mt-1 text-xl font-semibold text-[#1A1A1A]">
+                          Protocolos disponibles para discutir
+                        </h4>
+                      </div>
+                      <div className="grid gap-4 lg:grid-cols-3">
+                        {metabolicProtocols.map((protocol) => (
+                          <ProtocolComparisonCard
+                            key={protocol.id}
+                            protocol={protocol}
+                            isSuggested={suggestion.id === protocol.id}
+                          />
+                        ))}
+                      </div>
+                      <div className="mt-4 rounded-2xl border border-[#E8E4DA] bg-white p-4">
+                        <p className="text-xs leading-relaxed text-[#6B6B6B]">
+                          {GENERAL_PROTOCOL_PRICING_DISCLAIMER}
+                        </p>
+                      </div>
+                    </section>
 
-                    {/* Disclaimer */}
-                    <div className="flex items-start gap-3 bg-[#FAF8F4] border border-[#E8E4DA] rounded-xl p-4">
-                      <ShieldCheck className="w-4 h-4 text-[#C9A84C] shrink-0 mt-0.5" />
-                      <p className="text-[11px] text-[#6B6B6B] leading-relaxed">
-                        Este quiz no sustituye una evaluación médica, diagnóstico ni tratamiento. Los resultados son una orientación inicial basada en tus respuestas. La elegibilidad final para cualquier terapia médica requiere evaluación clínica, revisión de historial, medicamentos, laboratorios y criterio profesional.
+                    {/* Section 6: CGM note */}
+                    <section className="rounded-3xl border border-[#E8E4DA] bg-white p-5 sm:p-6">
+                      <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#C9A84C]/10 text-[#C9A84C]">
+                          <ShieldCheck className="h-5 w-5" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-[#1A1A1A]">
+                            Nota sobre monitor continuo de glucosa
+                          </p>
+                          <p className="mt-2 text-sm leading-relaxed text-[#6B6B6B]">
+                            {CGM_ADDON_NOTE}
+                          </p>
+                          <p className="mt-2 text-sm leading-relaxed text-[#6B6B6B]">
+                            En el Protocolo Integral, el monitor continuo de glucosa está incluido
+                            durante el programa. Su uso se discute según historial, metas,
+                            seguridad y criterio clínico.
+                          </p>
+                        </div>
+                      </div>
+                    </section>
+
+                    {/* Section 7: next step */}
+                    <section className="rounded-3xl bg-[#1A1A1A] p-6 sm:p-8">
+                      <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+                        <div>
+                          <p className="text-[11px] font-bold uppercase tracking-widest text-[#C9A84C]">
+                            Tu próximo paso
+                          </p>
+                          <h4 className="mt-2 text-2xl font-semibold text-white">
+                            Agenda tu evaluación inicial
+                          </h4>
+                          <p className="mt-3 text-sm leading-relaxed text-[#D8D2C7]">
+                            Agenda una evaluación para revisar tu historial, laboratorios, metas
+                            y seguridad clínica. En la consulta confirmamos si cualificas y cuál
+                            protocolo hace más sentido para ti.
+                          </p>
+                        </div>
+                        <div className="space-y-3">
+                          <Link
+                            href="/agendar-evaluacion"
+                            onClick={() => trackAppointmentClick("quiz_result_primary")}
+                            className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[#C9A84C] px-5 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#C9A84C]/20 transition-colors hover:bg-[#A8872E]"
+                          >
+                            Agendar evaluación inicial
+                            <CalendarCheck className="h-4 w-4" />
+                          </Link>
+                          <a
+                            href={whatsappLink(resultWhatsappMessage)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={() => trackWhatsAppClick("quiz_result_protocol_summary")}
+                            className="flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 px-5 py-3 text-sm font-semibold text-[#D8D2C7] transition-colors hover:border-[#C9A84C]/50 hover:text-white"
+                          >
+                            Enviar resultado por WhatsApp
+                            <MessageCircle className="h-4 w-4" />
+                          </a>
+                        </div>
+                      </div>
+                    </section>
+
+                    {/* Section 8: disclaimer */}
+                    <div className="flex items-start gap-3 rounded-2xl border border-[#E8E4DA] bg-white p-4">
+                      <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#C9A84C]" />
+                      <p className="text-xs leading-relaxed text-[#6B6B6B]">
+                        Este resultado es educativo y orientativo. No diagnostica, no prescribe,
+                        no determina candidatura y no sustituye una evaluación clínica. No todos
+                        los pacientes cualifican para terapia metabólica semanal. Los resultados
+                        pueden variar.
                       </p>
                     </div>
 
                     <button
                       type="button"
                       onClick={restart}
-                      className="w-full text-xs text-[#9A9A9A] hover:text-[#C9A84C] transition-colors py-2"
+                      className="w-full py-2 text-xs text-[#9A9A9A] transition-colors hover:text-[#C9A84C]"
                     >
                       Reiniciar quiz
                     </button>
