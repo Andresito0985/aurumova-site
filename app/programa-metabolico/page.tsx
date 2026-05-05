@@ -95,12 +95,12 @@ export default function ProgramaMetabolicoPage() {
   return (
     <>
       <MetabolicHero />
+      <MetabolicPricing />
       <MetabolicProfileQuiz />
       <MetabolicCalculatorLinks />
       <MetabolicWhatIs />
       <MetabolicWho />
       <MetabolicIncludes />
-      <MetabolicPricing />
       <MetabolicProgressCalculator />
       <MetabolicDashboard />
       <MetabolicSafety />

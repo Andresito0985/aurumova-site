@@ -50,9 +50,9 @@ export default function HomePage() {
   return (
     <>
       <HomeHero />
+      <FeaturedPrograma />
       <HomeJourney />
       <StatsSection />
-      <FeaturedPrograma />
       <HomeQuizCTA />
       <HomeCalculatorBridge />
       <HomeWellnessGrid />

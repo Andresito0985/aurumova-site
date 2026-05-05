@@ -46,6 +46,21 @@ npm run start
 
 No environment variables are required for core functionality — all lead capture routes to WhatsApp and no backend is needed.
 
+### Site lock / maintenance mode
+
+The public website can be temporarily replaced with a polished Aurum Nova lock screen using a free build-time environment variable.
+
+To lock the site:
+1. In Vercel, open Project → Settings → Environment Variables.
+2. Add `NEXT_PUBLIC_SITE_LOCKED=true` for Production.
+3. Redeploy the Production deployment.
+
+To unlock the site:
+1. Set `NEXT_PUBLIC_SITE_LOCKED=false` or remove the variable.
+2. Redeploy the Production deployment.
+
+When `NEXT_PUBLIC_SITE_LOCKED=true`, the root layout renders only `components/SiteLockScreen.tsx` while preserving global styles, metadata, JSON-LD, and analytics scripts. When the value is anything else, the normal website renders.
+
 ### Analytics environment variables
 
 The site loads GA4 and Meta Pixel automatically when these public env vars are set. If neither is set, no analytics scripts are emitted and the tracking helper in `lib/tracking.ts` no-ops safely.

@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import PageHero from "@/components/sections/PageHero";
 import GeneralLeadForm from "@/components/forms/GeneralLeadForm";
-import { CheckCircle2, Clock, ClipboardList, MessageCircle } from "lucide-react";
+import { CheckCircle2, Clock, ClipboardList, MapPin, MessageCircle, Phone } from "lucide-react";
+import { callLink, siteConfig, whatsappLink } from "@/content/site";
 
 // Lazy-load the heavy calculator — it is well below the fold
 const MetabolicProgressCalculator = dynamic(
@@ -65,6 +66,46 @@ export default function AgendarEvaluacionPage() {
         ctaMessage="Hola, quisiera agendar mi evaluación médica inicial en Aurum Nova Wellness Clinic. ¿Cuál es la disponibilidad?"
         disclaimer="La evaluación es el primer paso, no el compromiso final. Puedes decidir después de conocer tus opciones."
       />
+
+      <section className="bg-[#FAF8F4] px-4 py-8 sm:px-6 lg:px-8">
+        <div className="container-max">
+          <div className="rounded-3xl border border-[#E8E4DA] bg-white p-5 shadow-sm sm:p-6">
+            <div className="grid gap-3 sm:grid-cols-3">
+              <a
+                href={whatsappLink("Hola, quisiera agendar mi evaluación médica inicial en Aurum Nova Wellness Clinic. ¿Cuál es la disponibilidad?")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#A8872E]"
+              >
+                <MessageCircle className="h-4 w-4" />
+                Agendar por WhatsApp
+              </a>
+              <a
+                href={callLink()}
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[#E8E4DA] px-5 py-3 text-sm font-semibold text-[#1A1A1A] transition-colors hover:border-[#C9A84C] hover:text-[#A8872E]"
+              >
+                <Phone className="h-4 w-4" />
+                Llamar
+              </a>
+              <a
+                href={siteConfig.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[#E8E4DA] px-5 py-3 text-sm font-semibold text-[#1A1A1A] transition-colors hover:border-[#C9A84C] hover:text-[#A8872E]"
+              >
+                <MapPin className="h-4 w-4" />
+                Ver ubicación
+              </a>
+            </div>
+            <p className="mt-4 text-sm leading-relaxed text-[#6B6B6B]">
+              WhatsApp: {siteConfig.whatsappDisplay} · Llamadas: {siteConfig.callDisplay} solo
+              llamadas
+              <br />
+              Ave. Barbosa 65, Arecibo Medical Plaza, Suite 201
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* What to expect */}
       <section className="section-padding bg-white">

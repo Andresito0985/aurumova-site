@@ -42,7 +42,7 @@ export default function JsonLd() {
     contactPoint: [
       {
         "@type": "ContactPoint",
-        telephone: `+1-${siteConfig.phone}`,
+        telephone: `+${siteConfig.callNumber}`,
         contactType: "customer service",
         areaServed: "PR",
         availableLanguage: ["Spanish", "English"],
@@ -58,7 +58,7 @@ export default function JsonLd() {
     name: siteConfig.name,
     description: siteConfig.description,
     url: siteConfig.url,
-    telephone: `+1-${siteConfig.phone}`,
+    telephone: `+${siteConfig.callNumber}`,
     email: siteConfig.email,
     ...(brandLogoUrl ? { image: brandLogoUrl } : {}),
     priceRange: "$$",
@@ -66,7 +66,7 @@ export default function JsonLd() {
     paymentAccepted: "Cash, Credit Card",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Arecibo Medical Plaza, Suite 201",
+      streetAddress: "Ave. Barbosa 65, Arecibo Medical Plaza, Suite 201",
       addressLocality: "Arecibo",
       addressRegion: "PR",
       postalCode: "00612",
@@ -87,7 +87,7 @@ export default function JsonLd() {
       },
     ],
     sameAs: [siteConfig.instagramUrl],
-    hasMap: `https://maps.google.com/?q=Arecibo+Medical+Plaza+Suite+201+Arecibo+PR`,
+    hasMap: siteConfig.mapsUrl,
     areaServed: {
       "@type": "State",
       name: "Puerto Rico",

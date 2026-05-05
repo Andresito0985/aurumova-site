@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/sections/PageHero";
 import GeneralLeadForm from "@/components/forms/GeneralLeadForm";
-import { MapPin, Phone, Mail, AtSign, Clock, MessageCircle } from "lucide-react";
-import { siteConfig, whatsappLink } from "@/content/site";
+import { MapPin, Phone, Mail, AtSign, MessageCircle } from "lucide-react";
+import { callLink, siteConfig, whatsappLink } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Contacto | Aurum Nova Wellness Clinic",
@@ -42,25 +42,34 @@ export default function ContactoPage() {
       {/* Contact cards */}
       <section className="section-padding bg-white">
         <div className="container-max">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-12">
             {[
               {
                 icon: MessageCircle,
                 title: "WhatsApp",
-                value: siteConfig.phone,
-                detail: "Respuesta rápida",
+                value: siteConfig.whatsappDisplay,
+                detail: "Agenda y orientación",
                 href: whatsappLink("Hola, tengo preguntas sobre Aurum Nova Wellness Clinic."),
                 cta: "Escribir ahora",
                 external: true,
               },
               {
                 icon: Phone,
-                title: "Teléfono",
-                value: siteConfig.phone,
-                detail: "Llamadas directas",
-                href: `tel:${siteConfig.phone}`,
+                title: "Llamadas",
+                value: siteConfig.callDisplay,
+                detail: "Solo llamadas",
+                href: callLink(),
                 cta: "Llamar",
                 external: false,
+              },
+              {
+                icon: MapPin,
+                title: "Ubicación",
+                value: "Arecibo Medical Plaza",
+                detail: "Suite 201",
+                href: siteConfig.mapsUrl,
+                cta: "Ver mapa",
+                external: true,
               },
               {
                 icon: Mail,
@@ -107,16 +116,29 @@ export default function ContactoPage() {
           </div>
 
           {/* Address */}
-          <div className="bg-[#FAF8F4] border border-[#E8E4DA] rounded-2xl p-6 flex items-start gap-4">
+          <div className="bg-[#FAF8F4] border border-[#E8E4DA] rounded-2xl p-6 flex flex-col gap-4 sm:flex-row sm:items-start">
             <div className="w-10 h-10 rounded-xl bg-[#C9A84C]/10 flex items-center justify-center shrink-0">
               <MapPin className="w-5 h-5 text-[#C9A84C]" />
             </div>
-            <div>
+            <div className="flex-1">
               <p className="text-xs font-semibold uppercase tracking-wider text-[#9A9A9A] mb-1">Ubicación</p>
-              <p className="text-sm font-semibold text-[#1A1A1A]">{siteConfig.address}</p>
+              <p className="text-sm font-semibold text-[#1A1A1A]">Aurum Nova Wellness Clinic</p>
+              <p className="mt-1 text-sm leading-relaxed text-[#3D3D3D]">
+                Ave. Barbosa 65, Arecibo Medical Plaza, Suite 201
+                <br />
+                Arecibo, Puerto Rico
+              </p>
               <p className="text-xs text-[#9A9A9A] mt-1">
                 Confirma disponibilidad de cita antes de visitarnos.
               </p>
+              <a
+                href={siteConfig.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex min-h-11 items-center justify-center rounded-full bg-[#C9A84C] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#A8872E]"
+              >
+                Ver ubicación en Google Maps
+              </a>
             </div>
           </div>
         </div>

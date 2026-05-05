@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { MessageCircle, Phone, MapPin } from "lucide-react";
-import { siteConfig, whatsappLink } from "@/content/site";
+import { callLink, siteConfig, whatsappLink } from "@/content/site";
 
 export default function CTASection() {
   return (
@@ -42,11 +42,20 @@ export default function CTASection() {
                 Agendar por WhatsApp
               </motion.a>
               <a
-                href={`tel:${siteConfig.phone}`}
+                href={callLink()}
                 className="inline-flex items-center justify-center gap-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[#C9A84C]/40 text-white font-semibold px-8 py-4 rounded-full text-base transition-all duration-200"
               >
                 <Phone className="w-5 h-5" />
-                {siteConfig.phone}
+                Llamar a la clínica
+              </a>
+              <a
+                href={siteConfig.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[#C9A84C]/40 text-white font-semibold px-8 py-4 rounded-full text-base transition-all duration-200"
+              >
+                <MapPin className="w-5 h-5" />
+                Ver ubicación
               </a>
             </div>
           </motion.div>
@@ -57,24 +66,25 @@ export default function CTASection() {
               {
                 icon: MessageCircle,
                 title: "WhatsApp",
-                value: siteConfig.phone,
+                value: siteConfig.whatsappDisplay,
                 href: whatsappLink("Hola, tengo una consulta sobre los programas de Aurum Nova Wellness Clinic."),
-                label: "Escríbenos",
+                label: "Agendar por WhatsApp",
               },
               {
                 icon: Phone,
-                title: "Teléfono",
-                value: siteConfig.phone,
-                href: `tel:${siteConfig.phone}`,
-                label: "Llámanos",
+                title: "Llamadas",
+                value: siteConfig.callDisplay,
+                sub: "solo llamadas",
+                href: callLink(),
+                label: "Llamar",
               },
               {
                 icon: MapPin,
                 title: "Ubicación",
-                value: "Arecibo Medical Plaza",
-                sub: "Suite 201, Arecibo, PR",
-                href: "#",
-                label: "Cómo llegar",
+                value: "Ave. Barbosa 65",
+                sub: "Arecibo Medical Plaza, Suite 201",
+                href: siteConfig.mapsUrl,
+                label: "Ver Google Maps",
               },
             ].map((item, i) => {
               const Icon = item.icon;

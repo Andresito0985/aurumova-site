@@ -6,6 +6,7 @@ import Footer from "@/components/layout/Footer";
 import WhatsAppFloat from "@/components/layout/WhatsAppFloat";
 import JsonLd from "@/components/JsonLd";
 import AnalyticsScripts from "@/components/analytics/AnalyticsScripts";
+import SiteLockScreen from "@/components/SiteLockScreen";
 import { siteConfig } from "@/content/site";
 
 const geistSans = Geist({
@@ -68,15 +69,25 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const siteLocked = process.env.NEXT_PUBLIC_SITE_LOCKED === "true";
+
   return (
     <html lang="es" className={`${geistSans.variable} h-full`}>
       <body className="min-h-full flex flex-col bg-white text-[#1A1A1A]">
         <AnalyticsScripts />
         <JsonLd />
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <WhatsAppFloat />
+        {siteLocked ? (
+          <main className="flex-1">
+            <SiteLockScreen />
+          </main>
+        ) : (
+          <>
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <WhatsAppFloat />
+          </>
+        )}
       </body>
     </html>
   );

@@ -175,7 +175,9 @@ export default function PrivacidadPage() {
             </p>
             <div className="bg-[#FAF8F4] border border-[#E8E4DA] rounded-xl p-4 space-y-1.5 text-sm">
               <p className="font-semibold text-[#1A1A1A]">Aurum Nova Wellness Clinic</p>
-              <p className="text-[#6B6B6B]">Arecibo Medical Plaza, Suite 201, Arecibo, Puerto Rico</p>
+              <p className="text-[#6B6B6B]">
+                Ave. Barbosa 65, Arecibo Medical Plaza, Suite 201, Arecibo, Puerto Rico
+              </p>
               <a href="mailto:aurumnovawc@gmail.com" className="block text-[#C9A84C] hover:underline">
                 aurumnovawc@gmail.com
               </a>
@@ -186,6 +188,17 @@ export default function PrivacidadPage() {
                 className="block text-[#C9A84C] hover:underline"
               >
                 WhatsApp: 939-641-0504
+              </a>
+              <a href="tel:17873499161" className="block text-[#C9A84C] hover:underline">
+                Llamadas: 787-349-9161 (solo llamadas)
+              </a>
+              <a
+                href="https://maps.app.goo.gl/irSRUko1XABujM4a6"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-[#C9A84C] hover:underline"
+              >
+                Ver ubicación en Google Maps
               </a>
             </div>
           </div>

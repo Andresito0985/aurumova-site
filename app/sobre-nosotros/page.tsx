@@ -4,7 +4,7 @@ import TeamSection from "@/components/sections/TeamSection";
 import MetodoAurum from "@/components/sections/MetodoAurum";
 import CTABanner from "@/components/ui/CTABanner";
 import { MapPin, Phone, Mail, AtSign, Clock } from "lucide-react";
-import { siteConfig } from "@/content/site";
+import { callLink, siteConfig } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Sobre Aurum Nova Wellness Clinic | Arecibo, Puerto Rico",
@@ -79,12 +79,13 @@ export default function SobreNosotrosPage() {
                     icon: MapPin,
                     label: "Dirección",
                     value: siteConfig.address,
+                    href: siteConfig.mapsUrl,
                   },
                   {
                     icon: Phone,
-                    label: "Teléfono / WhatsApp",
-                    value: siteConfig.phone,
-                    href: `tel:${siteConfig.phone}`,
+                    label: "Llamadas",
+                    value: `${siteConfig.callDisplay} · solo llamadas`,
+                    href: callLink(),
                   },
                   {
                     icon: Mail,

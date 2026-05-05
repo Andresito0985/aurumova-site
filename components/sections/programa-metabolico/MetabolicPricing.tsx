@@ -93,7 +93,7 @@ export default function MetabolicPricing() {
                   Incluye
                 </p>
                 <ul className="space-y-2.5">
-                  {protocol.keyIncludes.slice(0, 5).map((item) => (
+                  {protocol.keyIncludes.slice(0, 3).map((item) => (
                     <li key={item} className="flex items-start gap-2.5 text-sm leading-relaxed text-[#D8D2C7]">
                       <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#C9A84C]" />
                       <span>{item}</span>

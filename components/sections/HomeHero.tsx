@@ -1,16 +1,18 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
 import {
   Activity,
-  ArrowRight,
   CheckCircle2,
   ClipboardList,
   HeartPulse,
   LineChart,
+  MapPin,
+  MessageCircle,
+  Phone,
   ShieldCheck,
 } from "lucide-react";
+import { callLink, siteConfig, whatsappLink } from "@/content/site";
 
 const trust = [
   "Evaluación clínica individualizada",
@@ -44,9 +46,12 @@ const visualMetrics = [
   { label: "Plan", value: "Clínico", width: "86%" },
 ];
 
+const HERO_WHATSAPP_MESSAGE =
+  "Hola, quiero agendar una evaluación en Aurum Nova Wellness Clinic. Me interesa orientación sobre control metabólico o láser diodo.";
+
 export default function HomeHero() {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#FAF8F4]">
+    <section className="relative flex min-h-[92vh] items-center overflow-hidden bg-[#FAF8F4] lg:min-h-screen">
       <div className="absolute inset-0 bg-gradient-to-br from-white via-[#FAF8F4] to-[#EDE8DC]" />
       <div
         className="absolute inset-0 opacity-40"
@@ -57,7 +62,7 @@ export default function HomeHero() {
       />
       <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#C9A84C]/50 to-transparent" />
 
-      <div className="container-max px-4 sm:px-6 lg:px-8 relative z-10 pt-24 pb-20">
+      <div className="container-max px-4 sm:px-6 lg:px-8 relative z-10 pt-24 pb-14 lg:pb-20">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left */}
           <motion.div
@@ -77,22 +82,18 @@ export default function HomeHero() {
               </span>
             </motion.div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.1] text-[#1A1A1A] mb-6">
-              Transformación
-              <br />
-              <span className="gold-text-gradient">metabólica,</span>
-              <br />
-              estética y wellness
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.08] text-[#1A1A1A] mb-6">
+              Control metabólico y{" "}
+              <span className="gold-text-gradient">láser diodo</span>
               <br />
               <span className="text-3xl sm:text-4xl lg:text-5xl font-normal text-[#6B6B6B]">
-                con seguimiento clínico.
+                en un ambiente clínico premium
               </span>
             </h1>
 
             <p className="text-lg text-[#6B6B6B] leading-relaxed mb-8 max-w-xl">
-              Programas médicos personalizados en Arecibo para control
-              metabólico, láser diodo, sueroterapia e inyectables wellness — con
-              evaluación clínica y progreso medible.
+              Evaluación, protocolos personalizados y seguimiento guiado para que tu proceso sea
+              claro, cómodo y responsable desde la primera visita.
             </p>
 
             {/* Trust signals */}
@@ -103,7 +104,9 @@ export default function HomeHero() {
                   initial={{ opacity: 0, x: -12 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.4 + i * 0.08 }}
-                  className="flex items-center gap-3 text-sm text-[#3D3D3D] font-medium"
+                  className={`flex items-center gap-3 text-sm text-[#3D3D3D] font-medium ${
+                    i > 2 ? "hidden sm:flex" : ""
+                  }`}
                 >
                   <CheckCircle2 className="w-4 h-4 text-[#C9A84C] shrink-0" />
                   {item}
@@ -115,26 +118,39 @@ export default function HomeHero() {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.75 }}
-              className="flex flex-col sm:flex-row gap-3"
+              className="flex flex-col gap-3 sm:flex-row sm:flex-wrap"
             >
-              <Link
-                href="/quiz-metabolico"
+              <a
+                href={whatsappLink(HERO_WHATSAPP_MESSAGE)}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 shadow-md hover:shadow-lg"
               >
-                Hacer quiz metabólico
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                href="/servicios"
+                <MessageCircle className="w-4 h-4" />
+                Agendar por WhatsApp
+              </a>
+              <a
+                href={callLink()}
                 className="inline-flex items-center justify-center gap-2 bg-white border border-[#E8E4DA] hover:border-[#C9A84C] text-[#1A1A1A] hover:text-[#C9A84C] font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200"
               >
-                Ver servicios
-              </Link>
+                <Phone className="w-4 h-4" />
+                Llamar a la clínica
+              </a>
+              <a
+                href={siteConfig.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 bg-white border border-[#E8E4DA] hover:border-[#C9A84C] text-[#1A1A1A] hover:text-[#C9A84C] font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200"
+              >
+                <MapPin className="w-4 h-4" />
+                Ver ubicación
+              </a>
             </motion.div>
 
-            <p className="mt-4 text-xs text-[#9A9A9A]">
-              Requiere evaluación clínica. No todos los pacientes cualifican.
-              Los resultados pueden variar.
+            <p className="mt-4 text-xs leading-relaxed text-[#9A9A9A]">
+              WhatsApp: {siteConfig.whatsappDisplay} · Llamadas: {siteConfig.callDisplay} solo
+              llamadas
+              <br className="sm:hidden" /> {siteConfig.addressShort}
             </p>
           </motion.div>
 
@@ -143,7 +159,7 @@ export default function HomeHero() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="relative"
+            className="relative hidden lg:block"
           >
             <div className="relative min-h-[620px] sm:aspect-[4/5] sm:min-h-0 rounded-3xl overflow-hidden bg-gradient-to-br from-[#EDE8DC] to-[#D4C9B0] flex items-center justify-center">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(255,255,255,0.72),transparent_30%),radial-gradient(circle_at_82%_10%,rgba(201,168,76,0.26),transparent_28%),linear-gradient(145deg,#F7F3EA_0%,#E7DDCA_52%,#CFC1A4_100%)]" />

@@ -79,9 +79,9 @@ export const programaMetabolico: ProgramPageContent = {
     highlight: "Integral",
     subtitle:
       "Un programa médico mensual completo: evaluación clínica, plan personalizado, terapias de apoyo si calificas y seguimiento continuo con métricas reales.",
-    ctaText: "Ver si califico",
+    ctaText: "Consultar disponibilidad",
     ctaMessage:
-      "Hola, me interesa el Programa Metabólico Integral de Aurum Nova. ¿Cuáles son los requisitos para calificar y cuál es el proceso de evaluación?",
+      "Hola, me interesa el Programa Metabólico Integral de Aurum Nova. Me gustaría consultar disponibilidad para evaluación y conocer el proceso.",
     secondaryCtaText: "Ver preguntas frecuentes",
     secondaryCtaHref: "/preguntas-frecuentes",
     disclaimer:

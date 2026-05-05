@@ -39,37 +39,52 @@ function VisualFrame({
       className={`relative overflow-hidden rounded-2xl border border-[#E8E4DA] bg-[#1A1A1A] shadow-sm ${className}`}
     >
       {visual ? (
-        <Image
-          src={visual.src}
-          alt={visual.alt}
-          fill
-          sizes={sizes}
-          className="object-cover"
-          style={{ objectPosition: visual.objectPosition }}
-        />
+        <>
+          <Image
+            src={visual.src}
+            alt={visual.alt}
+            width={visual.width}
+            height={visual.height}
+            sizes="100vw"
+            className="block h-auto w-full object-contain sm:hidden"
+          />
+          <Image
+            src={visual.src}
+            alt={visual.alt}
+            fill
+            sizes={sizes}
+            className="hidden object-contain sm:block"
+            style={{ objectPosition: visual.objectPosition }}
+          />
+        </>
       ) : (
         <VisualFallback label={label} />
       )}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-black/5 to-transparent" />
+      <div className="pointer-events-none absolute inset-0 hidden bg-gradient-to-t from-black/35 via-black/5 to-transparent sm:block" />
     </div>
   );
 }
 
 const technologyCards = [
   {
-    icon: Activity,
-    title: "Longitudes de onda",
-    copy: "La tecnología diodo permite orientar la sesión según características del vello y zona.",
+    icon: SlidersHorizontal,
+    title: "Tecnología por zona",
+    copy: "Orientamos la sesión según área, características del vello y evaluación previa.",
   },
   {
     icon: ThermometerSnowflake,
-    title: "Enfriamiento",
+    title: "Enfriamiento avanzado",
     copy: "El apoyo de enfriamiento por contacto ayuda a organizar una experiencia más cómoda.",
   },
   {
-    icon: SlidersHorizontal,
-    title: "Personalización",
-    copy: "Los parámetros se conversan y ajustan según zona, tolerancia y evaluación previa.",
+    icon: CalendarCheck,
+    title: "Seguimiento clínico",
+    copy: "El equipo orienta frecuencia, mantenimiento y próximos pasos según la respuesta.",
+  },
+  {
+    icon: Activity,
+    title: "Longitudes de onda",
+    copy: "La tecnología diodo permite orientar el trabajo de forma progresiva y responsable.",
   },
   {
     icon: ShieldCheck,
@@ -80,11 +95,6 @@ const technologyCards = [
     icon: Sparkles,
     title: "Proceso progresivo",
     copy: "La reducción del vello ocurre por sesiones. Los resultados pueden variar.",
-  },
-  {
-    icon: CalendarCheck,
-    title: "Seguimiento clínico",
-    copy: "El equipo orienta frecuencia, mantenimiento y próximos pasos según la respuesta.",
   },
 ];
 
@@ -113,19 +123,21 @@ export default function LaserVisualStory() {
           <VisualFrame
             visual={technologyVisual}
             label="Tecnología láser diodo"
-            className="aspect-[4/3] min-h-[260px]"
+            className="bg-[#F7F3EA] sm:aspect-[4/3] sm:min-h-[260px]"
             sizes="(max-width: 1024px) 100vw, 42vw"
           />
         </div>
 
         <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
-          {technologyCards.map((card) => {
+          {technologyCards.map((card, index) => {
             const Icon = card.icon;
 
             return (
               <article
                 key={card.title}
-                className="rounded-2xl border border-[#E8E4DA] bg-[#FAF8F4] p-4 shadow-sm sm:p-5"
+                className={`rounded-2xl border border-[#E8E4DA] bg-[#FAF8F4] p-4 shadow-sm sm:p-5 ${
+                  index > 2 ? "hidden sm:block" : ""
+                }`}
               >
                 <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-xl bg-[#C9A84C]/12 sm:mb-4 sm:h-10 sm:w-10">
                   <Icon className="h-[18px] w-[18px] text-[#C9A84C] sm:h-5 sm:w-5" />
@@ -144,7 +156,7 @@ export default function LaserVisualStory() {
             <VisualFrame
               visual={handpieceVisual}
               label="Handpiece con enfriamiento"
-              className="aspect-[16/10] rounded-none border-0"
+              className="rounded-none border-0 bg-[#F7F3EA] sm:aspect-[16/10]"
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
             <div className="p-5 sm:p-6">
@@ -165,7 +177,7 @@ export default function LaserVisualStory() {
             <VisualFrame
               visual={experienceVisual}
               label="Experiencia clínica privada"
-              className="aspect-[16/10] rounded-none border-0"
+              className="rounded-none border-0 bg-[#F7F3EA] sm:aspect-[16/10]"
               sizes="(max-width: 1024px) 100vw, 50vw"
             />
             <div className="p-5 sm:p-6">

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { AtSign, Mail, Phone, MapPin, MessageCircle } from "lucide-react";
-import { siteConfig, whatsappLink } from "@/content/site";
+import { callLink, siteConfig, whatsappLink } from "@/content/site";
 
 const programs = [
   { label: "Programa Metabólico Integral", href: "/programa-metabolico" },
@@ -139,11 +139,27 @@ export default function Footer() {
             <ul className="space-y-3 mb-6">
               <li>
                 <a
-                  href={`tel:${siteConfig.phone}`}
+                  href={whatsappLink("Hola, quisiera información sobre Aurum Nova Wellness Clinic.")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-3 text-xs text-[#6B6B6B] hover:text-[#9A9A9A] transition-colors"
+                >
+                  <MessageCircle className="w-3.5 h-3.5 mt-0.5 shrink-0 text-[#C9A84C]" />
+                  <span>
+                    WhatsApp: {siteConfig.whatsappDisplay}
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={callLink()}
                   className="flex items-start gap-3 text-xs text-[#6B6B6B] hover:text-[#9A9A9A] transition-colors"
                 >
                   <Phone className="w-3.5 h-3.5 mt-0.5 shrink-0 text-[#C9A84C]" />
-                  {siteConfig.phone}
+                  <span>
+                    Llamadas: {siteConfig.callDisplay}
+                    <span className="block text-[10px] text-[#4A4A4A]">solo llamadas</span>
+                  </span>
                 </a>
               </li>
               <li>
@@ -155,9 +171,23 @@ export default function Footer() {
                   {siteConfig.email}
                 </a>
               </li>
-              <li className="flex items-start gap-3 text-xs text-[#6B6B6B]">
-                <MapPin className="w-3.5 h-3.5 mt-0.5 shrink-0 text-[#C9A84C]" />
-                <span>Arecibo Medical Plaza<br />Suite 201, Arecibo, PR</span>
+              <li>
+                <a
+                  href={siteConfig.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-3 text-xs text-[#6B6B6B] hover:text-[#9A9A9A] transition-colors"
+                >
+                  <MapPin className="w-3.5 h-3.5 mt-0.5 shrink-0 text-[#C9A84C]" />
+                  <span>
+                    Aurum Nova Wellness Clinic
+                    <br />
+                    Ave. Barbosa 65, Arecibo Medical Plaza
+                    <br />
+                    Suite 201, Arecibo, PR
+                    <span className="mt-1 block text-[#C9A84C]">Ver ubicación en Google Maps</span>
+                  </span>
+                </a>
               </li>
               <li>
                 <a
@@ -179,7 +209,7 @@ export default function Footer() {
               className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-white text-xs font-semibold px-5 py-2.5 rounded-full transition-all duration-200 w-full justify-center"
             >
               <MessageCircle className="w-3.5 h-3.5" />
-              Agendar Evaluación
+              Agendar por WhatsApp
             </a>
           </div>
         </div>

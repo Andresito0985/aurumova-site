@@ -3,9 +3,9 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Phone, ChevronRight, AtSign } from "lucide-react";
+import { Menu, X, Phone, ChevronRight, MapPin, MessageCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { siteConfig, whatsappLink } from "@/content/site";
+import { callLink, siteConfig, whatsappLink } from "@/content/site";
 
 const desktopNav = [
   { label: "Programa Metabólico", href: "/programa-metabolico" },
@@ -99,11 +99,11 @@ export default function Header() {
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center gap-3">
               <a
-                href={`tel:${siteConfig.phone}`}
+                href={callLink()}
                 className="flex items-center gap-1.5 text-sm text-[#3D3D3D] hover:text-[#C9A84C] transition-colors"
               >
                 <Phone className="w-3.5 h-3.5" />
-                {siteConfig.phone}
+                {siteConfig.callDisplay}
               </a>
               <Link
                 href="/agendar-evaluacion"
@@ -203,31 +203,43 @@ export default function Header() {
 
             {/* Mobile menu footer */}
             <div className="border-t border-[#E8E4DA] p-4 space-y-3 shrink-0 bg-[#FAF8F4]">
+              <div className="rounded-2xl border border-[#E8E4DA] bg-white p-3 text-xs leading-relaxed text-[#6B6B6B]">
+                <p>
+                  <span className="font-semibold text-[#1A1A1A]">WhatsApp:</span>{" "}
+                  {siteConfig.whatsappDisplay}
+                </p>
+                <p>
+                  <span className="font-semibold text-[#1A1A1A]">Llamadas:</span>{" "}
+                  {siteConfig.callDisplay} <span className="text-[#9A9A9A]">(solo llamadas)</span>
+                </p>
+                <p className="mt-1">{siteConfig.addressShort}</p>
+              </div>
               <a
                 href={whatsappLink("Hola, quisiera agendar una evaluación en Aurum Nova Wellness Clinic.")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 w-full bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold py-3.5 rounded-full transition-all"
               >
-                Contactar por WhatsApp
+                <MessageCircle className="h-4 w-4" />
+                Agendar por WhatsApp
               </a>
               <div className="flex gap-3">
                 <a
-                  href={siteConfig.instagramUrl}
+                  href={callLink()}
+                  className="flex-1 flex items-center justify-center gap-2 text-sm font-medium text-[#3D3D3D] border border-[#E8E4DA] py-2.5 rounded-full hover:border-[#C9A84C] hover:text-[#C9A84C] transition-all"
+                >
+                  <Phone className="w-4 h-4" />
+                  Llamar
+                </a>
+                <a
+                  href={siteConfig.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 flex items-center justify-center gap-2 text-sm font-medium text-[#3D3D3D] border border-[#E8E4DA] py-2.5 rounded-full hover:border-[#C9A84C] hover:text-[#C9A84C] transition-all"
                 >
-                  <AtSign className="w-4 h-4" />
-                  Instagram
+                  <MapPin className="w-4 h-4" />
+                  Ubicación
                 </a>
-                <Link
-                  href="/sobre-nosotros"
-                  onClick={() => setIsOpen(false)}
-                  className="flex-1 flex items-center justify-center gap-2 text-sm font-medium text-[#3D3D3D] border border-[#E8E4DA] py-2.5 rounded-full hover:border-[#C9A84C] hover:text-[#C9A84C] transition-all"
-                >
-                  Sobre Aurum Nova
-                </Link>
               </div>
             </div>
           </motion.div>
