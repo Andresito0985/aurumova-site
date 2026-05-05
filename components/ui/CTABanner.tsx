@@ -16,6 +16,7 @@ interface CTABannerProps {
   secondaryHref?: string;
   secondaryText?: string;
   trackingSource?: string;
+  disclaimerText?: string;
 }
 
 export default function CTABanner({
@@ -28,6 +29,7 @@ export default function CTABanner({
   secondaryHref,
   secondaryText,
   trackingSource = "cta_banner",
+  disclaimerText = "Requiere evaluación médica individual. No todos los pacientes califican.",
 }: CTABannerProps) {
   const isDark = variant === "dark";
   const isGold = variant === "gold";
@@ -112,7 +114,7 @@ export default function CTABanner({
               isDark ? "text-[#6B6B6B]" : isGold ? "text-white/60" : "text-[#9A9A9A]"
             }`}
           >
-            Requiere evaluación médica individual. No todos los pacientes califican.
+            {disclaimerText}
           </p>
         </motion.div>
       </div>

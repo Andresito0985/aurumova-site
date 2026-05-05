@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import {
   ArrowRight,
   ArrowLeft,
-  CheckCircle2,
   ShieldCheck,
   AlertCircle,
   Check,
@@ -17,7 +16,6 @@ import {
 } from "lucide-react";
 import { whatsappLink } from "@/content/site";
 import {
-  CGM_ADDON_NOTE,
   GENERAL_PROTOCOL_PRICING_DISCLAIMER,
   getSuggestedProtocol,
   metabolicProtocols,
@@ -678,35 +676,30 @@ function ProtocolComparisonCard({
           Protocolo sugerido
         </span>
       )}
-      <div className="mb-4">
+      <div className="mb-4 flex-1">
         <h5 className="text-base font-semibold text-[#1A1A1A]">{protocol.name}</h5>
-        <p className="mt-1 text-xs text-[#6B6B6B]">{protocol.duration}</p>
-        <p className="mt-3 text-sm font-semibold text-[#C9A84C]">{protocol.priceLabel}</p>
-        <p className="mt-1 text-[11px] leading-relaxed text-[#6B6B6B]">
-          {protocol.individualValueLabel}
-        </p>
-        <p className="mt-1 text-[11px] leading-relaxed text-[#6B6B6B]">
-          {protocol.savingsLabel}
-        </p>
+        <p className="mt-1 text-xs font-medium text-[#6B6B6B]">{protocol.duration}</p>
+        <div className="mt-3">
+          <p className="text-lg font-semibold leading-none text-[#C9A84C]">
+            {protocol.priceLabel}
+          </p>
+          {protocol.packageLabel && (
+            <p className="mt-1 text-xs font-medium leading-relaxed text-[#6B6B6B]">
+              {protocol.packageLabel}
+            </p>
+          )}
+        </div>
+        {protocol.comparisonLabel && (
+          <p className="mt-2 text-[11px] leading-relaxed text-[#6B6B6B]">
+            {protocol.comparisonLabel}
+          </p>
+        )}
+        {protocol.savingsLabel && (
+          <p className="mt-1 text-[11px] font-semibold leading-relaxed text-[#C9A84C]">
+            {protocol.savingsLabel}
+          </p>
+        )}
       </div>
-
-      <div className="mb-4 rounded-xl bg-[#FAF8F4] p-3">
-        <p className="text-[10px] font-bold uppercase tracking-widest text-[#9A9A9A] mb-1">
-          Ideal para
-        </p>
-        <p className="text-xs leading-relaxed text-[#3D3D3D]">
-          {protocol.bestFor.slice(0, 2).join(" · ")}
-        </p>
-      </div>
-
-      <ul className="mb-5 space-y-2">
-        {protocol.includes.slice(0, 5).map((item) => (
-          <li key={item} className="flex items-start gap-2 text-xs leading-relaxed text-[#3D3D3D]">
-            <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#C9A84C]" />
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
 
       <Link
         href="/agendar-evaluacion"
@@ -1378,7 +1371,7 @@ export default function MetabolicProfileQuiz() {
                         </p>
                       </div>
 
-                      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                         <SummaryTile
                           label="IMC"
                           value={result.bmi ? `${result.bmi}` : "No disponible"}
@@ -1400,16 +1393,6 @@ export default function MetabolicProfileQuiz() {
                           helper="Se interpreta junto a hábitos, apetito y contexto clínico."
                         />
                         <SummaryTile
-                          label="Tolerancia"
-                          value={getToleranceSummary(result)}
-                          helper="Se revisa según historial y seguridad."
-                        />
-                        <SummaryTile
-                          label="Seguridad"
-                          value={getSafetySummary(result, suggestion)}
-                          helper="No determina candidatura ni aprobación."
-                        />
-                        <SummaryTile
                           label="Necesidad principal"
                           value={suggestion.mainNeed}
                           helper="Punto de conversación para la consulta."
@@ -1418,11 +1401,6 @@ export default function MetabolicProfileQuiz() {
                           label="Laboratorios"
                           value={getYesNoLabel(a.hasRecentLabs)}
                           helper={a.hasRecentLabs === "yes" ? getLabTimingLabel(a) : "Se revisa en evaluación."}
-                        />
-                        <SummaryTile
-                          label="Seguimiento sugerido"
-                          value={suggestion.followUpIntensity}
-                          helper="Se confirma durante evaluación clínica."
                         />
                       </div>
                     </section>
@@ -1467,13 +1445,21 @@ export default function MetabolicProfileQuiz() {
                               <SummaryTile
                                 label="Inversión"
                                 value={suggestion.protocol?.priceLabel ?? "Se confirma en evaluación"}
-                                helper={suggestion.protocol?.individualValueLabel ?? "Precios sujetos a evaluación clínica."}
+                                helper={suggestion.protocol?.packageLabel ?? "Sujeto a evaluación clínica."}
                               />
-                              <SummaryTile
-                                label="Ahorro estimado"
-                                value={suggestion.protocol?.savingsLabel ?? "Se confirma en evaluación"}
-                                helper="El contenido exacto puede variar según criterio clínico."
-                              />
+                              {suggestion.protocol?.comparisonLabel && (
+                                <SummaryTile
+                                  label={suggestion.protocol.id === "integral" ? "Valor estimado" : "Referencia"}
+                                  value={suggestion.protocol.comparisonLabel}
+                                />
+                              )}
+                              {suggestion.protocol?.savingsLabel && (
+                                <SummaryTile
+                                  label="Ahorro"
+                                  value={suggestion.protocol.savingsLabel}
+                                  helper="El contenido exacto puede variar según criterio clínico."
+                                />
+                              )}
                             </div>
                           )}
                         </div>
@@ -1501,7 +1487,7 @@ export default function MetabolicProfileQuiz() {
                         ¿Por qué este protocolo?
                       </p>
                       <div className="mt-4 grid gap-3 md:grid-cols-2">
-                        {suggestion.reasons.map((reason) => (
+                        {suggestion.reasons.slice(0, 3).map((reason) => (
                           <div
                             key={reason}
                             className="flex items-start gap-3 rounded-2xl border border-[#E8E4DA] bg-[#FAF8F4] p-4"
@@ -1539,28 +1525,6 @@ export default function MetabolicProfileQuiz() {
                       </div>
                     </section>
 
-                    {/* Section 6: CGM note */}
-                    <section className="rounded-3xl border border-[#E8E4DA] bg-white p-5 sm:p-6">
-                      <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
-                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#C9A84C]/10 text-[#C9A84C]">
-                          <ShieldCheck className="h-5 w-5" />
-                        </div>
-                        <div>
-                          <p className="text-sm font-semibold text-[#1A1A1A]">
-                            Nota sobre monitor continuo de glucosa
-                          </p>
-                          <p className="mt-2 text-sm leading-relaxed text-[#6B6B6B]">
-                            {CGM_ADDON_NOTE}
-                          </p>
-                          <p className="mt-2 text-sm leading-relaxed text-[#6B6B6B]">
-                            En el Protocolo Integral, el monitor continuo de glucosa está incluido
-                            durante el programa. Su uso se discute según historial, metas,
-                            seguridad y criterio clínico.
-                          </p>
-                        </div>
-                      </div>
-                    </section>
-
                     {/* Section 7: next step */}
                     <section className="rounded-3xl bg-[#1A1A1A] p-6 sm:p-8">
                       <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
@@ -1586,6 +1550,9 @@ export default function MetabolicProfileQuiz() {
                             Agendar evaluación inicial
                             <CalendarCheck className="h-4 w-4" />
                           </Link>
+                          <p className="text-center text-[11px] leading-relaxed text-[#9A9A9A]">
+                            Se abrirá WhatsApp con un resumen editable de tu resultado.
+                          </p>
                           <a
                             href={whatsappLink(resultWhatsappMessage)}
                             target="_blank"

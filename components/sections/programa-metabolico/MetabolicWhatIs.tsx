@@ -17,7 +17,7 @@ const pillars = [
   {
     icon: TrendingUp,
     title: "Seguimiento semanal",
-    description: "Sesiones de seguimiento clínico para monitorear progreso, ajustar el protocolo y garantizar adherencia y tolerancia.",
+    description: "Sesiones de seguimiento clínico para monitorear progreso, ajustar el protocolo y apoyar adherencia y tolerancia.",
   },
   {
     icon: Users,
@@ -50,8 +50,8 @@ export default function MetabolicWhatIs() {
               </p>
               <p>
                 No es un plan de dieta ni un régimen de ejercicio. Es un protocolo médico supervisado
-                que puede incluir — cuando clínicamente indicado — medicación inyectable, apoyo
-                lipotrópico, terapia nutricional y seguimiento semanal de métricas corporales.
+                que puede incluir — cuando clínicamente indicado — terapia metabólica semanal,
+                apoyo lipotrópico, terapia nutricional y seguimiento semanal de métricas corporales.
               </p>
               <p>
                 Cada elemento del programa requiere evaluación médica previa. La elegibilidad,

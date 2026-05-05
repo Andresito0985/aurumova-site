@@ -1,30 +1,55 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ChevronLeft, ArrowRight, Zap, Star } from "lucide-react";
+import { ArrowRight, CalendarCheck, ChevronLeft, ShieldCheck, Sparkles, Zap } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { whatsappLink } from "@/content/site";
+import { laserVisualByPlacement } from "@/content/laser-visuals";
 
-const CTA_MSG = "Hola, me interesa una evaluación para Láser Diodo High-Tech en Aurum Nova. ¿Cuál es el proceso para comenzar?";
+const CTA_MSG =
+  "Hola, me interesa agendar una evaluación para Láser Diodo High-Tech en Aurum Nova. Me gustaría conocer los planes disponibles.";
+
+function HeroImageFallback() {
+  return (
+    <div className="absolute inset-0 bg-[#141414]">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_28%,rgba(201,168,76,0.22),transparent_34%),linear-gradient(135deg,#141414_0%,#24201A_52%,#141414_100%)]" />
+    </div>
+  );
+}
 
 export default function LaserHero() {
+  const heroVisual =
+    laserVisualByPlacement.experience ?? laserVisualByPlacement.technology ?? laserVisualByPlacement.hero;
+
   return (
-    <section className="relative bg-[#1A1A1A] min-h-[88vh] flex flex-col justify-center overflow-hidden pt-24 pb-16 px-4 sm:px-6 lg:px-8">
-      {/* Grid texture */}
+    <section className="relative flex min-h-[92vh] flex-col justify-center overflow-hidden bg-[#141414] px-4 pb-16 pt-24 sm:px-6 lg:px-8">
+      {heroVisual ? (
+        <Image
+          src={heroVisual.src}
+          alt={heroVisual.alt}
+          fill
+          preload
+          sizes="100vw"
+          className="object-cover opacity-70"
+          style={{ objectPosition: heroVisual.objectPosition ?? "70% center" }}
+        />
+      ) : (
+        <HeroImageFallback />
+      )}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#111111]/95 via-[#111111]/80 to-[#111111]/40" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-[#111111]/55" />
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-[radial-gradient(circle_at_24%_40%,rgba(201,168,76,0.2),transparent_45%)]" />
       <div
-        className="absolute inset-0 opacity-[0.025] pointer-events-none"
+        className="pointer-events-none absolute inset-0 opacity-[0.035]"
         style={{
           backgroundImage:
             "linear-gradient(#C9A84C 1px, transparent 1px), linear-gradient(90deg, #C9A84C 1px, transparent 1px)",
-          backgroundSize: "48px 48px",
+          backgroundSize: "56px 56px",
         }}
       />
-      {/* Glow */}
-      <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-[#C9A84C]/6 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-[300px] h-[300px] bg-[#C9A84C]/4 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="container-max relative">
-        {/* Breadcrumb */}
         <motion.div
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -41,35 +66,26 @@ export default function LaserHero() {
         </motion.div>
 
         <div className="max-w-3xl">
-          {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 bg-[#C9A84C]/10 border border-[#C9A84C]/25 px-3.5 py-1.5 rounded-full mb-6"
+            className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-black/35 px-3.5 py-1.5 backdrop-blur-md"
           >
-            <Zap className="w-3.5 h-3.5 text-[#C9A84C]" />
-            <span className="text-xs font-semibold text-[#C9A84C] tracking-wider uppercase">
+            <Zap className="h-3.5 w-3.5 text-[#C9A84C]" />
+            <span className="text-xs font-semibold uppercase tracking-wider text-[#C9A84C]">
               Láser Diodo High-Tech
             </span>
           </motion.div>
 
-          {/* Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.05 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white leading-tight mb-5"
+            className="mb-5 text-4xl font-semibold leading-tight text-white sm:text-5xl lg:text-6xl"
           >
             Reducción de vello con{" "}
-            <span
-              style={{
-                background: "linear-gradient(135deg, #C9A84C 0%, #E2C97E 50%, #C9A84C 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
+            <span className="bg-gradient-to-r from-[#C9A84C] via-[#F2D987] to-[#C9A84C] bg-clip-text text-transparent">
               tecnología diodo
             </span>
           </motion.h1>
@@ -78,71 +94,69 @@ export default function LaserHero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-base sm:text-lg text-[#9A9A9A] leading-relaxed mb-8 max-w-2xl"
+            className="mb-8 max-w-2xl text-base leading-relaxed text-[#D9D2C5] sm:text-lg"
           >
-            Tecnología diodo para reducción progresiva del vello no deseado, con evaluación por
-            zona, orientación personalizada y experiencia clínica premium.
+            Una experiencia láser privada y guiada para trabajar la reducción progresiva del vello
+            por zona, con evaluación de piel, densidad de vello y plan de seguimiento.
           </motion.p>
 
-          {/* CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.15 }}
-            className="flex flex-col sm:flex-row gap-3 mb-10"
+            className="mb-8 flex flex-col gap-3 sm:flex-row"
           >
             <a
               href={whatsappLink(CTA_MSG)}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold px-6 py-3.5 rounded-full text-sm transition-all duration-200 shadow-lg shadow-[#C9A84C]/20"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-7 py-3.5 text-sm font-semibold text-white shadow-xl shadow-[#C9A84C]/25 transition-all duration-200 hover:bg-[#A8872E]"
             >
-              Solicitar evaluación láser
-              <ArrowRight className="w-4 h-4" />
+              Agendar evaluación
+              <ArrowRight className="h-4 w-4" />
             </a>
             <a
-              href="#zonas-precios"
-              className="inline-flex items-center justify-center gap-2 border border-[#3D3D3D] hover:border-[#C9A84C]/40 text-[#E8E4DA] hover:text-[#C9A84C] font-medium px-6 py-3.5 rounded-full text-sm transition-all duration-200"
+              href="#planes-laser"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-black/25 px-7 py-3.5 text-sm font-medium text-[#F4EFE5] backdrop-blur transition-all duration-200 hover:border-[#C9A84C]/50 hover:text-[#C9A84C]"
             >
-              Ver zonas y precios
+              Ver planes disponibles
             </a>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.22 }}
+            className="grid gap-3 sm:grid-cols-3"
+          >
+            {[
+              { icon: CalendarCheck, label: "Evaluación por zona" },
+              { icon: ShieldCheck, label: "Ambiente clínico privado" },
+              { icon: Sparkles, label: "Resultados pueden variar" },
+            ].map((chip) => {
+              const Icon = chip.icon;
+              return (
+                <div
+                  key={chip.label}
+                  className="flex items-center gap-2 rounded-2xl border border-white/10 bg-black/35 px-4 py-3 backdrop-blur-md"
+                >
+                  <Icon className="h-4 w-4 shrink-0 text-[#C9A84C]" />
+                  <span className="text-xs font-medium text-[#E8E4DA]">{chip.label}</span>
+                </div>
+              );
+            })}
           </motion.div>
 
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-xs text-[#4A4A4A] leading-relaxed"
+            transition={{ duration: 0.5, delay: 0.28 }}
+            className="mt-5 max-w-xl text-xs leading-relaxed text-[#AFA79A]"
           >
-            Los resultados varían según zona, tipo de piel, características del vello y adherencia al plan.
-            Se requiere evaluación previa.
+            Los resultados varían según zona, tipo de piel, características del vello y adherencia
+            al plan. Se requiere evaluación previa.
           </motion.p>
         </div>
-
-        {/* Stat chips */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.25 }}
-          className="mt-14 flex flex-wrap gap-3"
-        >
-          {[
-            { icon: Zap, label: "Tecnología diodo high-tech" },
-            { icon: Star, label: "Evaluación personalizada por zona" },
-            { icon: ArrowRight, label: "Múltiples zonas de tratamiento" },
-          ].map((chip) => {
-            const Icon = chip.icon;
-            return (
-              <div
-                key={chip.label}
-                className="flex items-center gap-2 bg-[#242424] border border-[#2D2D2D] px-4 py-2 rounded-full"
-              >
-                <Icon className="w-3.5 h-3.5 text-[#C9A84C]" />
-                <span className="text-xs text-[#9A9A9A]">{chip.label}</span>
-              </div>
-            );
-          })}
-        </motion.div>
       </div>
     </section>
   );

@@ -1,68 +1,88 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckCircle2, ArrowRight } from "lucide-react";
+import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
 import { whatsappLink } from "@/content/site";
 
 const packages = [
   {
     name: "Plan por zona",
-    description: "Paquete de sesiones enfocado en una zona específica. Ideal para quienes comienzan con una sola área prioritaria.",
-    features: ["Zona de tu elección", "Continuidad de sesiones", "Mejor valor vs. sesiones sueltas", "Plan ajustado a tu zona"],
-    cta: "Consultar plan por zona",
-    msg: "Hola, me interesa el Plan por Zona de Láser Diodo en Aurum Nova. ¿Cuáles son las opciones disponibles?",
+    idealFor: "Ideal para comenzar con una zona prioritaria.",
+    features: [
+      "Evaluación de la zona",
+      "Sesiones enfocadas",
+      "Plan de continuidad",
+      "Orientación previa",
+    ],
+    cta: "Consultar disponibilidad",
+    msg: "Hola, me interesa consultar disponibilidad para un Plan por Zona de Láser Diodo en Aurum Nova.",
     highlight: false,
   },
   {
     name: "Plan combinado",
-    description: "Combinación de dos o más zonas en un paquete. Permite trabajar varias áreas con planificación y mejor costo.",
-    features: ["2+ zonas a elegir", "Sesiones coordinadas", "Mayor eficiencia por visita", "Orientación personalizada"],
-    cta: "Consultar plan combinado",
-    msg: "Hola, me interesa el Plan Combinado de Láser Diodo en Aurum Nova. ¿Cuáles zonas puedo combinar?",
+    idealFor: "Ideal para trabajar dos o más zonas con mejor continuidad.",
+    features: [
+      "2+ zonas a elegir",
+      "Sesiones coordinadas",
+      "Mayor eficiencia por visita",
+      "Seguimiento por área",
+    ],
+    cta: "Agendar evaluación",
+    msg: "Hola, me interesa agendar una evaluación para un Plan Combinado de Láser Diodo en Aurum Nova.",
     highlight: true,
   },
   {
     name: "Plan full body",
-    description: "Cobertura de múltiples zonas del cuerpo en un plan integral. Para quienes buscan tratamiento comprensivo.",
-    features: ["Múltiples zonas", "Plan de sesiones integral", "Mejor valor por zona", "Seguimiento incluido"],
-    cta: "Consultar plan full body",
-    msg: "Hola, me interesa el Plan Full Body de Láser Diodo en Aurum Nova. ¿Qué zonas incluye y cuáles son los precios?",
+    idealFor: "Ideal para una ruta más amplia de reducción progresiva.",
+    features: [
+      "Múltiples zonas",
+      "Plan integral",
+      "Organización por sesiones",
+      "Orientación personalizada",
+    ],
+    cta: "Consultar disponibilidad",
+    msg: "Hola, me interesa consultar disponibilidad para el Plan Full Body de Láser Diodo en Aurum Nova.",
     highlight: false,
   },
   {
     name: "Plan mantenimiento",
-    description: "Para quienes ya completaron un plan inicial y desean mantener los resultados con sesiones de seguimiento.",
-    features: ["Sesiones de mantenimiento", "Flexibilidad de calendario", "Cobertura de zonas previas", "Plan adaptado a tu estado actual"],
+    idealFor: "Ideal para personas que ya completaron un plan inicial.",
+    features: [
+      "Sesiones de seguimiento",
+      "Frecuencia flexible",
+      "Zonas previamente tratadas",
+      "Evaluación del progreso",
+    ],
     cta: "Consultar mantenimiento",
-    msg: "Hola, me interesa el Plan de Mantenimiento de Láser Diodo en Aurum Nova. Ya tengo sesiones previas y quisiera continuar.",
+    msg: "Hola, me interesa consultar un Plan de Mantenimiento de Láser Diodo en Aurum Nova.",
     highlight: false,
   },
 ];
 
 export default function LaserPackages() {
   return (
-    <section className="section-padding bg-[#1A1A1A]">
+    <section id="planes-laser" className="section-padding scroll-mt-24 bg-white">
       <div className="container-max">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-10"
+          className="mx-auto mb-10 max-w-2xl text-center"
         >
-          <span className="inline-block text-xs font-semibold tracking-widest uppercase text-[#C9A84C] mb-3">
-            Mejor valor en paquetes
+          <span className="mb-3 inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/25 bg-[#FAF8F4] px-3 py-1 text-xs font-semibold uppercase tracking-widest text-[#A8872E]">
+            <Sparkles className="h-3.5 w-3.5" />
+            Planes disponibles
           </span>
-          <h2 className="text-2xl sm:text-3xl font-semibold text-white mb-4">
-            Planes diseñados para mayor continuidad
+          <h2 className="mb-4 text-2xl font-semibold text-[#1A1A1A] sm:text-3xl">
+            Elige una ruta láser con más claridad
           </h2>
-          <p className="text-sm text-[#9A9A9A] max-w-lg mx-auto leading-relaxed">
-            Las sesiones individuales están disponibles, pero los paquetes permiten mayor
-            continuidad, planificación y mejor valor por sesión. El plan recomendado se
-            determina durante la evaluación.
+          <p className="text-sm leading-relaxed text-[#6B6B6B] sm:text-base">
+            Los paquetes ayudan a organizar frecuencia, zonas y seguimiento desde el inicio. La
+            disponibilidad y el plan conveniente se confirman durante la evaluación.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
           {packages.map((pkg, i) => (
             <motion.div
               key={pkg.name}
@@ -70,26 +90,26 @@ export default function LaserPackages() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.07 }}
-              className={`relative flex flex-col rounded-2xl p-5 border transition-all duration-300 ${
+              className={`relative flex min-h-full flex-col rounded-[1.5rem] border p-5 shadow-sm transition-all duration-300 ${
                 pkg.highlight
-                  ? "bg-[#C9A84C]/8 border-[#C9A84C]/40"
-                  : "bg-[#242424] border-[#2D2D2D]"
+                  ? "border-[#C9A84C]/70 bg-[#FFFCF4] shadow-[0_24px_70px_rgba(201,168,76,0.18)] ring-1 ring-[#C9A84C]/20"
+                  : "border-[#E8E4DA] bg-[#FAF8F4]"
               }`}
             >
               {pkg.highlight && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#C9A84C] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider whitespace-nowrap">
-                  Más popular
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#C9A84C] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-lg shadow-[#C9A84C]/20">
+                  Recomendado
                 </div>
               )}
-              <div className="mb-4">
-                <h3 className="text-base font-semibold text-white mb-2">{pkg.name}</h3>
-                <p className="text-xs text-[#6B6B6B] leading-relaxed">{pkg.description}</p>
+              <div className="mb-5">
+                <h3 className="mb-2 text-lg font-semibold text-[#1A1A1A]">{pkg.name}</h3>
+                <p className="text-sm leading-relaxed text-[#6B6B6B]">{pkg.idealFor}</p>
               </div>
-              <ul className="space-y-2 mb-6 flex-1">
+              <ul className="mb-6 flex-1 space-y-2.5">
                 {pkg.features.map((f) => (
                   <li key={f} className="flex items-start gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#C9A84C] shrink-0 mt-0.5" />
-                    <span className="text-xs text-[#9A9A9A]">{f}</span>
+                    <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#C9A84C]" />
+                    <span className="text-xs leading-relaxed text-[#4A4A4A]">{f}</span>
                   </li>
                 ))}
               </ul>
@@ -97,14 +117,14 @@ export default function LaserPackages() {
                 href={whatsappLink(pkg.msg)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex items-center justify-center gap-2 py-2.5 rounded-full text-xs font-semibold transition-all duration-200 ${
+                className={`flex items-center justify-center gap-2 rounded-full px-4 py-3 text-xs font-semibold transition-all duration-200 ${
                   pkg.highlight
                     ? "bg-[#C9A84C] hover:bg-[#A8872E] text-white"
-                    : "border border-[#3D3D3D] hover:border-[#C9A84C]/40 text-[#9A9A9A] hover:text-[#C9A84C]"
+                    : "border border-[#D8D0C2] text-[#3D3D3D] hover:border-[#C9A84C]/50 hover:text-[#A8872E]"
                 }`}
               >
                 {pkg.cta}
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="h-3.5 w-3.5" />
               </a>
             </motion.div>
           ))}
@@ -114,10 +134,10 @@ export default function LaserPackages() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="text-center text-xs text-[#4A4A4A] mt-6 leading-relaxed"
+          className="mx-auto mt-6 max-w-2xl text-center text-xs leading-relaxed text-[#6B6B6B]"
         >
-          Los precios de paquetes se informan durante la evaluación según zonas seleccionadas,
-          densidad del vello y plan recomendado. Contacta para conocer opciones disponibles.
+          Los planes se orientan según zona, densidad del vello, tipo de piel y disponibilidad.
+          La reducción del vello es progresiva y los resultados pueden variar.
         </motion.p>
       </div>
     </section>

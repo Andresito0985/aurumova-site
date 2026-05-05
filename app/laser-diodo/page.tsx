@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import LaserHero from "@/components/sections/laser-diodo/LaserHero";
-import LaserWhyDiode from "@/components/sections/laser-diodo/LaserWhyDiode";
+import LaserValueProps from "@/components/sections/laser-diodo/LaserValueProps";
+import LaserVisualStory from "@/components/sections/laser-diodo/LaserVisualStory";
+import LaserResultsSection from "@/components/sections/laser-diodo/LaserResultsSection";
 import LaserZones from "@/components/sections/laser-diodo/LaserZones";
 import LaserPackages from "@/components/sections/laser-diodo/LaserPackages";
 import LaserPrepAftercare from "@/components/sections/laser-diodo/LaserPrepAftercare";
-import LaserLeadForm from "@/components/forms/LaserLeadForm";
 import FAQSection from "@/components/sections/FAQSection";
 import CTABanner from "@/components/ui/CTABanner";
 
@@ -73,15 +74,17 @@ const faqs = [
 ];
 
 const CTA_MSG =
-  "Hola, me interesa una evaluación para Láser Diodo High-Tech en Aurum Nova. Zona de interés: ___. Me gustaría conocer opciones de paquetes.";
+  "Hola, quiero agendar una evaluación para láser diodo en Aurum Nova. Me interesa conocer planes disponibles según mi zona.";
 
 export default function LaserDiodoPage() {
   return (
     <>
       <LaserHero />
-      <LaserWhyDiode />
-      <LaserZones />
+      <LaserValueProps />
       <LaserPackages />
+      <LaserZones />
+      <LaserResultsSection />
+      <LaserVisualStory />
       <LaserPrepAftercare />
       <FAQSection
         faqs={faqs}
@@ -89,13 +92,16 @@ export default function LaserDiodoPage() {
         subtitle="Respuestas claras sobre sesiones, resultados, preparación y paquetes."
         variant="dark"
       />
-      <LaserLeadForm />
       <CTABanner
-        title="Diseña tu plan láser personalizado"
-        subtitle="Cuéntanos tu zona de interés y te orientamos sobre opciones, sesiones y paquetes disponibles."
-        ctaText="Solicitar orientación por WhatsApp"
+        title="Comienza tu proceso láser con una evaluación personalizada"
+        subtitle="Nuestro equipo te orienta sobre las zonas ideales, frecuencia recomendada y plan más conveniente según tu tipo de piel, vello y objetivo."
+        ctaText="Agendar por WhatsApp"
         ctaMessage={CTA_MSG}
+        secondaryHref="#planes-laser"
+        secondaryText="Ver planes disponibles"
         variant="dark"
+        trackingSource="laser_final_cta"
+        disclaimerText="Requiere evaluación por zona. No todos responden igual y los resultados pueden variar."
       />
     </>
   );

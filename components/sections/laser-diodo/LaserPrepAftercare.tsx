@@ -31,15 +31,27 @@ const evalCards = [
 export default function LaserPrepAftercare() {
   return (
     <>
-      {/* Prep + Aftercare */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-[#FAF8F4]">
         <div className="container-max">
-          <div className="grid lg:grid-cols-2 gap-10">
-            {/* Preparation */}
+          <div className="mx-auto mb-10 max-w-2xl text-center">
+            <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-widest text-[#C9A84C]">
+              Antes y después
+            </span>
+            <h2 className="mb-4 text-2xl font-semibold text-[#1A1A1A] sm:text-3xl">
+              Cómo prepararte para tu sesión
+            </h2>
+            <p className="text-sm leading-relaxed text-[#6B6B6B] sm:text-base">
+              Instrucciones simples para que la evaluación y la sesión se realicen de forma
+              organizada y segura.
+            </p>
+          </div>
+
+          <div className="grid gap-5 lg:grid-cols-2">
             <motion.div
               initial={{ opacity: 0, x: -16 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              className="rounded-[1.5rem] border border-[#E8E4DA] bg-white p-5 shadow-sm sm:p-6"
             >
               <span className="inline-block text-xs font-semibold tracking-widest uppercase text-[#C9A84C] mb-4">
                 Preparación
@@ -64,11 +76,11 @@ export default function LaserPrepAftercare() {
               </ul>
             </motion.div>
 
-            {/* Aftercare */}
             <motion.div
               initial={{ opacity: 0, x: 16 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
+              className="rounded-[1.5rem] border border-[#E8E4DA] bg-white p-5 shadow-sm sm:p-6"
             >
               <span className="inline-block text-xs font-semibold tracking-widest uppercase text-[#C9A84C] mb-4">
                 Cuidado posterior
@@ -96,8 +108,7 @@ export default function LaserPrepAftercare() {
         </div>
       </section>
 
-      {/* Who needs eval first */}
-      <section className="section-padding bg-[#FAF8F4]">
+      <section className="section-padding bg-white">
         <div className="container-max">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
