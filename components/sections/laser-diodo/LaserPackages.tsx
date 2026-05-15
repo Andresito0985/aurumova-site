@@ -97,7 +97,7 @@ export default function LaserPackages() {
               }`}
             >
               {pkg.highlight && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#C9A84C] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-lg shadow-[#C9A84C]/20">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#C9A84C] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#1A1A1A] shadow-lg shadow-[#C9A84C]/20">
                   Recomendado
                 </div>
               )}

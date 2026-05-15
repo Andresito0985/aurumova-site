@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   Heart,
   Shield,
@@ -88,13 +88,15 @@ const services: Service[] = [
 ];
 
 export default function HomeWellnessGrid() {
+  const reduce = useReducedMotion();
   return (
     <section className="section-padding bg-white">
       <div className="container-max">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={reduce ? false : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={reduce ? { duration: 0 } : undefined}
           className="max-w-3xl mb-12"
         >
           <span className="inline-block text-xs font-semibold tracking-widest uppercase text-[#C9A84C] mb-3">
@@ -115,10 +117,10 @@ export default function HomeWellnessGrid() {
             return (
               <motion.div
                 key={service.href}
-                initial={{ opacity: 0, y: 16 }}
+                initial={reduce ? false : { opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
+                transition={reduce ? { duration: 0 } : { delay: i * 0.05 }}
                 className={service.priority ? "" : "hidden sm:block"}
               >
                 <Link
@@ -151,10 +153,10 @@ export default function HomeWellnessGrid() {
 
           {/* Featured: link back to the primary funnel */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={reduce ? false : { opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: services.length * 0.05 }}
+            transition={reduce ? { duration: 0 } : { delay: services.length * 0.05 }}
           >
             <Link
               href="/programa-metabolico"

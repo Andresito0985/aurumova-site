@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Phone, ChevronRight, MapPin, MessageCircle } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { callLink, siteConfig, whatsappLink } from "@/content/site";
 
 const desktopNav = [
@@ -60,6 +60,7 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const reduce = useReducedMotion();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -125,7 +126,7 @@ export default function Header() {
               </a>
               <Link
                 href="/agendar-evaluacion"
-                className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-all duration-200 shadow-sm hover:shadow-md"
+                className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] text-sm font-semibold px-5 py-2.5 rounded-full transition-all duration-200 shadow-sm hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A1A1A] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               >
                 Agendar Evaluación
               </Link>
@@ -134,27 +135,27 @@ export default function Header() {
             {/* Mobile hamburger */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="lg:hidden p-2 text-[#1A1A1A] hover:text-[#C9A84C] transition-colors"
+              className="lg:hidden p-2 text-[#1A1A1A] hover:text-[#C9A84C] transition-colors rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A84C] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
             >
               <AnimatePresence mode="wait" initial={false}>
                 {isOpen ? (
                   <motion.span
                     key="close"
-                    initial={{ rotate: -90, opacity: 0 }}
+                    initial={reduce ? { opacity: 0 } : { rotate: -90, opacity: 0 }}
                     animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.15 }}
+                    exit={reduce ? { opacity: 0 } : { rotate: 90, opacity: 0 }}
+                    transition={reduce ? { duration: 0 } : { duration: 0.15 }}
                   >
                     <X className="w-6 h-6" />
                   </motion.span>
                 ) : (
                   <motion.span
                     key="open"
-                    initial={{ rotate: 90, opacity: 0 }}
+                    initial={reduce ? { opacity: 0 } : { rotate: 90, opacity: 0 }}
                     animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: -90, opacity: 0 }}
-                    transition={{ duration: 0.15 }}
+                    exit={reduce ? { opacity: 0 } : { rotate: -90, opacity: 0 }}
+                    transition={reduce ? { duration: 0 } : { duration: 0.15 }}
                   >
                     <Menu className="w-6 h-6" />
                   </motion.span>
@@ -169,10 +170,10 @@ export default function Header() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, x: "100%" }}
+            initial={reduce ? { opacity: 0 } : { opacity: 0, x: "100%" }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "100%" }}
-            transition={{ type: "tween", duration: 0.28, ease: "easeInOut" }}
+            exit={reduce ? { opacity: 0 } : { opacity: 0, x: "100%" }}
+            transition={reduce ? { duration: 0.12 } : { type: "tween", duration: 0.28, ease: "easeInOut" }}
             className="fixed inset-0 z-40 bg-white lg:hidden flex flex-col"
           >
             {/* Spacer for header */}
@@ -184,9 +185,9 @@ export default function Header() {
                 {mobileNavGroups.map((group, gi) => (
                   <motion.div
                     key={group.title}
-                    initial={{ opacity: 0, y: 8 }}
+                    initial={reduce ? false : { opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: gi * 0.06 }}
+                    transition={reduce ? { duration: 0 } : { delay: gi * 0.06 }}
                   >
                     <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#9A9A9A] px-3 mb-2">
                       {group.title}
@@ -196,7 +197,7 @@ export default function Header() {
                         key={link.href}
                         href={link.href}
                         onClick={() => setIsOpen(false)}
-                        className={`flex items-center justify-between px-3 py-3 rounded-xl mb-0.5 group transition-colors ${
+                        className={`flex items-center justify-between px-3 py-3 rounded-xl mb-0.5 group transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A84C] focus-visible:ring-offset-2 focus-visible:ring-offset-white ${
                           pathname === link.href
                             ? "bg-[#C9A84C]/10 text-[#C9A84C]"
                             : "hover:bg-[#FAF8F4] text-[#1A1A1A]"
@@ -205,7 +206,7 @@ export default function Header() {
                         <div className="flex items-center gap-3">
                           <span className="text-base font-medium">{link.label}</span>
                           {link.badge && (
-                            <span className="text-[10px] font-semibold bg-[#C9A84C] text-white px-2 py-0.5 rounded-full">
+                            <span className="text-[10px] font-semibold bg-[#C9A84C] text-[#1A1A1A] px-2 py-0.5 rounded-full">
                               {link.badge}
                             </span>
                           )}
@@ -239,7 +240,7 @@ export default function Header() {
                 href={whatsappLink("Hola, quisiera agendar una evaluación en Aurum Nova Wellness Clinic.")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 w-full bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold py-3.5 rounded-full transition-all"
+                className="flex items-center justify-center gap-2 w-full bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold py-3.5 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A1A1A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAF8F4]"
               >
                 <MessageCircle className="h-4 w-4" />
                 Agendar por WhatsApp

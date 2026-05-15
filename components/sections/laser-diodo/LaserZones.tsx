@@ -54,7 +54,7 @@ export default function LaserZones() {
               }`}
             >
               {zone.popular && (
-                <span className="absolute -top-2 left-1/2 -translate-x-1/2 bg-[#C9A84C] text-white text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider whitespace-nowrap">
+                <span className="absolute -top-2 left-1/2 -translate-x-1/2 bg-[#C9A84C] text-[#1A1A1A] text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider whitespace-nowrap">
                   Popular
                 </span>
               )}

@@ -672,7 +672,7 @@ function ProtocolComparisonCard({
       }`}
     >
       {isSuggested && (
-        <span className="mb-3 inline-flex w-fit rounded-full bg-[#C9A84C] px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white">
+        <span className="mb-3 inline-flex w-fit rounded-full bg-[#C9A84C] px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[#1A1A1A]">
           Protocolo sugerido
         </span>
       )}

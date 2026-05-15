@@ -247,7 +247,7 @@ export default function NutricionPage() {
                 className="flex-1 bg-white border border-[#E8E4DA] rounded-2xl p-5"
               >
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="w-6 h-6 rounded-full bg-[#C9A84C] text-white text-xs font-bold flex items-center justify-center">
+                  <span className="w-6 h-6 rounded-full bg-[#C9A84C] text-[#1A1A1A] text-xs font-bold flex items-center justify-center">
                     {i + 1}
                   </span>
                   <h3 className="text-sm font-semibold text-[#1A1A1A]">Fase {phase.phase}</h3>

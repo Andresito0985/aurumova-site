@@ -139,7 +139,7 @@ export default function QuizMetabolicoPage() {
                 key={step}
                 className="rounded-2xl border border-[#E8E4DA] bg-[#FAF8F4] p-5"
               >
-                <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-xl bg-[#C9A84C] text-sm font-bold text-white">
+                <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-xl bg-[#C9A84C] text-sm font-bold text-[#1A1A1A]">
                   {index + 1}
                 </div>
                 <p className="text-sm font-medium leading-relaxed text-[#3D3D3D]">{step}</p>

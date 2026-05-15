@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { MessageCircle, CalendarCheck } from "lucide-react";
 import { whatsappLink } from "@/content/site";
 import { trackWhatsAppClick, trackEvent } from "@/lib/tracking";
@@ -15,6 +15,7 @@ const HIDDEN_ROUTES = ["/agendar-evaluacion", "/contacto"];
 
 export default function StickyMobileCTA() {
   const pathname = usePathname();
+  const reduce = useReducedMotion();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -30,10 +31,10 @@ export default function StickyMobileCTA() {
     <AnimatePresence>
       {visible && (
         <motion.div
-          initial={{ y: 80, opacity: 0 }}
+          initial={reduce ? { opacity: 0 } : { y: 80, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 80, opacity: 0 }}
-          transition={{ type: "tween", duration: 0.25, ease: "easeOut" }}
+          exit={reduce ? { opacity: 0 } : { y: 80, opacity: 0 }}
+          transition={reduce ? { duration: 0.12 } : { type: "tween", duration: 0.25, ease: "easeOut" }}
           className="fixed bottom-0 inset-x-0 z-40 lg:hidden pointer-events-none"
         >
           <div className="px-3 pb-3 pt-2 pointer-events-auto">
@@ -46,7 +47,7 @@ export default function StickyMobileCTA() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackWhatsAppClick("sticky_mobile")}
-                className="flex-1 inline-flex items-center justify-center gap-1.5 bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold text-sm py-3 rounded-full transition-colors"
+                className="flex-1 inline-flex items-center justify-center gap-1.5 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold text-sm py-3 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A1A1A] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               >
                 <MessageCircle className="w-4 h-4" />
                 WhatsApp
@@ -54,7 +55,7 @@ export default function StickyMobileCTA() {
               <Link
                 href="/agendar-evaluacion"
                 onClick={() => trackEvent("ScheduleClicked", { source: "sticky_mobile" })}
-                className="flex-1 inline-flex items-center justify-center gap-1.5 bg-[#1A1A1A] hover:bg-[#000000] text-white font-semibold text-sm py-3 rounded-full transition-colors"
+                className="flex-1 inline-flex items-center justify-center gap-1.5 bg-[#1A1A1A] hover:bg-[#000000] text-white font-semibold text-sm py-3 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A1A1A] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               >
                 <CalendarCheck className="w-4 h-4" />
                 Agendar

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   Activity,
   ArrowRight,
@@ -52,6 +52,7 @@ const HERO_WHATSAPP_MESSAGE =
   "Hola, quiero agendar una evaluación en Aurum Nova Wellness Clinic. Me interesa orientación sobre control metabólico o láser diodo.";
 
 export default function HomeHero() {
+  const reduce = useReducedMotion();
   return (
     <section className="relative flex min-h-[78vh] items-center overflow-hidden bg-[#FAF8F4] lg:min-h-screen">
       <div className="absolute inset-0 bg-gradient-to-br from-white via-[#FAF8F4] to-[#EDE8DC]" />
@@ -68,14 +69,14 @@ export default function HomeHero() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={reduce ? false : { opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
+            transition={reduce ? { duration: 0 } : { duration: 0.7 }}
           >
             <motion.div
-              initial={{ opacity: 0, y: 8 }}
+              initial={reduce ? false : { opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.15 }}
+              transition={reduce ? { duration: 0 } : { delay: 0.15 }}
               className="inline-flex items-center gap-2 bg-white border border-[#E8E4DA] rounded-full px-3.5 py-1.5 mb-5 shadow-sm"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]" />
@@ -112,9 +113,9 @@ export default function HomeHero() {
               {trust.map((item, i) => (
                 <motion.li
                   key={item}
-                  initial={{ opacity: 0, x: -12 }}
+                  initial={reduce ? false : { opacity: 0, x: -12 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.4 + i * 0.08 }}
+                  transition={reduce ? { duration: 0 } : { delay: 0.4 + i * 0.08 }}
                   className={`flex items-center gap-3 text-sm text-[#3D3D3D] font-medium ${
                     i > 1 ? "hidden sm:flex" : ""
                   }`}
@@ -126,16 +127,16 @@ export default function HomeHero() {
             </ul>
 
             <motion.div
-              initial={{ opacity: 0, y: 8 }}
+              initial={reduce ? false : { opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.75 }}
+              transition={reduce ? { duration: 0 } : { delay: 0.75 }}
               className="flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:gap-3"
             >
               <a
                 href={whatsappLink(HERO_WHATSAPP_MESSAGE)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 shadow-md hover:shadow-lg"
+                className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A1A1A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAF8F4]"
               >
                 <MessageCircle className="w-4 h-4" />
                 Agendar por WhatsApp
@@ -195,9 +196,9 @@ export default function HomeHero() {
 
           {/* Right — visual */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={reduce ? false : { opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            transition={reduce ? { duration: 0 } : { duration: 0.8, delay: 0.3 }}
             className="relative hidden lg:block"
           >
             <div className="relative min-h-[620px] sm:aspect-[4/5] sm:min-h-0 rounded-3xl overflow-hidden bg-gradient-to-br from-[#EDE8DC] to-[#D4C9B0] flex items-center justify-center">
@@ -319,9 +320,9 @@ export default function HomeHero() {
 
               {/* Floating stat */}
               <motion.div
-                initial={{ opacity: 0, x: 20 }}
+                initial={reduce ? false : { opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.1 }}
+                transition={reduce ? { duration: 0 } : { delay: 1.1 }}
                 className="hidden sm:block absolute top-6 right-4 bg-white rounded-2xl shadow-lg p-4 max-w-[160px]"
               >
                 <p className="text-[10px] text-[#9A9A9A] font-semibold uppercase tracking-wider mb-1">
@@ -334,9 +335,9 @@ export default function HomeHero() {
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, x: -20 }}
+                initial={reduce ? false : { opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.3 }}
+                transition={reduce ? { duration: 0 } : { delay: 1.3 }}
                 className="hidden sm:block absolute bottom-8 left-4 bg-white rounded-2xl shadow-lg p-4 max-w-[160px]"
               >
                 <p className="text-[10px] text-[#9A9A9A] font-semibold uppercase tracking-wider mb-1">
