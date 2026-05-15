@@ -18,7 +18,7 @@ export default function WhatsAppFloat() {
       transition={{ delay: 1.5, type: "spring", stiffness: 260, damping: 20 }}
       whileHover={{ scale: 1.08 }}
       whileTap={{ scale: 0.95 }}
-      className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 rounded-full shadow-xl bg-[#C9A84C] hover:bg-[#A8872E] transition-colors"
+      className="hidden lg:flex fixed bottom-6 right-6 z-50 items-center justify-center w-14 h-14 rounded-full shadow-xl bg-[#C9A84C] hover:bg-[#A8872E] transition-colors"
       style={{ boxShadow: "0 4px 24px rgba(201,168,76,0.35)" }}
     >
       {/* Subtle pulse ring in gold */}

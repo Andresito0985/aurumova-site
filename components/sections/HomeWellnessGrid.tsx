@@ -21,6 +21,7 @@ type Service = {
   description: string;
   href: string;
   cta?: string;
+  priority?: boolean; // top picks shown in mobile
 };
 
 const services: Service[] = [
@@ -31,6 +32,7 @@ const services: Service[] = [
     description:
       "Programa con seguimiento clínico para metas metabólicas, energía, piel, cabello y bienestar femenino.",
     href: "/wellness-mujer",
+    priority: true,
   },
   {
     icon: Shield,
@@ -39,6 +41,25 @@ const services: Service[] = [
     description:
       "Apoyo clínico para composición corporal, energía, rendimiento y salud metabólica masculina.",
     href: "/wellness-hombre",
+    priority: true,
+  },
+  {
+    icon: Droplets,
+    category: "Sueroterapia",
+    title: "Sueroterapia NAD+ & Myers",
+    description:
+      "Protocolos IV de hidratación y soporte wellness, sujetos a evaluación y criterio clínico.",
+    href: "/sueroterapia",
+    priority: true,
+  },
+  {
+    icon: Sparkles,
+    category: "Estética médica",
+    title: "Skin & Glow",
+    description:
+      "Protocolos médico-estéticos para luminosidad, calidad de piel y bienestar integral.",
+    href: "/skin-glow",
+    priority: true,
   },
   {
     icon: Apple,
@@ -49,28 +70,12 @@ const services: Service[] = [
     href: "/nutricion",
   },
   {
-    icon: Droplets,
-    category: "Sueroterapia",
-    title: "Sueroterapia NAD+ & Myers",
-    description:
-      "Protocolos IV de hidratación y soporte wellness, sujetos a evaluación y criterio clínico.",
-    href: "/sueroterapia",
-  },
-  {
     icon: Syringe,
     category: "Inyectables wellness",
     title: "Inyectables Metabólicos",
     description:
       "Apoyo wellness complementario al plan médico, sujeto a evaluación y criterio clínico.",
     href: "/inyectables-metabolicos",
-  },
-  {
-    icon: Sparkles,
-    category: "Estética médica",
-    title: "Skin & Glow",
-    description:
-      "Protocolos médico-estéticos para luminosidad, calidad de piel y bienestar integral.",
-    href: "/skin-glow",
   },
   {
     icon: Leaf,
@@ -114,6 +119,7 @@ export default function HomeWellnessGrid() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
+                className={service.priority ? "" : "hidden sm:block"}
               >
                 <Link
                   href={service.href}
@@ -188,6 +194,15 @@ export default function HomeWellnessGrid() {
             </Link>
           </motion.div>
         </div>
+
+        {/* Mobile-only: el resto de servicios vive en /servicios para evitar scroll largo */}
+        <Link
+          href="/servicios"
+          className="sm:hidden mt-6 flex items-center justify-center gap-2 w-full rounded-full border border-[#E8E4DA] bg-white py-3.5 text-sm font-semibold text-[#1A1A1A] transition-colors hover:border-[#C9A84C] hover:text-[#C9A84C]"
+        >
+          Ver todos los servicios
+          <ArrowRight className="h-4 w-4" />
+        </Link>
 
         <p className="mt-8 text-xs text-[#9A9A9A] max-w-2xl">
           Requiere evaluación clínica. No todos los pacientes cualifican. Los resultados

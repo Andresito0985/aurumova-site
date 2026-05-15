@@ -1,8 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   Activity,
+  ArrowRight,
   CheckCircle2,
   ClipboardList,
   HeartPulse,
@@ -51,7 +53,7 @@ const HERO_WHATSAPP_MESSAGE =
 
 export default function HomeHero() {
   return (
-    <section className="relative flex min-h-[92vh] items-center overflow-hidden bg-[#FAF8F4] lg:min-h-screen">
+    <section className="relative flex min-h-[78vh] items-center overflow-hidden bg-[#FAF8F4] lg:min-h-screen">
       <div className="absolute inset-0 bg-gradient-to-br from-white via-[#FAF8F4] to-[#EDE8DC]" />
       <div
         className="absolute inset-0 opacity-40"
@@ -62,7 +64,7 @@ export default function HomeHero() {
       />
       <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#C9A84C]/50 to-transparent" />
 
-      <div className="container-max px-4 sm:px-6 lg:px-8 relative z-10 pt-24 pb-14 lg:pb-20">
+      <div className="container-max px-4 sm:px-6 lg:px-8 relative z-10 pt-20 pb-10 sm:pt-24 lg:pb-20">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left */}
           <motion.div
@@ -74,30 +76,39 @@ export default function HomeHero() {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15 }}
-              className="inline-flex items-center gap-2 bg-white border border-[#E8E4DA] rounded-full px-4 py-1.5 mb-6 shadow-sm"
+              className="inline-flex items-center gap-2 bg-white border border-[#E8E4DA] rounded-full px-3.5 py-1.5 mb-5 shadow-sm"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]" />
-              <span className="text-xs font-semibold tracking-widest uppercase text-[#C9A84C]">
-                Arecibo Medical Plaza · Suite 201
+              <span className="text-[11px] sm:text-xs font-semibold tracking-widest uppercase text-[#C9A84C]">
+                Arecibo · Wellness Clinic
               </span>
             </motion.div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.08] text-[#1A1A1A] mb-6">
+            <h1 className="text-[2.25rem] leading-[1.08] sm:text-5xl lg:text-6xl font-semibold text-[#1A1A1A] mb-4 sm:mb-6">
               Control metabólico y{" "}
               <span className="gold-text-gradient">láser diodo</span>
-              <br />
-              <span className="text-3xl sm:text-4xl lg:text-5xl font-normal text-[#6B6B6B]">
-                en un ambiente clínico premium
+              <span className="block sm:inline">
+                <span className="hidden sm:inline">
+                  <br />
+                </span>
+                <span className="text-xl sm:text-4xl lg:text-5xl font-normal text-[#6B6B6B]">
+                  {" "}con seguimiento médico real.
+                </span>
               </span>
             </h1>
 
-            <p className="text-lg text-[#6B6B6B] leading-relaxed mb-8 max-w-xl">
-              Evaluación, protocolos personalizados y seguimiento guiado para que tu proceso sea
-              claro, cómodo y responsable desde la primera visita.
+            <p className="text-base sm:text-lg text-[#6B6B6B] leading-relaxed mb-6 sm:mb-8 max-w-xl">
+              <span className="sm:hidden">
+                Evaluación clínica, protocolo personal y seguimiento medible.
+              </span>
+              <span className="hidden sm:inline">
+                Evaluación, protocolos personalizados y seguimiento guiado para que tu proceso sea
+                claro, cómodo y responsable desde la primera visita.
+              </span>
             </p>
 
-            {/* Trust signals */}
-            <ul className="space-y-2.5 mb-10">
+            {/* Trust signals — solo 2 en mobile, 4 en sm+ */}
+            <ul className="space-y-2 sm:space-y-2.5 mb-7 sm:mb-10">
               {trust.map((item, i) => (
                 <motion.li
                   key={item}
@@ -105,7 +116,7 @@ export default function HomeHero() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.4 + i * 0.08 }}
                   className={`flex items-center gap-3 text-sm text-[#3D3D3D] font-medium ${
-                    i > 2 ? "hidden sm:flex" : ""
+                    i > 1 ? "hidden sm:flex" : ""
                   }`}
                 >
                   <CheckCircle2 className="w-4 h-4 text-[#C9A84C] shrink-0" />
@@ -118,7 +129,7 @@ export default function HomeHero() {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.75 }}
-              className="flex flex-col gap-3 sm:flex-row sm:flex-wrap"
+              className="flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:gap-3"
             >
               <a
                 href={whatsappLink(HERO_WHATSAPP_MESSAGE)}
@@ -129,25 +140,53 @@ export default function HomeHero() {
                 <MessageCircle className="w-4 h-4" />
                 Agendar por WhatsApp
               </a>
-              <a
-                href={callLink()}
+              <Link
+                href="/servicios"
                 className="inline-flex items-center justify-center gap-2 bg-white border border-[#E8E4DA] hover:border-[#C9A84C] text-[#1A1A1A] hover:text-[#C9A84C] font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200"
               >
+                Ver servicios
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <a
+                href={callLink()}
+                className="hidden sm:inline-flex items-center justify-center gap-2 bg-white border border-[#E8E4DA] hover:border-[#C9A84C] text-[#1A1A1A] hover:text-[#C9A84C] font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200"
+              >
                 <Phone className="w-4 h-4" />
-                Llamar a la clínica
+                Llamar
               </a>
               <a
                 href={siteConfig.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 bg-white border border-[#E8E4DA] hover:border-[#C9A84C] text-[#1A1A1A] hover:text-[#C9A84C] font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200"
+                className="hidden sm:inline-flex items-center justify-center gap-2 bg-white border border-[#E8E4DA] hover:border-[#C9A84C] text-[#1A1A1A] hover:text-[#C9A84C] font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200"
               >
                 <MapPin className="w-4 h-4" />
                 Ver ubicación
               </a>
             </motion.div>
 
-            <p className="mt-4 text-xs leading-relaxed text-[#9A9A9A]">
+            {/* Acciones secundarias compactas solo en mobile */}
+            <div className="flex sm:hidden items-center gap-4 mt-4 text-sm">
+              <a
+                href={callLink()}
+                className="inline-flex items-center gap-1.5 text-[#3D3D3D] hover:text-[#C9A84C] font-medium"
+              >
+                <Phone className="w-3.5 h-3.5 text-[#C9A84C]" />
+                Llamar
+              </a>
+              <span className="text-[#E8E4DA]">·</span>
+              <a
+                href={siteConfig.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-[#3D3D3D] hover:text-[#C9A84C] font-medium"
+              >
+                <MapPin className="w-3.5 h-3.5 text-[#C9A84C]" />
+                Ubicación
+              </a>
+            </div>
+
+            <p className="hidden sm:block mt-4 text-xs leading-relaxed text-[#9A9A9A]">
               WhatsApp: {siteConfig.whatsappDisplay} · Llamadas: {siteConfig.callDisplay} solo
               llamadas
               <br className="sm:hidden" /> {siteConfig.addressShort}

@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import WhatsAppFloat from "@/components/layout/WhatsAppFloat";
+import StickyMobileCTA from "@/components/layout/StickyMobileCTA";
 import JsonLd from "@/components/JsonLd";
 import AnalyticsScripts from "@/components/analytics/AnalyticsScripts";
 import SiteLockScreen from "@/components/SiteLockScreen";
@@ -86,6 +87,7 @@ export default function RootLayout({
             <main className="flex-1">{children}</main>
             <Footer />
             <WhatsAppFloat />
+            <StickyMobileCTA />
           </>
         )}
       </body>

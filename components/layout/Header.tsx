@@ -16,26 +16,44 @@ const desktopNav = [
   { label: "Contacto", href: "/contacto" },
 ];
 
-const mobileNav = [
-  { label: "Programa Metabólico Integral", href: "/programa-metabolico", badge: "Principal" },
-  { label: "Quiz Metabólico", href: "/quiz-metabolico", badge: "Nuevo" },
-  { label: "Calculadoras educativas", href: "/calculadoras", badge: "Recurso" },
-  { label: "Análisis de laboratorios", href: "/analisis-laboratorios", badge: "Recurso" },
-  { label: "Láser Diodo", href: "/laser-diodo" },
-  { label: "Servicios", href: "/servicios" },
-  { label: "Resultados Medibles", href: "/resultados" },
-  { label: "Contacto", href: "/contacto" },
-  { label: "Wellness Mujer", href: "/wellness-mujer" },
-  { label: "Wellness Hombre", href: "/wellness-hombre" },
-  { label: "Nutrición Personalizada", href: "/nutricion" },
-  { label: "Suplementación", href: "/suplementacion" },
-  { label: "Sueroterapia NAD+ & Myers", href: "/sueroterapia" },
-  { label: "Inyectables Metabólicos", href: "/inyectables-metabolicos" },
-  { label: "Skin & Glow", href: "/skin-glow" },
-  { label: "Hair Support", href: "/hair-support" },
-  { label: "Coaching & Seguimiento", href: "/coaching-seguimiento" },
-  { label: "Sobre Aurum Nova", href: "/sobre-nosotros" },
-  { label: "Preguntas Frecuentes", href: "/preguntas-frecuentes" },
+type MobileNavItem = { label: string; href: string; badge?: string };
+type MobileNavGroup = { title: string; items: MobileNavItem[] };
+
+const mobileNavGroups: MobileNavGroup[] = [
+  {
+    title: "Principal",
+    items: [
+      { label: "Programa Metabólico Integral", href: "/programa-metabolico", badge: "Principal" },
+      { label: "Quiz Metabólico", href: "/quiz-metabolico", badge: "Nuevo" },
+      { label: "Láser Diodo", href: "/laser-diodo" },
+      { label: "Servicios", href: "/servicios" },
+      { label: "Resultados Medibles", href: "/resultados" },
+      { label: "Contacto", href: "/contacto" },
+    ],
+  },
+  {
+    title: "Servicios",
+    items: [
+      { label: "Wellness Mujer", href: "/wellness-mujer" },
+      { label: "Wellness Hombre", href: "/wellness-hombre" },
+      { label: "Nutrición Personalizada", href: "/nutricion" },
+      { label: "Suplementación", href: "/suplementacion" },
+      { label: "Sueroterapia NAD+ & Myers", href: "/sueroterapia" },
+      { label: "Inyectables Metabólicos", href: "/inyectables-metabolicos" },
+      { label: "Skin & Glow", href: "/skin-glow" },
+      { label: "Hair Support", href: "/hair-support" },
+      { label: "Coaching & Seguimiento", href: "/coaching-seguimiento" },
+    ],
+  },
+  {
+    title: "Recursos",
+    items: [
+      { label: "Calculadoras educativas", href: "/calculadoras", badge: "Recurso" },
+      { label: "Análisis de laboratorios", href: "/analisis-laboratorios", badge: "Recurso" },
+      { label: "Sobre Aurum Nova", href: "/sobre-nosotros" },
+      { label: "Preguntas Frecuentes", href: "/preguntas-frecuentes" },
+    ],
+  },
 ];
 
 export default function Header() {
@@ -162,40 +180,43 @@ export default function Header() {
 
             {/* Scrollable nav list */}
             <div className="flex-1 overflow-y-auto">
-              <div className="px-4 py-4">
-                <p className="text-[10px] font-semibold uppercase tracking-widest text-[#9A9A9A] px-3 mb-3">
-                  Programas y servicios
-                </p>
-                {mobileNav.map((link, i) => (
+              <div className="px-4 py-4 space-y-5">
+                {mobileNavGroups.map((group, gi) => (
                   <motion.div
-                    key={link.href}
-                    initial={{ opacity: 0, x: 16 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: i * 0.035 }}
+                    key={group.title}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: gi * 0.06 }}
                   >
-                    <Link
-                      href={link.href}
-                      onClick={() => setIsOpen(false)}
-                      className={`flex items-center justify-between px-3 py-3.5 rounded-xl mb-0.5 group transition-colors ${
-                        pathname === link.href
-                          ? "bg-[#C9A84C]/10 text-[#C9A84C]"
-                          : "hover:bg-[#FAF8F4] text-[#1A1A1A]"
-                      }`}
-                    >
-                      <div className="flex items-center gap-3">
-                        <span className="text-base font-medium">{link.label}</span>
-                        {link.badge && (
-                          <span className="text-[10px] font-semibold bg-[#C9A84C] text-white px-2 py-0.5 rounded-full">
-                            {link.badge}
-                          </span>
-                        )}
-                      </div>
-                      <ChevronRight
-                        className={`w-4 h-4 shrink-0 transition-colors ${
-                          pathname === link.href ? "text-[#C9A84C]" : "text-[#C9A84C]/40 group-hover:text-[#C9A84C]"
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#9A9A9A] px-3 mb-2">
+                      {group.title}
+                    </p>
+                    {group.items.map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        onClick={() => setIsOpen(false)}
+                        className={`flex items-center justify-between px-3 py-3 rounded-xl mb-0.5 group transition-colors ${
+                          pathname === link.href
+                            ? "bg-[#C9A84C]/10 text-[#C9A84C]"
+                            : "hover:bg-[#FAF8F4] text-[#1A1A1A]"
                         }`}
-                      />
-                    </Link>
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className="text-base font-medium">{link.label}</span>
+                          {link.badge && (
+                            <span className="text-[10px] font-semibold bg-[#C9A84C] text-white px-2 py-0.5 rounded-full">
+                              {link.badge}
+                            </span>
+                          )}
+                        </div>
+                        <ChevronRight
+                          className={`w-4 h-4 shrink-0 transition-colors ${
+                            pathname === link.href ? "text-[#C9A84C]" : "text-[#C9A84C]/40 group-hover:text-[#C9A84C]"
+                          }`}
+                        />
+                      </Link>
+                    ))}
                   </motion.div>
                 ))}
               </div>
