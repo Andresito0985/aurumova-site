@@ -1,82 +1,124 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Star } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { ShieldCheck, Activity, ClipboardList, LineChart } from "lucide-react";
 
-// Placeholder cards — do not display fabricated patient claims publicly.
-// Replace with real authorized testimonials before production launch.
-const placeholders = [
-  { initials: "M.R.", program: "Programa Metabólico Integral" },
-  { initials: "C.L.", program: "Láser Diodo" },
-  { initials: "J.T.", program: "Wellness Hombre" },
+/**
+ * ⚠️ LAUNCH-SAFE — NO publicar testimonios ni citas de pacientes inventadas.
+ *
+ * Esta sección NO muestra testimonios mientras no existan declaraciones
+ * REALES y AUTORIZADAS por escrito por cada paciente. En su lugar describe,
+ * de forma factual, en qué consiste la experiencia del programa (proceso
+ * clínico ya descrito en el resto del sitio).
+ *
+ * CÓMO AÑADIR TESTIMONIOS REALES (solo con autorización):
+ *   1. Obtén consentimiento por escrito del paciente para publicar su
+ *      testimonio (texto y atribución).
+ *   2. No uses nombre completo salvo consentimiento explícito; usa
+ *      iniciales SOLO si el paciente lo autoriza.
+ *   3. No incluyas afirmaciones de resultados garantizados ni
+ *      comparaciones "antes/después". Mantén el disclaimer de que los
+ *      resultados varían.
+ *   4. Recupera el patrón de slider premium desde el historial de git
+ *      (commit anterior) o pídelo de nuevo, y rellénalo con el array de
+ *      testimonios reales autorizados.
+ *
+ * Hasta entonces, este componente debe permanecer sin citas de pacientes.
+ */
+
+const experiencePoints = [
+  {
+    icon: ClipboardList,
+    title: "Evaluación inicial",
+    description:
+      "Revisamos tu historial, objetivos y elegibilidad antes de proponer cualquier protocolo.",
+  },
+  {
+    icon: Activity,
+    title: "Plan personalizado",
+    description:
+      "Cada protocolo se diseña según criterio clínico y tus características individuales.",
+  },
+  {
+    icon: LineChart,
+    title: "Seguimiento medible",
+    description:
+      "Acompañamiento con métricas reales y ajustes a lo largo del proceso.",
+  },
+];
+
+const trustSignals = [
+  { icon: ShieldCheck, label: "Supervisión médica" },
+  { icon: Activity, label: "Seguimiento clínico" },
+  { icon: ClipboardList, label: "Protocolo personalizado" },
 ];
 
 export default function TestimonialsSection() {
+  const reduce = useReducedMotion();
+
   return (
     <section className="section-padding bg-[#FAF8F4]">
       <div className="container-max">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={reduce ? false : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          transition={reduce ? { duration: 0 } : undefined}
+          className="text-center mb-10 sm:mb-12"
         >
           <span className="inline-block text-xs font-semibold tracking-widest uppercase text-[#C9A84C] mb-3">
-            Experiencias
+            Experiencia del programa
           </span>
           <h2 className="text-3xl sm:text-4xl font-semibold text-[#1A1A1A] mb-4">
-            Lo que dicen nuestros pacientes
+            Cómo es el acompañamiento
           </h2>
           <p className="text-base text-[#6B6B6B] max-w-md mx-auto leading-relaxed">
-            Los resultados pueden variar. Los testimonios publicados son autorizados por
-            cada paciente y reflejan su experiencia individual.
+            Cada proceso es individual y supervisado. Los testimonios de
+            pacientes se publicarán únicamente cuando contemos con su
+            autorización por escrito.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-          {placeholders.map((item, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="bg-white border border-[#E8E4DA] rounded-2xl p-6 flex flex-col gap-4"
-            >
-              {/* Stars */}
-              <div className="flex gap-1">
-                {Array.from({ length: 5 }).map((_, s) => (
-                  <Star key={s} className="w-4 h-4 text-[#E8E4DA] fill-[#E8E4DA]" />
-                ))}
-              </div>
+        {/* Premium card — experiencia del programa (sin citas de pacientes) */}
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={reduce ? { duration: 0 } : { duration: 0.4 }}
+          className="mx-auto max-w-2xl rounded-3xl border border-[#E8E4DA] bg-white p-6 sm:p-8 shadow-sm"
+        >
+          {/* Trust signals */}
+          <ul className="flex flex-wrap justify-center gap-x-5 gap-y-2 border-b border-[#F0EDE6] pb-6">
+            {trustSignals.map(({ icon: Icon, label }) => (
+              <li
+                key={label}
+                className="inline-flex items-center gap-1.5 text-xs font-medium text-[#3D3D3D]"
+              >
+                <Icon className="h-4 w-4 text-[#C9A84C]" aria-hidden="true" />
+                {label}
+              </li>
+            ))}
+          </ul>
 
-              {/* Placeholder text */}
-              <div className="space-y-2">
-                <div className="h-3 bg-[#F0EDE6] rounded-full w-full" />
-                <div className="h-3 bg-[#F0EDE6] rounded-full w-5/6" />
-                <div className="h-3 bg-[#F0EDE6] rounded-full w-4/6" />
-              </div>
-
-              <p className="text-xs text-[#C9A84C] font-medium italic text-center">
-                Testimonio autorizado próximamente
-              </p>
-
-              {/* Attribution */}
-              <div className="flex items-center gap-3 pt-2 border-t border-[#F0EDE6]">
-                <div className="w-8 h-8 rounded-full bg-[#EDE8DC] flex items-center justify-center">
-                  <span className="text-xs font-semibold text-[#C9A84C]">{item.initials}</span>
-                </div>
-                <div>
-                  <p className="text-xs font-semibold text-[#1A1A1A]">Paciente Aurum Nova</p>
-                  <p className="text-[10px] text-[#9A9A9A]">{item.program}</p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+          {/* Qué esperar — factual, basado en el proceso clínico del sitio */}
+          <ul className="grid gap-6 pt-6 sm:grid-cols-3">
+            {experiencePoints.map(({ icon: Icon, title, description }) => (
+              <li key={title} className="flex flex-col gap-3 text-center sm:text-left">
+                <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-2xl bg-[#C9A84C]/10 sm:mx-0">
+                  <Icon className="h-5 w-5 text-[#C9A84C]" aria-hidden="true" />
+                </span>
+                <span className="text-sm font-semibold text-[#1A1A1A]">{title}</span>
+                <span className="text-xs leading-relaxed text-[#6B6B6B]">
+                  {description}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
 
         <p className="text-center text-xs text-[#9A9A9A] mt-6">
-          Los resultados individuales varían. Los testimonios autorizados se publicarán próximamente.
+          Los resultados individuales varían. No se publican testimonios sin la
+          autorización por escrito del paciente.
         </p>
       </div>
     </section>
