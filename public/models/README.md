@@ -43,7 +43,28 @@ For a separate handpiece scene, repeat with `aurum-laser-handpiece.glb`.
 - Side vents / panels: graphite (`#1A1A1A` – `#242424`).
 - Handpiece LED strip: emissive sky-blue (`#38BDF8`).
 - Emergency button: red (`#E03A3A`), low metallic.
-- Cable: dark grey corrugated.
+- Cable: grey corrugated (~2.5 cm dia).
+- Handpiece treatment window: **gold / amber sapphire** (warm, slightly
+  emissive), not dark glass — this is the machine's key identifier.
+
+## Generated model
+
+The shipped `aurum-laser-machine.glb` is built parametrically from the
+real reference photos + measured dimensions by
+`scripts/build-laser-console.py` (Blender, headless). Regenerate with:
+
+```
+/Applications/Blender.app/Contents/MacOS/Blender --background \
+    --python scripts/build-laser-console.py
+```
+
+Console-only (no cart). Measured: body ~40 H x 38 W x 52 D cm; screen
+frame 31 x 23 x 4 cm tilted ~20 deg back; handpiece ~26 cm.
+
+**Draco is intentionally disabled.** The mesh is tiny (~0.35 MB), and
+shipping plain glTF removes model-viewer's runtime dependency on an
+external Draco-decoder CDN (more robust on clinic networks).
+`scripts/_render-preview.py` renders QA stills of the exported GLB.
 
 ## Do **not** include in the model
 

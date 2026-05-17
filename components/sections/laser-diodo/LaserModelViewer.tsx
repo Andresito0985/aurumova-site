@@ -36,6 +36,12 @@ type ModelViewerElementAttributes = React.DetailedHTMLProps<
   "disable-zoom"?: boolean | "true" | "false";
   "touch-action"?: string;
   "camera-orbit"?: string;
+  "min-camera-orbit"?: string;
+  "max-camera-orbit"?: string;
+  "camera-target"?: string;
+  "auto-rotate-delay"?: string | number;
+  "shadow-softness"?: string;
+  "tone-mapping"?: string;
   "field-of-view"?: string;
   style?: CSSProperties;
 };
@@ -73,7 +79,20 @@ export default function LaserModelViewer({
     if (!node) return;
     const handleError = () => onError?.();
     node.addEventListener("error", handleError);
-    return () => node.removeEventListener("error", handleError);
+
+    // Honor reduced-motion: stop the idle auto-rotation for those users.
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const applyMotion = () => {
+      if (mq.matches) node.removeAttribute("auto-rotate");
+      else node.setAttribute("auto-rotate", "");
+    };
+    applyMotion();
+    mq.addEventListener("change", applyMotion);
+
+    return () => {
+      node.removeEventListener("error", handleError);
+      mq.removeEventListener("change", applyMotion);
+    };
   }, [onError, scriptReady]);
 
   return (
@@ -118,15 +137,21 @@ export default function LaserModelViewer({
             ar="false"
             camera-controls="true"
             auto-rotate="true"
-            rotation-per-second="14deg"
-            shadow-intensity="0.95"
-            exposure="1"
+            rotation-per-second="9deg"
+            auto-rotate-delay="2600"
+            camera-orbit="-22deg 76deg 105%"
+            min-camera-orbit="auto 62deg 80%"
+            max-camera-orbit="auto 88deg 165%"
+            field-of-view="30deg"
+            shadow-intensity="0.9"
+            shadow-softness="1"
+            exposure="1.05"
+            tone-mapping="neutral"
             environment-image="neutral"
             interaction-prompt="none"
             reveal="auto"
             loading="lazy"
             touch-action="pan-y"
-            field-of-view="32deg"
             style={{
               width: "100%",
               height: "100%",
