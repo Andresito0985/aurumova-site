@@ -16,92 +16,48 @@ export interface LaserImageInventoryItem {
 
 export const laserImageInventory = [
   {
-    "id": "laser-device-front-3-4",
-    "originalFilename": "01_three_quarter_product_render_clean.webp",
-    "newFilename": "front-3-4.webp",
+    "id": "laser-machine-01",
+    "originalFilename": "4.png",
+    "newFilename": "laser-machine-01.png",
     "category": "machine",
-    "reviewNotes": "Cleaned three-quarter product view for the pseudo-3D experience. Visible branding/UI text has been softened.",
-    "publicPath": "/images/laser-device/front-3-4.webp",
-    "width": 1600,
-    "height": 1600,
-    "orientation": "near-square"
+    "reviewNotes": "Full laser machine, handpiece, and parameter UI composition. Safe as machine asset; review embedded claims/copy before public placement.",
+    "publicPath": "/images/laser/machine/laser-machine-01.png",
+    "width": 1536,
+    "height": 1024,
+    "orientation": "landscape"
   },
   {
-    "id": "laser-device-front",
-    "originalFilename": "03_front_full_body_clean.webp",
-    "newFilename": "front.webp",
-    "category": "machine",
-    "reviewNotes": "Cleaned frontal device view for the pseudo-3D sequence.",
-    "publicPath": "/images/laser-device/front.webp",
-    "width": 1600,
-    "height": 1600,
-    "orientation": "near-square"
-  },
-  {
-    "id": "laser-device-right",
-    "originalFilename": "05_three_quarter_right_body_clean.webp",
-    "newFilename": "right.webp",
-    "category": "machine",
-    "reviewNotes": "Cleaned right-side device view.",
-    "publicPath": "/images/laser-device/right.webp",
-    "width": 1600,
-    "height": 1600,
-    "orientation": "near-square"
-  },
-  {
-    "id": "laser-device-left",
-    "originalFilename": "10_three_quarter_left_body_clean.webp",
-    "newFilename": "left.webp",
-    "category": "machine",
-    "reviewNotes": "Cleaned left-side device view.",
-    "publicPath": "/images/laser-device/left.webp",
-    "width": 1600,
-    "height": 1600,
-    "orientation": "near-square"
-  },
-  {
-    "id": "laser-device-cart",
-    "originalFilename": "04_full_machine_cart_front_clean.webp",
-    "newFilename": "device-on-cart.webp",
-    "category": "machine",
-    "reviewNotes": "Cleaned full-device view on cart for context and scale.",
-    "publicPath": "/images/laser-device/device-on-cart.webp",
-    "width": 1600,
-    "height": 1600,
-    "orientation": "near-square"
-  },
-  {
-    "id": "laser-device-handpiece",
-    "originalFilename": "06_handpiece_side_profile_clean.webp",
-    "newFilename": "handpiece.webp",
+    "id": "laser-handpiece-01",
+    "originalFilename": "Camara de enfriamiento .png",
+    "newFilename": "laser-handpiece-01.png",
     "category": "handpiece",
-    "reviewNotes": "Cleaned handpiece profile view.",
-    "publicPath": "/images/laser-device/handpiece.webp",
-    "width": 1600,
-    "height": 1600,
-    "orientation": "near-square"
+    "reviewNotes": "Close-up cooling-tip/handpiece asset. Review embedded copy before public placement.",
+    "publicPath": "/images/laser/handpiece/laser-handpiece-01.png",
+    "width": 1536,
+    "height": 1024,
+    "orientation": "landscape"
   },
   {
-    "id": "laser-device-handpiece-closeup",
-    "originalFilename": "07_handpiece_contact_tip_closeup_clean.webp",
-    "newFilename": "handpiece-closeup.webp",
+    "id": "laser-handpiece-02",
+    "originalFilename": "Equipo Intiutivo .png",
+    "newFilename": "laser-handpiece-02.png",
     "category": "handpiece",
-    "reviewNotes": "Cleaned close-up of the handpiece contact area.",
-    "publicPath": "/images/laser-device/handpiece-closeup.webp",
-    "width": 1600,
-    "height": 1600,
-    "orientation": "near-square"
+    "reviewNotes": "Portrait handpiece product asset. Filename typo retained only in originalFilename; copied name is web-safe.",
+    "publicPath": "/images/laser/handpiece/laser-handpiece-02.png",
+    "width": 1086,
+    "height": 1448,
+    "orientation": "portrait"
   },
   {
-    "id": "laser-device-screen-closeup",
-    "originalFilename": "09_screen_closeup_front_clean.webp",
-    "newFilename": "screen-closeup.webp",
+    "id": "laser-machine-02",
+    "originalFilename": "Foto principal .png",
+    "newFilename": "laser-machine-02.png",
     "category": "machine",
-    "reviewNotes": "Cleaned screen close-up with softened visible UI text.",
-    "publicPath": "/images/laser-device/screen-closeup.webp",
-    "width": 1600,
-    "height": 1600,
-    "orientation": "near-square"
+    "reviewNotes": "Wide hero-style laser machine composition. Review embedded claims/copy before public placement.",
+    "publicPath": "/images/laser/machine/laser-machine-02.png",
+    "width": 1717,
+    "height": 916,
+    "orientation": "landscape"
   },
   {
     "id": "laser-room-01",
@@ -111,6 +67,28 @@ export const laserImageInventory = [
     "reviewNotes": "Treatment-room action image with visible patient body area but no face. Confirm consent and crop safety before public use.",
     "publicPath": "/images/laser/room/laser-room-01.png",
     "width": 1536,
+    "height": 1024,
+    "orientation": "landscape"
+  },
+  {
+    "id": "laser-machine-03",
+    "originalFilename": "Partametros personalizados .png",
+    "newFilename": "laser-machine-03.png",
+    "category": "machine",
+    "reviewNotes": "Machine interface/parameter composition. Original filename contains typo; review embedded copy before public placement.",
+    "publicPath": "/images/laser/machine/laser-machine-03.png",
+    "width": 1536,
+    "height": 1024,
+    "orientation": "landscape"
+  },
+  {
+    "id": "laser-machine-04",
+    "originalFilename": "image.png",
+    "newFilename": "laser-machine-04.png",
+    "category": "machine",
+    "reviewNotes": "Machine interface/parameter composition similar to laser-machine-03; possible duplicate/variant. Human should choose preferred version before use.",
+    "publicPath": "/images/laser/machine/laser-machine-04.png",
+    "width": 1535,
     "height": 1024,
     "orientation": "landscape"
   },
