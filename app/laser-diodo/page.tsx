@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import LaserHero from "@/components/sections/laser-diodo/LaserHero";
-import Laser3DExperience from "@/components/sections/laser-diodo/Laser3DExperience";
+import LaserDeviceExperience from "@/components/laser/LaserDeviceExperience";
 import LaserValueProps from "@/components/sections/laser-diodo/LaserValueProps";
 import LaserVisualStory from "@/components/sections/laser-diodo/LaserVisualStory";
 import LaserResultsSection from "@/components/sections/laser-diodo/LaserResultsSection";
@@ -81,7 +81,7 @@ export default function LaserDiodoPage() {
   return (
     <>
       <LaserHero />
-      <Laser3DExperience />
+      <LaserDeviceExperience />
       <LaserValueProps />
       <LaserPackages />
       <LaserZones />

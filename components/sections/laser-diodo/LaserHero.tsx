@@ -2,41 +2,16 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, CalendarCheck, ChevronLeft, ShieldCheck, Sparkles, Zap } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { whatsappLink } from "@/content/site";
-import { laserVisualByPlacement } from "@/content/laser-visuals";
 
 const CTA_MSG =
   "Hola, me interesa agendar una evaluación para Láser Diodo High-Tech en Aurum Nova. Me gustaría conocer los planes disponibles.";
 
-function HeroImageFallback() {
-  return (
-    <div className="absolute inset-0 bg-[#141414]">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_28%,rgba(201,168,76,0.22),transparent_34%),linear-gradient(135deg,#141414_0%,#24201A_52%,#141414_100%)]" />
-    </div>
-  );
-}
-
 export default function LaserHero() {
-  const heroVisual =
-    laserVisualByPlacement.experience ?? laserVisualByPlacement.technology ?? laserVisualByPlacement.hero;
-
   return (
     <section className="relative flex min-h-[92vh] flex-col justify-center overflow-hidden bg-[#141414] px-4 pb-16 pt-24 sm:px-6 lg:px-8">
-      {heroVisual ? (
-        <Image
-          src={heroVisual.src}
-          alt={heroVisual.alt}
-          fill
-          preload
-          sizes="100vw"
-          className="object-cover opacity-70"
-          style={{ objectPosition: heroVisual.objectPosition ?? "70% center" }}
-        />
-      ) : (
-        <HeroImageFallback />
-      )}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_28%,rgba(201,168,76,0.22),transparent_34%),radial-gradient(circle_at_18%_80%,rgba(56,189,248,0.08),transparent_26%),linear-gradient(135deg,#141414_0%,#24201A_52%,#141414_100%)]" />
       <div className="absolute inset-0 bg-gradient-to-r from-[#111111]/95 via-[#111111]/80 to-[#111111]/40" />
       <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-transparent to-[#111111]/55" />
       <div className="absolute bottom-0 left-0 right-0 h-40 bg-[radial-gradient(circle_at_24%_40%,rgba(201,168,76,0.2),transparent_45%)]" />
