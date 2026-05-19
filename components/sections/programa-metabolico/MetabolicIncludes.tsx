@@ -92,7 +92,7 @@ export default function MetabolicIncludes() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:auto-rows-fr">
           {includes.map((item, i) => {
             const Icon = item.icon;
             return (
@@ -102,7 +102,7 @@ export default function MetabolicIncludes() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.04 }}
-                className="border border-[#E8E4DA] rounded-2xl p-5 hover:border-[#C9A84C]/30 hover:shadow-sm transition-all duration-300"
+                className="h-full flex flex-col border border-[#E8E4DA] rounded-2xl p-5 hover:border-[#C9A84C]/30 hover:shadow-sm transition-all duration-300"
               >
                 <div className="w-10 h-10 rounded-xl bg-[#C9A84C]/10 flex items-center justify-center mb-3">
                   <Icon className="w-5 h-5 text-[#C9A84C]" />

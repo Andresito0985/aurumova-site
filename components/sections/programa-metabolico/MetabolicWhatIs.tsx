@@ -65,7 +65,7 @@ export default function MetabolicWhatIs() {
             initial={{ opacity: 0, x: 16 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+            className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:auto-rows-fr"
           >
             {pillars.map((p, i) => {
               const Icon = p.icon;
@@ -76,7 +76,7 @@ export default function MetabolicWhatIs() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.07 }}
-                  className="bg-[#FAF8F4] border border-[#E8E4DA] rounded-2xl p-5"
+                  className="flex h-full flex-col bg-[#FAF8F4] border border-[#E8E4DA] rounded-2xl p-5"
                 >
                   <div className="w-9 h-9 rounded-xl bg-[#C9A84C]/12 flex items-center justify-center mb-3">
                     <Icon className="w-4.5 h-4.5 text-[#C9A84C]" style={{ width: 18, height: 18 }} />

@@ -56,7 +56,7 @@ export default function MetabolicWho() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 max-w-4xl mx-auto sm:auto-rows-fr">
           {conditions.map((c, i) => (
             <motion.div
               key={c.title}
@@ -64,7 +64,7 @@ export default function MetabolicWho() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.06 }}
-              className="bg-white border border-[#E8E4DA] rounded-2xl p-5 hover:border-[#C9A84C]/30 hover:shadow-sm transition-all duration-300"
+              className="h-full lg:col-span-2 last:sm:col-span-2 last:lg:col-start-3 last:lg:col-span-2 bg-white border border-[#E8E4DA] rounded-2xl p-5 hover:border-[#C9A84C]/30 hover:shadow-sm transition-all duration-300"
             >
               <div className="flex items-start gap-3">
                 <CheckCircle2 className="w-4 h-4 text-[#C9A84C] shrink-0 mt-0.5" />

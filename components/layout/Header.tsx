@@ -5,7 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Phone, ChevronRight, MapPin, MessageCircle } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { callLink, siteConfig, whatsappLink } from "@/content/site";
+import { callLink, siteConfig } from "@/content/site";
+import { getIntentForPath, getWhatsAppUrl } from "@/lib/whatsapp-intents";
 
 const desktopNav = [
   { label: "Programa Metabólico", href: "/programa-metabolico" },
@@ -237,7 +238,7 @@ export default function Header() {
                 <p className="mt-1">{siteConfig.addressShort}</p>
               </div>
               <a
-                href={whatsappLink("Hola, quisiera agendar una evaluación en Aurum Nova Wellness Clinic.")}
+                href={getWhatsAppUrl(getIntentForPath(pathname))}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 w-full bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold py-3.5 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A1A1A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAF8F4]"

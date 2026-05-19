@@ -36,7 +36,7 @@ export default function MetabolicPricing() {
           </p>
         </motion.div>
 
-        <div className="grid gap-4 lg:grid-cols-3">
+        <div className="grid gap-4 lg:grid-cols-3 lg:auto-rows-fr">
           {metabolicProtocols.map((protocol, index) => (
             <motion.article
               key={protocol.id}
@@ -130,7 +130,7 @@ export default function MetabolicPricing() {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-8 grid gap-4 lg:grid-cols-[1fr_0.85fr]"
+          className="mt-8 grid gap-4 lg:grid-cols-2 lg:auto-rows-fr"
         >
           <div className="rounded-3xl border border-[#2D2D2D] bg-[#242424] p-5 sm:p-6">
             <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-2xl bg-[#C9A84C]/10 text-[#C9A84C]">

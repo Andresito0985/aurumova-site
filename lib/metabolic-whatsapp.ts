@@ -1,64 +1,61 @@
+// Quiz → WhatsApp message builder.
+//
+// Compliance note: this message is sent through an unencrypted consumer
+// channel and stays in the user's chat history. We deliberately omit
+// sensitive details (medication history, contraindication flags, internal
+// scoring) and only include what the user has already seen on screen and
+// would knowingly share with the clinic.
+
 export interface MetabolicQuizWhatsAppPayload {
   firstName: string;
   lastName: string;
   phone?: string;
-  age: string;
-  height: string;
-  weight: string;
+  /** BMI value as user-facing string, e.g. "27.3". */
   bmi: string;
+  /** BMI category label, e.g. "Sobrepeso". */
   bmiCategory: string;
+  /** Primary goal label, e.g. "Bajar 21–40 lb". */
   primaryGoal: string;
-  activityLevel: string;
-  nutritionPattern: string;
-  priorTherapyCategory: string;
-  hasRecentLabs: string;
-  recentLabTiming: string;
-  wantsLabAnalysis: string;
+  /** Lab status summary already shown to the user. */
+  labStatus: string;
+  /** Suggested protocol label to discuss in evaluation. */
   suggestedProtocol: string;
+  /** Main need detected, e.g. "Revisión clínica antes de discutir cualquier protocolo". */
   mainNeed: string;
+  /** Whether the system suggests clinical review before any protocol. */
   clinicalReviewFirst?: boolean;
 }
 
 export function buildMetabolicQuizWhatsAppMessage(payload: MetabolicQuizWhatsAppPayload) {
-  const systemSummary = payload.clinicalReviewFirst
+  const fullName = [payload.firstName, payload.lastName].filter(Boolean).join(" ").trim();
+  const greetingName = fullName || "(nombre por confirmar)";
+
+  const protocolBlock = payload.clinicalReviewFirst
     ? [
-        "- Protocolo sugerido para discutir: Evaluación clínica individualizada primero",
-        "- Necesidad principal detectada: Revisión clínica antes de discutir cualquier protocolo",
-        "- Nota clínica: El sistema recomienda revisión clínica antes de discutir cualquier protocolo.",
+        "- Sugerencia del sistema: Evaluación clínica individualizada primero",
+        "- Necesidad principal: Revisión clínica antes de discutir cualquier protocolo",
       ]
     : [
         `- Protocolo sugerido para discutir: ${payload.suggestedProtocol}`,
         `- Necesidad principal detectada: ${payload.mainNeed}`,
-        "- Nota: La recomendación final depende de evaluación clínica individualizada.",
       ];
 
   return [
-    "Hola Aurum Nova, completé la evaluación metabólica y deseo discutir mi protocolo.",
+    `Hola Aurum Nova, soy ${greetingName} y completé el Quiz Metabólico.`,
+    "Me gustaría compartir mi resultado orientativo para coordinar evaluación.",
     "",
-    "Datos del paciente:",
-    `- Nombre: ${payload.firstName || "No especificado"}`,
-    `- Apellido: ${payload.lastName || "No especificado"}`,
-    payload.phone && `- Teléfono: ${payload.phone}`,
-    `- Edad: ${payload.age}`,
-    "",
-    "Medidas calculadas:",
-    `- Estatura: ${payload.height}`,
-    `- Peso actual: ${payload.weight}`,
+    "Resumen del quiz (orientativo):",
+    payload.phone ? `- Teléfono de contacto: ${payload.phone}` : null,
     `- BMI estimado: ${payload.bmi}`,
     `- Categoría BMI: ${payload.bmiCategory}`,
     `- Meta principal: ${payload.primaryGoal}`,
-    `- Nivel de actividad: ${payload.activityLevel}`,
-    `- Hábitos nutricionales: ${payload.nutritionPattern}`,
-    `- Experiencia previa con terapia metabólica: ${payload.priorTherapyCategory}`,
+    `- Estado de laboratorios: ${payload.labStatus}`,
     "",
-    "Laboratorios:",
-    `- Cuenta con laboratorios recientes: ${payload.hasRecentLabs}`,
-    `- Fecha aproximada de laboratorios: ${payload.recentLabTiming}`,
-    `- Desea análisis de laboratorios: ${payload.wantsLabAnalysis}`,
+    "Sugerencia del sistema:",
+    ...protocolBlock,
     "",
-    "Resumen del sistema:",
-    ...systemSummary,
+    "Nota: Este resumen es educativo y orientativo. La recomendación final depende de evaluación clínica individualizada.",
   ]
-    .filter(Boolean)
+    .filter((line): line is string => Boolean(line))
     .join("\n");
 }

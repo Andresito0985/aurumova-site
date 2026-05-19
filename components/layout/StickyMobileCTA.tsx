@@ -5,16 +5,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { MessageCircle, CalendarCheck } from "lucide-react";
-import { whatsappLink } from "@/content/site";
+import { getIntentForPath, getWhatsAppUrl } from "@/lib/whatsapp-intents";
 import { trackWhatsAppClick, trackEvent } from "@/lib/tracking";
-
-const STICKY_CTA_MESSAGE =
-  "Hola, quiero agendar una evaluación en Aurum Nova Wellness Clinic.";
 
 const HIDDEN_ROUTES = ["/agendar-evaluacion", "/contacto"];
 
 export default function StickyMobileCTA() {
   const pathname = usePathname();
+  const intent = getIntentForPath(pathname);
+  const whatsappHref = getWhatsAppUrl(intent);
   const reduce = useReducedMotion();
   const [visible, setVisible] = useState(false);
 
@@ -43,10 +42,10 @@ export default function StickyMobileCTA() {
               style={{ boxShadow: "0 10px 32px rgba(26,26,26,0.12)" }}
             >
               <a
-                href={whatsappLink(STICKY_CTA_MESSAGE)}
+                href={whatsappHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => trackWhatsAppClick("sticky_mobile")}
+                onClick={() => trackWhatsAppClick(`sticky_mobile:${intent}`)}
                 className="flex-1 inline-flex items-center justify-center gap-1.5 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold text-sm py-3 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A1A1A] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               >
                 <MessageCircle className="w-4 h-4" />

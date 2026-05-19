@@ -13,8 +13,10 @@ import {
   ClipboardList,
   CalendarCheck,
   MessageCircle,
+  Download,
+  Share2,
 } from "lucide-react";
-import { whatsappLink } from "@/content/site";
+import { buildWhatsAppUrl, getWhatsAppUrl } from "@/lib/whatsapp-intents";
 import {
   GENERAL_PROTOCOL_PRICING_DISCLAIMER,
   getSuggestedProtocol,
@@ -609,6 +611,17 @@ function getWhatsAppProtocolLabel(suggestion: SuggestedProtocolResult) {
   return suggestion.protocol?.name.replace("Protocolo ", "") ?? "Por confirmar";
 }
 
+function getLabStatusSummary(a: Answers): string {
+  if (a.hasRecentLabs === "yes") {
+    const timing = getLabTimingLabel(a);
+    return `Cuenta con laboratorios recientes (${timing.toLowerCase()})`;
+  }
+  if (a.wantsLabAnalysis === "yes") {
+    return "Solicita análisis de laboratorios en evaluación";
+  }
+  return "Pendiente de coordinar en evaluación";
+}
+
 function buildProtocolWAMsg(a: Answers, result: QuizResult, suggestion: SuggestedProtocolResult): string {
   const protocolLabel =
     suggestion.id === "clinical_review_first"
@@ -618,18 +631,10 @@ function buildProtocolWAMsg(a: Answers, result: QuizResult, suggestion: Suggeste
     firstName: a.firstName.trim(),
     lastName: a.lastName.trim(),
     phone: a.phone.trim(),
-    age: getOptionLabel(AGE_OPTS, a.ageGroup, "No especificado"),
-    height: getHeightSummary(a),
-    weight: result.weightLb > 0 ? `${result.weightLb} lb` : "No especificado",
     bmi: result.bmi ? `${result.bmi}` : "No disponible",
     bmiCategory: result.bmiInfo?.label ?? "No disponible",
     primaryGoal: getOptionLabel(GOAL_OPTS, a.mainGoal, "No especificado"),
-    activityLevel: getActivitySummary(a),
-    nutritionPattern: getNutritionSummary(a),
-    priorTherapyCategory: getPriorTherapySummary(a),
-    hasRecentLabs: getYesNoLabel(a.hasRecentLabs),
-    recentLabTiming: getLabTimingLabel(a),
-    wantsLabAnalysis: getYesNoLabel(a.wantsLabAnalysis),
+    labStatus: getLabStatusSummary(a),
     suggestedProtocol: protocolLabel,
     mainNeed: suggestion.mainNeed,
     clinicalReviewFirst: suggestion.id === "clinical_review_first",
@@ -795,6 +800,128 @@ export default function MetabolicProfileQuiz() {
   const showPrevExp = a.prevMedication && !["none", "not_sure"].includes(a.prevMedication);
   const showFastingSx = a.fastingPractice && !["never", "not_sure_f", "tried_failed"].includes(a.fastingPractice);
   const resultWhatsappMessage = result && suggestion ? buildProtocolWAMsg(a, result, suggestion) : "";
+
+  function getResultSummaryFields() {
+    if (!result || !suggestion) return null;
+    const fullName = [a.firstName, a.lastName].map((s) => s.trim()).filter(Boolean).join(" ");
+    const protocolLabel =
+      suggestion.id === "clinical_review_first"
+        ? "Evaluación clínica individualizada primero"
+        : getWhatsAppProtocolLabel(suggestion);
+    return {
+      patientName: fullName || "Por confirmar",
+      date: new Date().toLocaleDateString("es-PR", { year: "numeric", month: "long", day: "numeric" }),
+      bmi: result.bmi ? `${result.bmi}` : "No disponible",
+      bmiCategory: result.bmiInfo?.label ?? "No disponible",
+      primaryGoal: getOptionLabel(GOAL_OPTS, a.mainGoal, "No especificado"),
+      labStatus: getLabStatusSummary(a),
+      protocolLabel,
+      mainNeed: suggestion.mainNeed,
+      clinicalReviewFirst: suggestion.id === "clinical_review_first",
+    };
+  }
+
+  function escapeHtml(s: string): string {
+    return s.replace(/[&<>"']/g, (c) =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c] as string)
+    );
+  }
+
+  function buildPrintHtml(): string | null {
+    const f = getResultSummaryFields();
+    if (!f) return null;
+    const e = escapeHtml;
+    return `<!doctype html><html lang="es"><head><meta charset="utf-8" />
+<title>Resumen Quiz Metabólico — Aurum Nova Wellness Clinic</title>
+<style>
+  *{box-sizing:border-box;}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;color:#1A1A1A;margin:0;padding:48px 56px;line-height:1.5;background:#fff;}
+  header{border-bottom:1px solid #E8E4DA;padding-bottom:24px;margin-bottom:32px;}
+  .eyebrow{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#C9A84C;margin:0 0 8px;}
+  h1{font-size:24px;font-weight:600;margin:0 0 4px;}
+  .meta{font-size:13px;color:#6B6B6B;margin:0;}
+  section{margin-bottom:28px;}
+  h2{font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#C9A84C;margin:0 0 12px;}
+  dl{margin:0;display:grid;grid-template-columns:170px 1fr;gap:8px 16px;font-size:14px;}
+  dt{color:#6B6B6B;font-weight:500;}
+  dd{margin:0;color:#1A1A1A;font-weight:600;}
+  .note{background:#FAF8F4;border:1px solid #E8E4DA;border-radius:12px;padding:14px 16px;font-size:12px;color:#6B6B6B;}
+  .disclaimer{margin-top:32px;font-size:11px;color:#6B6B6B;line-height:1.55;border-top:1px solid #E8E4DA;padding-top:20px;}
+  footer{margin-top:24px;font-size:11px;color:#9A9A9A;}
+  @media print{body{padding:24px 32px;} @page{size:letter;margin:18mm;}}
+</style></head><body>
+<header>
+  <p class="eyebrow">Aurum Nova Wellness Clinic</p>
+  <h1>Resumen — Quiz Metabólico</h1>
+  <p class="meta">Generado el ${e(f.date)} · Documento educativo y orientativo</p>
+</header>
+<section>
+  <h2>Datos</h2>
+  <dl>
+    <dt>Paciente</dt><dd>${e(f.patientName)}</dd>
+    <dt>BMI estimado</dt><dd>${e(f.bmi)}</dd>
+    <dt>Categoría BMI</dt><dd>${e(f.bmiCategory)}</dd>
+    <dt>Meta principal</dt><dd>${e(f.primaryGoal)}</dd>
+    <dt>Estado de laboratorios</dt><dd>${e(f.labStatus)}</dd>
+  </dl>
+</section>
+<section>
+  <h2>Sugerencia del sistema</h2>
+  <dl>
+    <dt>Protocolo a discutir</dt><dd>${e(f.protocolLabel)}</dd>
+    <dt>Necesidad principal</dt><dd>${e(f.mainNeed)}</dd>
+  </dl>
+</section>
+<section>
+  <h2>Próximo paso</h2>
+  <div class="note">
+    Coordina una evaluación clínica. WhatsApp abrirá un mensaje editable con este resumen para
+    que el equipo pueda orientarte. La evaluación clínica confirma elegibilidad y plan.
+  </div>
+</section>
+<p class="disclaimer">
+  Este resumen es educativo y orientativo. No diagnostica, no prescribe, no confirma elegibilidad
+  y no sustituye una evaluación clínica. No todos los pacientes cualifican para terapia
+  metabólica semanal. Los resultados pueden variar. La recomendación final depende de una
+  evaluación clínica individualizada.
+</p>
+<footer>Aurum Nova Wellness Clinic · aurumnovawellnessclinic.com</footer>
+<script>window.addEventListener('load',function(){setTimeout(function(){window.focus();window.print();},150);});</script>
+</body></html>`;
+  }
+
+  function handleDownloadPdf() {
+    if (typeof window === "undefined") return;
+    const html = buildPrintHtml();
+    if (!html) return;
+    const win = window.open("", "_blank", "noopener,noreferrer,width=820,height=900");
+    if (!win) return;
+    win.document.open();
+    win.document.write(html);
+    win.document.close();
+    trackEvent("QuizPDFDownloaded");
+  }
+
+  async function handleShareSummary() {
+    if (typeof window === "undefined") return;
+    const message = resultWhatsappMessage;
+    if (!message) return;
+    const nav = navigator as Navigator & { share?: (data: ShareData) => Promise<void> };
+    if (typeof nav.share === "function") {
+      try {
+        await nav.share({
+          title: "Resumen Quiz Metabólico — Aurum Nova",
+          text: message,
+        });
+        trackEvent("QuizSummaryShared", { method: "web_share" });
+        return;
+      } catch {
+        // user cancelled or unsupported — fall through to WhatsApp
+      }
+    }
+    trackEvent("QuizSummaryShared", { method: "whatsapp_fallback" });
+    window.open(getWhatsAppUrl("quiz_completed", { firstName: a.firstName.trim() || undefined }), "_blank", "noopener,noreferrer");
+  }
 
   return (
     <section className="section-padding bg-[#0E0E0E]" id="quiz-metabolico">
@@ -1533,36 +1660,56 @@ export default function MetabolicProfileQuiz() {
                             Tu próximo paso
                           </p>
                           <h4 className="mt-2 text-2xl font-semibold text-white">
-                            Agenda tu evaluación inicial
+                            Descarga, comparte o agenda tu evaluación
                           </h4>
                           <p className="mt-3 text-sm leading-relaxed text-[#D8D2C7]">
-                            Agenda una evaluación para revisar tu historial, laboratorios, metas
-                            y seguridad clínica. En la consulta confirmamos si cualificas y cuál
-                            protocolo hace más sentido para ti.
+                            Guarda tu resumen orientativo y coordina la evaluación clínica para
+                            revisar historial, laboratorios, metas y seguridad. En la consulta
+                            confirmamos si cualificas y cuál protocolo hace más sentido para ti.
+                          </p>
+                          <p className="mt-3 text-xs leading-relaxed text-[#9A9A9A]">
+                            El PDF resume tu resultado orientativo. WhatsApp abrirá un mensaje
+                            editable para que nuestro equipo pueda orientarte. La evaluación
+                            clínica confirma elegibilidad y plan.
                           </p>
                         </div>
                         <div className="space-y-3">
                           <Link
                             href="/agendar-evaluacion"
                             onClick={() => trackAppointmentClick("quiz_result_primary")}
-                            className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[#C9A84C] px-5 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#C9A84C]/20 transition-colors hover:bg-[#A8872E]"
+                            className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[#C9A84C] px-5 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#C9A84C]/20 transition-colors hover:bg-[#A8872E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A84C] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1A1A1A]"
                           >
                             Agendar evaluación inicial
                             <CalendarCheck className="h-4 w-4" />
                           </Link>
-                          <p className="text-center text-[11px] leading-relaxed text-[#9A9A9A]">
-                            Se abrirá WhatsApp con un resumen editable de tu resultado.
-                          </p>
                           <a
-                            href={whatsappLink(resultWhatsappMessage)}
+                            href={buildWhatsAppUrl(resultWhatsappMessage)}
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={() => trackWhatsAppClick("quiz_result_protocol_summary")}
-                            className="flex w-full items-center justify-center gap-2 rounded-2xl border border-white/10 px-5 py-3 text-sm font-semibold text-[#D8D2C7] transition-colors hover:border-[#C9A84C]/50 hover:text-white"
+                            className="flex w-full items-center justify-center gap-2 rounded-2xl border border-[#C9A84C]/40 bg-[#C9A84C]/10 px-5 py-3 text-sm font-semibold text-[#F4EBD0] transition-colors hover:border-[#C9A84C] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A84C] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1A1A1A]"
                           >
-                            Enviar resultado por WhatsApp
+                            Compartir por WhatsApp
                             <MessageCircle className="h-4 w-4" />
                           </a>
+                          <div className="grid grid-cols-2 gap-3">
+                            <button
+                              type="button"
+                              onClick={handleDownloadPdf}
+                              className="flex w-full items-center justify-center gap-2 rounded-2xl border border-white/15 px-4 py-3 text-xs font-semibold text-[#D8D2C7] transition-colors hover:border-[#C9A84C]/60 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A84C] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1A1A1A]"
+                            >
+                              <Download className="h-3.5 w-3.5" />
+                              Descargar resumen PDF
+                            </button>
+                            <button
+                              type="button"
+                              onClick={handleShareSummary}
+                              className="flex w-full items-center justify-center gap-2 rounded-2xl border border-white/15 px-4 py-3 text-xs font-semibold text-[#D8D2C7] transition-colors hover:border-[#C9A84C]/60 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A84C] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1A1A1A]"
+                            >
+                              <Share2 className="h-3.5 w-3.5" />
+                              Compartir resumen
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </section>
