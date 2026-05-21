@@ -458,7 +458,7 @@ function ChipButton<T extends string>({
       onClick={onClick}
       className={`min-h-11 rounded-full border px-4 py-2 text-sm font-semibold transition-all duration-200 focus:outline-none focus:ring-3 focus:ring-[#C9A84C]/25 ${
         active
-          ? "border-[#C9A84C] bg-[#C9A84C] text-white shadow-sm"
+          ? "border-[#C9A84C] bg-[#C9A84C] text-[#1A1A1A] shadow-sm"
           : "border-[#E8E4DA] bg-white text-[#3D3D3D] hover:border-[#C9A84C]/60"
       }`}
     >
@@ -1533,7 +1533,7 @@ export default function IntegratedMetabolicProfile() {
               <button
                 type="button"
                 onClick={generate}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#A8872E]"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-6 py-3 text-sm font-semibold text-[#1A1A1A] shadow-sm transition-colors hover:bg-[#A8872E]"
               >
                 <Sparkles className="h-4 w-4" />
                 Generar perfil metabólico

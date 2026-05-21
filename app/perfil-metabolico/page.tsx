@@ -109,7 +109,7 @@ export default function PerfilMetabolicoPage() {
             <div className="flex flex-col gap-3 sm:flex-row">
               <Link
                 href="#perfil"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-7 py-3.5 text-base font-semibold text-white shadow-md transition-all duration-200 hover:bg-[#A8872E] hover:shadow-lg focus:outline-none focus:ring-3 focus:ring-[#C9A84C]/30"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-7 py-3.5 text-base font-semibold text-[#1A1A1A] shadow-md transition-all duration-200 hover:bg-[#A8872E] hover:shadow-lg focus:outline-none focus:ring-3 focus:ring-[#C9A84C]/30"
               >
                 Comenzar el formulario
                 <ArrowRight className="h-4 w-4" />

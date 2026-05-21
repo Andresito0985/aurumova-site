@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ChevronLeft, ShieldCheck, TrendingDown, Activity } from "lucide-react";
 import Link from "next/link";
 import { whatsappLink } from "@/content/site";
@@ -14,6 +14,7 @@ const stats = [
 ];
 
 export default function MetabolicHero() {
+  const reduce = useReducedMotion();
   return (
     <section className="relative bg-[#1A1A1A] min-h-[92vh] flex flex-col justify-center overflow-hidden pt-24 pb-16 px-4 sm:px-6 lg:px-8">
       {/* Background texture */}
@@ -26,9 +27,9 @@ export default function MetabolicHero() {
       <div className="container-max relative">
         {/* Breadcrumb */}
         <motion.div
-          initial={{ opacity: 0, y: -8 }}
+          initial={reduce ? false : { opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
+          transition={reduce ? { duration: 0 } : { duration: 0.4 }}
           className="mb-8"
         >
           <Link
@@ -43,9 +44,9 @@ export default function MetabolicHero() {
         <div className="max-w-3xl">
           {/* Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={reduce ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={reduce ? { duration: 0 } : { duration: 0.5 }}
             className="inline-flex items-center gap-2 bg-[#C9A84C]/10 border border-[#C9A84C]/25 px-3.5 py-1.5 rounded-full mb-6"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]" />
@@ -56,9 +57,9 @@ export default function MetabolicHero() {
 
           {/* Headline */}
           <motion.h1
-            initial={{ opacity: 0, y: 16 }}
+            initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.05 }}
+            transition={reduce ? { duration: 0 } : { duration: 0.6, delay: 0.05 }}
             className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white leading-tight mb-5"
           >
             Manejo del peso con{" "}
@@ -77,9 +78,9 @@ export default function MetabolicHero() {
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 12 }}
+            initial={reduce ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={reduce ? { duration: 0 } : { duration: 0.6, delay: 0.1 }}
             className="text-base sm:text-lg text-[#9A9A9A] leading-relaxed mb-8 max-w-2xl"
           >
             Evaluación clínica completa, plan médico personalizado, terapia semanal si cualificas,
@@ -88,16 +89,16 @@ export default function MetabolicHero() {
 
           {/* CTAs */}
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={reduce ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.15 }}
+            transition={reduce ? { duration: 0 } : { duration: 0.5, delay: 0.15 }}
             className="flex flex-col sm:flex-row gap-3 mb-10"
           >
             <a
               href={whatsappLink(CTA_MESSAGE)}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold px-6 py-3.5 rounded-full text-sm transition-all duration-200 shadow-lg shadow-[#C9A84C]/20"
+              className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold px-6 py-3.5 rounded-full text-sm transition-all duration-200 shadow-lg shadow-[#C9A84C]/20"
             >
               Comenzar evaluación
               <ArrowRight className="w-4 h-4" />
@@ -112,9 +113,9 @@ export default function MetabolicHero() {
 
           {/* Medical note */}
           <motion.p
-            initial={{ opacity: 0 }}
+            initial={reduce ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={reduce ? { duration: 0 } : { duration: 0.5, delay: 0.2 }}
             className="text-xs text-[#6B6B6B] leading-relaxed"
           >
             Requiere evaluación médica individual. No todos los pacientes son candidatos. El médico determina elegibilidad.
@@ -123,9 +124,9 @@ export default function MetabolicHero() {
 
         {/* Stats row */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={reduce ? false : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.25 }}
+          transition={reduce ? { duration: 0 } : { duration: 0.6, delay: 0.25 }}
           className="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl"
         >
           {stats.map((s) => {

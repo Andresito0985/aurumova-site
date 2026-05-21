@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ClipboardList, MessageCircle, Stethoscope, ArrowRight } from "lucide-react";
 
 const steps = [
@@ -31,6 +31,7 @@ const steps = [
 ];
 
 export default function HomeJourney() {
+  const reduce = useReducedMotion();
   return (
     <section className="section-padding bg-white">
       <div className="container-max">
@@ -53,10 +54,10 @@ export default function HomeJourney() {
             return (
               <motion.div
                 key={step.number}
-                initial={{ opacity: 0, y: 16 }}
+                initial={reduce ? false : { opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
+                transition={reduce ? { duration: 0 } : { delay: i * 0.08 }}
                 className="relative flex h-full flex-col rounded-2xl border border-[#E8E4DA] bg-[#FAF8F4] p-6"
               >
                 <div className="flex items-center justify-between mb-5">

@@ -132,7 +132,7 @@ export default function ProgramPage({ content }: ProgramPageProps) {
                     href={whatsappLink(content.hero.ctaMessage)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-5 flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold py-3 rounded-full text-sm transition-all duration-200"
+                    className="mt-5 flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold py-3 rounded-full text-sm transition-all duration-200"
                   >
                     {content.hero.ctaText}
                     <ArrowRight className="w-4 h-4" />

@@ -236,7 +236,7 @@ export default function InyectablesPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackWhatsAppClick("inyectables_inline_cta")}
-                className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold px-7 py-3.5 rounded-full text-sm transition-all duration-200"
+                className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold px-7 py-3.5 rounded-full text-sm transition-all duration-200"
               >
                 Escribir por WhatsApp
                 <ArrowRight className="w-4 h-4" />

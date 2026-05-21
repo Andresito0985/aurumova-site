@@ -116,7 +116,7 @@ export default function MetabolicPricing() {
                   href={whatsappLink(`${CTA_MESSAGE} Me gustaría ${protocol.ctaLabel.toLowerCase()}.`)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex min-h-11 w-full items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#A8872E]"
+                  className="flex min-h-11 w-full items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-5 py-3 text-sm font-semibold text-[#1A1A1A] transition-colors hover:bg-[#A8872E]"
                 >
                   {protocol.ctaLabel}
                   <ArrowRight className="h-4 w-4" />

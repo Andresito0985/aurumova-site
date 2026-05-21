@@ -54,7 +54,7 @@ export default function SiteLockScreen() {
               href={whatsappLink(LOCK_WHATSAPP_MESSAGE)}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#A8872E]"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-5 py-3 text-sm font-semibold text-[#1A1A1A] transition-colors hover:bg-[#A8872E]"
             >
               <MessageCircle className="h-4 w-4" />
               Escribir por WhatsApp

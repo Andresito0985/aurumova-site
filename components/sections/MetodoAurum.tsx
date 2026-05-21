@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ClipboardList, UserCheck, LineChart, RefreshCw } from "lucide-react";
 
 const steps = [
@@ -39,13 +39,15 @@ const steps = [
 ];
 
 export default function MetodoAurum() {
+  const reduce = useReducedMotion();
   return (
     <section className="section-padding bg-[#1A1A1A]">
       <div className="container-max">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={reduce ? false : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={reduce ? { duration: 0 } : undefined}
           className="text-center mb-14"
         >
           <span className="inline-block text-xs font-semibold tracking-widest uppercase text-[#C9A84C] mb-3">
@@ -67,10 +69,10 @@ export default function MetodoAurum() {
             return (
               <motion.div
                 key={step.number}
-                initial={{ opacity: 0, y: 20 }}
+                initial={reduce ? false : { opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                transition={reduce ? { duration: 0 } : { delay: i * 0.1 }}
                 className="relative bg-[#242424] border border-[#2D2D2D] hover:border-[#C9A84C]/30 rounded-2xl p-6 transition-all duration-300 group"
               >
                 {/* Connector */}

@@ -70,7 +70,7 @@ export default function PreguntasFrecuentesPage() {
               href={whatsappLink("Hola, tengo una pregunta sobre los programas de Aurum Nova que no encontré en las preguntas frecuentes.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold px-7 py-3.5 rounded-full text-sm transition-all duration-200"
+              className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold px-7 py-3.5 rounded-full text-sm transition-all duration-200"
             >
               <MessageCircle className="w-4 h-4" />
               Preguntar por WhatsApp

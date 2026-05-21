@@ -135,7 +135,7 @@ export default function ContactoPage() {
                 href={siteConfig.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 inline-flex min-h-11 items-center justify-center rounded-full bg-[#C9A84C] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#A8872E]"
+                className="mt-4 inline-flex min-h-11 items-center justify-center rounded-full bg-[#C9A84C] px-5 py-3 text-sm font-semibold text-[#1A1A1A] transition-colors hover:bg-[#A8872E]"
               >
                 Ver ubicación en Google Maps
               </a>

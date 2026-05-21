@@ -158,7 +158,7 @@ export default function BeforeAfterSlider({
       <div className="pointer-events-none absolute left-3 top-3 rounded-full border border-white/15 bg-black/55 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#F7F0DE] backdrop-blur">
         {labelBefore}
       </div>
-      <div className="pointer-events-none absolute right-3 top-3 rounded-full border border-white/15 bg-[#C9A84C]/90 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-white backdrop-blur">
+      <div className="pointer-events-none absolute right-3 top-3 rounded-full border border-[#1A1A1A]/15 bg-[#C9A84C]/90 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#1A1A1A] backdrop-blur">
         {labelAfter}
       </div>
 
@@ -167,7 +167,7 @@ export default function BeforeAfterSlider({
         style={{ left: `${curtainPosition}%` }}
       />
       <div
-        className="pointer-events-none absolute top-1/2 z-20 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/70 bg-[#C9A84C] text-white shadow-xl shadow-black/25"
+        className="pointer-events-none absolute top-1/2 z-20 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/70 bg-[#C9A84C] text-[#1A1A1A] shadow-xl shadow-black/25"
         style={{ left: `${curtainPosition}%` }}
       >
         <span className="h-5 w-px rounded-full bg-white/80" />

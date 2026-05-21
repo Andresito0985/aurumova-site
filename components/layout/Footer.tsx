@@ -206,7 +206,7 @@ export default function Footer() {
               href={whatsappLink("Hola, quisiera agendar mi evaluación médica en Aurum Nova Wellness Clinic.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-white text-xs font-semibold px-5 py-2.5 rounded-full transition-all duration-200 w-full justify-center"
+              className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] text-xs font-semibold px-5 py-2.5 rounded-full transition-all duration-200 w-full justify-center"
             >
               <MessageCircle className="w-3.5 h-3.5" />
               Agendar por WhatsApp

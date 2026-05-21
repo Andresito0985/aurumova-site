@@ -215,7 +215,7 @@ export default function AnalisisLaboratoriosPage() {
               <div className="mt-7 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="/agendar-evaluacion"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-7 py-3.5 text-sm font-semibold text-white shadow-md transition-colors hover:bg-[#A8872E] sm:text-base"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-7 py-3.5 text-sm font-semibold text-[#1A1A1A] shadow-md transition-colors hover:bg-[#A8872E] sm:text-base"
                 >
                   Agendar evaluación
                   <ArrowRight className="h-4 w-4" />

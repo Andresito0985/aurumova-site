@@ -121,7 +121,7 @@ export default function LeadForm() {
       <button
         type="submit"
         disabled={!nombre.trim() || !programa}
-        className="w-full flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] disabled:bg-[#E8E4DA] disabled:text-[#9A9A9A] disabled:cursor-not-allowed text-white font-semibold py-3.5 rounded-full transition-all duration-200"
+        className="w-full flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] disabled:bg-[#E8E4DA] disabled:text-[#9A9A9A] disabled:cursor-not-allowed text-[#1A1A1A] font-semibold py-3.5 rounded-full transition-all duration-200"
       >
         <Send className="w-4 h-4" />
         Enviar por WhatsApp

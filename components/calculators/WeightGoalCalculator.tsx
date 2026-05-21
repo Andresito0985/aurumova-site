@@ -146,7 +146,7 @@ export default function WeightGoalCalculator() {
                 onClick={() => setTimeframe(item.value)}
                 className={`min-h-11 rounded-full border px-3 py-2 text-sm font-semibold transition-all duration-200 focus:outline-none focus:ring-3 focus:ring-[#C9A84C]/25 ${
                   timeframe === item.value
-                    ? "border-[#C9A84C] bg-[#C9A84C] text-white"
+                    ? "border-[#C9A84C] bg-[#C9A84C] text-[#1A1A1A]"
                     : "border-[#E8E4DA] bg-white text-[#3D3D3D] hover:border-[#C9A84C]/60"
                 }`}
               >
@@ -166,7 +166,7 @@ export default function WeightGoalCalculator() {
         <button
           type="button"
           onClick={calculate}
-          className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-5 py-3.5 text-base font-semibold text-white shadow-md transition-all duration-200 hover:bg-[#A8872E] hover:shadow-lg focus:outline-none focus:ring-3 focus:ring-[#C9A84C]/30"
+          className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-5 py-3.5 text-base font-semibold text-[#1A1A1A] shadow-md transition-all duration-200 hover:bg-[#A8872E] hover:shadow-lg focus:outline-none focus:ring-3 focus:ring-[#C9A84C]/30"
         >
           <Target className="h-4 w-4" />
           Calcular meta

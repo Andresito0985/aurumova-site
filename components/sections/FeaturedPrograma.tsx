@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { whatsappLink } from "@/content/site";
 
@@ -15,15 +15,17 @@ const includes = [
 ];
 
 export default function FeaturedPrograma() {
+  const reduce = useReducedMotion();
   return (
     <section className="section-padding bg-white">
       <div className="container-max">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* Left */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={reduce ? false : { opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={reduce ? { duration: 0 } : undefined}
           >
             <div className="inline-flex items-center gap-2 bg-[#C9A84C]/10 rounded-full px-4 py-1.5 mb-5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C]" />
@@ -58,7 +60,7 @@ export default function FeaturedPrograma() {
                 href={whatsappLink("Hola, me interesa el Programa Metabólico Integral de Aurum Nova. Me gustaría consultar disponibilidad para evaluación.")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold px-7 py-3.5 rounded-full transition-all duration-200 shadow-md"
+                className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold px-7 py-3.5 rounded-full transition-all duration-200 shadow-md"
               >
                 Consultar disponibilidad
                 <ArrowRight className="w-4 h-4" />
@@ -79,9 +81,10 @@ export default function FeaturedPrograma() {
 
           {/* Right — pricing visual */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
+            initial={reduce ? false : { opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={reduce ? { duration: 0 } : undefined}
           >
             <div className="bg-gradient-to-br from-[#1A1A1A] to-[#2D2D2D] rounded-3xl p-8 text-white relative overflow-hidden">
               {/* Gold accent */}
@@ -118,7 +121,7 @@ export default function FeaturedPrograma() {
                 href={whatsappLink("Hola, me interesa el Programa Metabólico Integral de Aurum Nova desde $400/mes. ¿Cuál es el proceso?")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full text-center bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold py-3.5 rounded-full transition-all duration-200"
+                className="block w-full text-center bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold py-3.5 rounded-full transition-all duration-200"
               >
                 Comenzar evaluación
               </a>

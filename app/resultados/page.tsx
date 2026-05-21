@@ -70,7 +70,7 @@ export default function ResultadosPage() {
               </div>
               <Link
                 href="/calculadoras"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-5 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-[#A8872E] hover:shadow-md focus:outline-none focus:ring-3 focus:ring-[#C9A84C]/30"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-5 py-3 text-sm font-semibold text-[#1A1A1A] shadow-sm transition-all duration-200 hover:bg-[#A8872E] hover:shadow-md focus:outline-none focus:ring-3 focus:ring-[#C9A84C]/30"
               >
                 Ver calculadoras
                 <ArrowRight className="h-4 w-4" />

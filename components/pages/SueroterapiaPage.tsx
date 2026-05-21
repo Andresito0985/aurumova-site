@@ -189,7 +189,7 @@ export default function SueroterapiaPage() {
                     rel="noopener noreferrer"
                     className={`inline-flex items-center gap-2 text-xs font-semibold py-2.5 px-5 rounded-full transition-all duration-200 ${
                       p.highlight
-                        ? "bg-[#C9A84C] hover:bg-[#A8872E] text-white"
+                        ? "bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A]"
                         : "border border-[#E8E4DA] hover:border-[#C9A84C] text-[#3D3D3D] hover:text-[#C9A84C]"
                     }`}
                   >

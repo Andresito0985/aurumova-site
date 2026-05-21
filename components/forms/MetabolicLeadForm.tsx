@@ -372,7 +372,7 @@ export default function MetabolicLeadForm() {
 
                   <button
                     type="submit"
-                    className="w-full flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold py-3.5 rounded-full text-sm transition-all duration-200 mt-1"
+                    className="w-full flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold py-3.5 rounded-full text-sm transition-all duration-200 mt-1"
                   >
                     Consultar si cualifico por WhatsApp
                     <ArrowRight className="w-4 h-4" />

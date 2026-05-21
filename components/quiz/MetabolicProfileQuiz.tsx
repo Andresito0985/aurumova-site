@@ -1013,7 +1013,7 @@ export default function MetabolicProfileQuiz() {
                     <button
                       type="button"
                       onClick={() => { trackQuizStarted(); goTo(1); }}
-                      className="w-full flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold py-4 rounded-2xl text-sm transition-all duration-200 shadow-lg shadow-[#C9A84C]/20"
+                      className="w-full flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold py-4 rounded-2xl text-sm transition-all duration-200 shadow-lg shadow-[#C9A84C]/20"
                     >
                       Comenzar quiz
                       <ArrowRight className="w-4 h-4" />
@@ -1677,7 +1677,7 @@ export default function MetabolicProfileQuiz() {
                           <Link
                             href="/agendar-evaluacion"
                             onClick={() => trackAppointmentClick("quiz_result_primary")}
-                            className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[#C9A84C] px-5 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#C9A84C]/20 transition-colors hover:bg-[#A8872E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A84C] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1A1A1A]"
+                            className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[#C9A84C] px-5 py-3.5 text-sm font-semibold text-[#1A1A1A] shadow-lg shadow-[#C9A84C]/20 transition-colors hover:bg-[#A8872E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A84C] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1A1A1A]"
                           >
                             Agendar evaluación inicial
                             <CalendarCheck className="h-4 w-4" />

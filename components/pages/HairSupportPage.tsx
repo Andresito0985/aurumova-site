@@ -237,7 +237,7 @@ export default function HairSupportPage() {
                   href={whatsappLink("Hola, estoy notando caída de cabello durante mi programa de pérdida de peso. Quisiera orientación sobre el Hair Support en Aurum Nova.")}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold px-6 py-3 rounded-full text-sm transition-all duration-200"
+                  className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold px-6 py-3 rounded-full text-sm transition-all duration-200"
                 >
                   Consultar sobre caída durante programa
                   <ArrowRight className="w-4 h-4" />

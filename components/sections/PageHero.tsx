@@ -121,7 +121,7 @@ export default function PageHero({
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackWhatsAppClick(trackingSource)}
-              className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 shadow-md hover:shadow-lg"
+              className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 shadow-md hover:shadow-lg"
             >
               {ctaText}
               <ArrowRight className="w-4 h-4" />

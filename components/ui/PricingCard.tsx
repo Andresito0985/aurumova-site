@@ -45,7 +45,7 @@ export default function PricingCard({ pricing, ctaHref, ctaText = "Consultar dis
           href={ctaHref}
           target="_blank"
           rel="noopener noreferrer"
-          className="block w-full text-center bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold py-3.5 rounded-full transition-all duration-200"
+          className="block w-full text-center bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold py-3.5 rounded-full transition-all duration-200"
         >
           {ctaText}
         </a>

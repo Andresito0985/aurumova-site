@@ -87,7 +87,7 @@ export default function CalculatorResultCard({
 
           <Link
             href="/quiz-metabolico"
-            className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-5 py-3.5 text-sm font-semibold text-white shadow-md transition-all duration-200 hover:bg-[#A8872E] hover:shadow-lg focus:outline-none focus:ring-3 focus:ring-[#C9A84C]/40"
+            className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-5 py-3.5 text-sm font-semibold text-[#1A1A1A] shadow-md transition-all duration-200 hover:bg-[#A8872E] hover:shadow-lg focus:outline-none focus:ring-3 focus:ring-[#C9A84C]/40"
           >
             Hacer quiz metabólico
             <ArrowRight className="h-4 w-4" />

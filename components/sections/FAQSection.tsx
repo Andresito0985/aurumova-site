@@ -51,7 +51,7 @@ function FAQItem({
         <span
           className={`shrink-0 w-6 h-6 rounded-full flex items-center justify-center border transition-colors ${
             isOpen
-              ? "bg-[#C9A84C] border-[#C9A84C] text-white"
+              ? "bg-[#C9A84C] border-[#C9A84C] text-[#1A1A1A]"
               : isDark
               ? "border-[#3D3D3D] text-[#6B6B6B]"
               : "border-[#E8E4DA] text-[#9A9A9A]"

@@ -107,7 +107,7 @@ export default function FeaturedLaser() {
                 href={whatsappLink("Hola, me interesa el tratamiento de depilación láser diodo en Aurum Nova. ¿Pueden darme información sobre zonas y paquetes?")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold px-7 py-3.5 rounded-full transition-all duration-200 shadow-md"
+                className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold px-7 py-3.5 rounded-full transition-all duration-200 shadow-md"
               >
                 Consultar zonas y paquetes
                 <ArrowRight className="w-4 h-4" />

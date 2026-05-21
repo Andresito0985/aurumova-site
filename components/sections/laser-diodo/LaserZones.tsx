@@ -80,7 +80,7 @@ export default function LaserZones() {
             href={whatsappLink(CTA_MSG)}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold px-6 py-3 rounded-full text-sm transition-all duration-200"
+            className="inline-flex items-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold px-6 py-3 rounded-full text-sm transition-all duration-200"
           >
             Consultar mi zona por WhatsApp
             <ArrowRight className="w-4 h-4" />

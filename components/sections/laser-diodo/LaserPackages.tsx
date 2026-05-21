@@ -119,7 +119,7 @@ export default function LaserPackages() {
                 rel="noopener noreferrer"
                 className={`flex items-center justify-center gap-2 rounded-full px-4 py-3 text-xs font-semibold transition-all duration-200 ${
                   pkg.highlight
-                    ? "bg-[#C9A84C] hover:bg-[#A8872E] text-white"
+                    ? "bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A]"
                     : "border border-[#D8D0C2] text-[#3D3D3D] hover:border-[#C9A84C]/50 hover:text-[#A8872E]"
                 }`}
               >

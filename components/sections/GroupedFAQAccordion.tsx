@@ -37,7 +37,7 @@ function FAQItem({
         <span
           className={`shrink-0 w-6 h-6 rounded-full flex items-center justify-center border transition-colors ${
             isOpen
-              ? "bg-[#C9A84C] border-[#C9A84C] text-white"
+              ? "bg-[#C9A84C] border-[#C9A84C] text-[#1A1A1A]"
               : "border-[#E8E4DA] text-[#9A9A9A]"
           }`}
         >
@@ -84,7 +84,7 @@ export default function GroupedFAQAccordion() {
               onClick={() => switchCategory(cat)}
               className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 border ${
                 activeCategory === cat
-                  ? "bg-[#C9A84C] border-[#C9A84C] text-white shadow-sm"
+                  ? "bg-[#C9A84C] border-[#C9A84C] text-[#1A1A1A] shadow-sm"
                   : "border-[#E8E4DA] text-[#6B6B6B] hover:border-[#C9A84C]/40 hover:text-[#C9A84C] bg-white"
               }`}
             >

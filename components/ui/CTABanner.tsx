@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { whatsappLink } from "@/content/site";
@@ -33,6 +33,7 @@ export default function CTABanner({
 }: CTABannerProps) {
   const isDark = variant === "dark";
   const isGold = variant === "gold";
+  const reduce = useReducedMotion();
 
   return (
     <section
@@ -42,20 +43,21 @@ export default function CTABanner({
     >
       <div className="max-w-3xl mx-auto text-center">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={reduce ? false : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
+          transition={reduce ? { duration: 0 } : undefined}
         >
           <h2
             className={`text-2xl sm:text-3xl font-semibold mb-3 ${
-              isDark ? "text-white" : isGold ? "text-white" : "text-[#1A1A1A]"
+              isDark ? "text-white" : isGold ? "text-[#1A1A1A]" : "text-[#1A1A1A]"
             }`}
           >
             {title}
           </h2>
           <p
             className={`text-base leading-relaxed mb-8 ${
-              isDark ? "text-[#9A9A9A]" : isGold ? "text-white/80" : "text-[#6B6B6B]"
+              isDark ? "text-[#9A9A9A]" : isGold ? "text-[#1A1A1A]/75" : "text-[#6B6B6B]"
             }`}
           >
             {subtitle}
@@ -66,10 +68,10 @@ export default function CTABanner({
                 href={ctaHref}
                 className={`inline-flex items-center justify-center gap-2 font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 shadow-sm hover:shadow-md ${
                   isDark
-                    ? "bg-[#C9A84C] hover:bg-[#A8872E] text-white"
+                    ? "bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A]"
                     : isGold
-                    ? "bg-white hover:bg-[#FAF8F4] text-[#C9A84C]"
-                    : "bg-[#C9A84C] hover:bg-[#A8872E] text-white"
+                    ? "bg-[#1A1A1A] hover:bg-[#0A0A0A] text-white"
+                    : "bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A]"
                 }`}
               >
                 <ArrowRight className="w-4 h-4" />
@@ -83,10 +85,10 @@ export default function CTABanner({
                 onClick={() => trackWhatsAppClick(trackingSource)}
                 className={`inline-flex items-center justify-center gap-2 font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 shadow-sm hover:shadow-md ${
                 isDark
-                  ? "bg-[#C9A84C] hover:bg-[#A8872E] text-white"
+                  ? "bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A]"
                   : isGold
-                  ? "bg-white hover:bg-[#FAF8F4] text-[#C9A84C]"
-                  : "bg-[#C9A84C] hover:bg-[#A8872E] text-white"
+                  ? "bg-[#1A1A1A] hover:bg-[#0A0A0A] text-white"
+                  : "bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A]"
                 }`}
               >
                 <MessageCircle className="w-4 h-4" />
@@ -100,7 +102,7 @@ export default function CTABanner({
                   isDark
                     ? "border-white/10 hover:border-white/30 text-white"
                     : isGold
-                    ? "border-white/30 hover:border-white text-white"
+                    ? "border-[#1A1A1A]/40 hover:border-[#1A1A1A] text-[#1A1A1A]"
                     : "border-[#E8E4DA] hover:border-[#C9A84C] text-[#3D3D3D] hover:text-[#C9A84C]"
                 }`}
               >
@@ -111,7 +113,7 @@ export default function CTABanner({
           </div>
           <p
             className={`mt-4 text-xs ${
-              isDark ? "text-[#6B6B6B]" : isGold ? "text-white/60" : "text-[#9A9A9A]"
+              isDark ? "text-[#6B6B6B]" : isGold ? "text-[#1A1A1A]/65" : "text-[#9A9A9A]"
             }`}
           >
             {disclaimerText}

@@ -307,7 +307,7 @@ function UnitPill({
           onClick={() => onChange(opt.value)}
           className={`px-2.5 py-1 text-[11px] font-semibold transition-colors ${
             value === opt.value
-              ? "bg-[#C9A84C] text-white"
+              ? "bg-[#C9A84C] text-[#1A1A1A]"
               : "bg-white text-[#6B6B6B] hover:bg-[#FAF8F4]"
           }`}
         >
@@ -740,7 +740,7 @@ export default function MetabolicProgressCalculator() {
           <button
             type="button"
             onClick={handleCalculate}
-            className="mt-6 w-full flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold py-3.5 rounded-full text-sm transition-all duration-200 shadow-md shadow-[#C9A84C]/20"
+            className="mt-6 w-full flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold py-3.5 rounded-full text-sm transition-all duration-200 shadow-md shadow-[#C9A84C]/20"
           >
             Calcular mi progreso educativo
             <ArrowRight className="w-4 h-4" />
@@ -1132,7 +1132,7 @@ export default function MetabolicProgressCalculator() {
 
                         <button
                           type="submit"
-                          className="w-full flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold py-3.5 rounded-full text-sm transition-all duration-200 mt-1"
+                          className="w-full flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold py-3.5 rounded-full text-sm transition-all duration-200 mt-1"
                         >
                           Enviar mi resumen por WhatsApp
                           <ArrowRight className="w-4 h-4" />

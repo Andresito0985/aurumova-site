@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, CalendarCheck, ChevronLeft, ShieldCheck, Sparkles, Zap } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,6 +19,7 @@ function HeroImageFallback() {
 }
 
 export default function LaserHero() {
+  const reduce = useReducedMotion();
   const heroVisual =
     laserVisualByPlacement.experience ?? laserVisualByPlacement.technology ?? laserVisualByPlacement.hero;
 
@@ -51,9 +52,9 @@ export default function LaserHero() {
 
       <div className="container-max relative">
         <motion.div
-          initial={{ opacity: 0, y: -8 }}
+          initial={reduce ? false : { opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
+          transition={reduce ? { duration: 0 } : { duration: 0.4 }}
           className="mb-8"
         >
           <Link
@@ -67,9 +68,9 @@ export default function LaserHero() {
 
         <div className="max-w-3xl">
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={reduce ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={reduce ? { duration: 0 } : { duration: 0.5 }}
             className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/30 bg-black/35 px-3.5 py-1.5 backdrop-blur-md"
           >
             <Zap className="h-3.5 w-3.5 text-[#C9A84C]" />
@@ -79,9 +80,9 @@ export default function LaserHero() {
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 16 }}
+            initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.05 }}
+            transition={reduce ? { duration: 0 } : { duration: 0.6, delay: 0.05 }}
             className="mb-5 text-4xl font-semibold leading-tight text-white sm:text-5xl lg:text-6xl"
           >
             Reducción de vello con{" "}
@@ -91,9 +92,9 @@ export default function LaserHero() {
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 12 }}
+            initial={reduce ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={reduce ? { duration: 0 } : { duration: 0.6, delay: 0.1 }}
             className="mb-8 max-w-2xl text-base leading-relaxed text-[#D9D2C5] sm:text-lg"
           >
             Una experiencia láser privada y guiada para trabajar la reducción progresiva del vello
@@ -101,16 +102,16 @@ export default function LaserHero() {
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={reduce ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.15 }}
+            transition={reduce ? { duration: 0 } : { duration: 0.5, delay: 0.15 }}
             className="mb-8 flex flex-col gap-3 sm:flex-row"
           >
             <a
               href={whatsappLink(CTA_MSG)}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-7 py-3.5 text-sm font-semibold text-white shadow-xl shadow-[#C9A84C]/25 transition-all duration-200 hover:bg-[#A8872E]"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-7 py-3.5 text-sm font-semibold text-[#1A1A1A] shadow-xl shadow-[#C9A84C]/25 transition-all duration-200 hover:bg-[#A8872E]"
             >
               Agendar evaluación
               <ArrowRight className="h-4 w-4" />
@@ -124,9 +125,9 @@ export default function LaserHero() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={reduce ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.22 }}
+            transition={reduce ? { duration: 0 } : { duration: 0.5, delay: 0.22 }}
             className="grid gap-3 sm:grid-cols-3"
           >
             {[
@@ -148,9 +149,9 @@ export default function LaserHero() {
           </motion.div>
 
           <motion.p
-            initial={{ opacity: 0 }}
+            initial={reduce ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.28 }}
+            transition={reduce ? { duration: 0 } : { duration: 0.5, delay: 0.28 }}
             className="mt-5 max-w-xl text-xs leading-relaxed text-[#AFA79A]"
           >
             Los resultados varían según zona, tipo de piel, características del vello y adherencia

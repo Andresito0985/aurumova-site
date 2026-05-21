@@ -155,7 +155,7 @@ export default function BMICalculator() {
 
                 <button
                   onClick={calculate}
-                  className="w-full bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold py-3.5 rounded-full transition-all duration-200 flex items-center justify-center gap-2"
+                  className="w-full bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold py-3.5 rounded-full transition-all duration-200 flex items-center justify-center gap-2"
                 >
                   <Calculator className="w-4 h-4" />
                   Calcular IMC
@@ -241,7 +241,7 @@ export default function BMICalculator() {
                       )}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-between gap-2 w-full bg-[#C9A84C] hover:bg-[#A8872E] text-white font-semibold py-3.5 px-5 rounded-full transition-all duration-200"
+                      className="flex items-center justify-between gap-2 w-full bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold py-3.5 px-5 rounded-full transition-all duration-200"
                     >
                       <span>Agendar Evaluación Médica</span>
                       <ArrowRight className="w-4 h-4" />
