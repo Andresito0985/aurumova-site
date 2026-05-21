@@ -24,7 +24,7 @@ export default function StatsSection() {
               transition={reduce ? { duration: 0 } : { delay: i * 0.1 }}
               className="text-center"
             >
-              <div className="text-3xl sm:text-4xl font-bold gold-text-gradient mb-1">
+              <div className="text-3xl sm:text-4xl font-bold text-[#A8872E] mb-1">
                 {stat.value}
               </div>
               <div className="text-sm font-semibold text-[#1A1A1A] mb-0.5">{stat.label}</div>

@@ -44,10 +44,10 @@ export default function MetabolicPricing() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.06 }}
-              className={`flex h-full flex-col rounded-3xl border p-5 sm:p-6 ${
+              className={`flex h-full flex-col rounded-3xl border p-5 sm:p-6 transition-shadow ${
                 protocol.id === "avanzado"
-                  ? "border-[#C9A84C]/50 bg-[#C9A84C]/10"
-                  : "border-[#2D2D2D] bg-[#242424]"
+                  ? "border-[#C9A84C]/60 bg-[#C9A84C]/10 shadow-[0_24px_60px_-24px_rgba(201,168,76,0.35)] lg:scale-[1.015]"
+                  : "border-[#2D2D2D] bg-[#242424] shadow-[0_20px_40px_-30px_rgba(0,0,0,0.6)]"
               }`}
             >
               <div className="mb-5">

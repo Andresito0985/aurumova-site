@@ -87,7 +87,7 @@ export default function HomeHero() {
 
             <h1 className="text-[2.25rem] leading-[1.08] sm:text-5xl lg:text-6xl font-semibold text-[#1A1A1A] mb-4 sm:mb-6">
               Control metabólico y{" "}
-              <span className="gold-text-gradient">láser diodo</span>
+              <span className="text-[#A8872E]">láser diodo</span>
               <span className="block sm:inline">
                 <span className="hidden sm:inline">
                   <br />
@@ -136,7 +136,7 @@ export default function HomeHero() {
                 href={whatsappLink(HERO_WHATSAPP_MESSAGE)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A1A1A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAF8F4]"
+                className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 shadow-[0_8px_24px_-10px_rgba(201,168,76,0.55)] hover:shadow-[0_12px_32px_-10px_rgba(201,168,76,0.65)] ring-1 ring-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A1A1A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAF8F4]"
               >
                 <MessageCircle className="w-4 h-4" />
                 Agendar por WhatsApp
@@ -201,42 +201,50 @@ export default function HomeHero() {
             transition={reduce ? { duration: 0 } : { duration: 0.8, delay: 0.3 }}
             className="relative hidden lg:block"
           >
-            <div className="relative min-h-[620px] sm:aspect-[4/5] sm:min-h-0 rounded-3xl overflow-hidden bg-gradient-to-br from-[#EDE8DC] to-[#D4C9B0] flex items-center justify-center">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(255,255,255,0.72),transparent_30%),radial-gradient(circle_at_82%_10%,rgba(201,168,76,0.26),transparent_28%),linear-gradient(145deg,#F7F3EA_0%,#E7DDCA_52%,#CFC1A4_100%)]" />
-              <div className="absolute inset-x-8 top-8 h-36 rounded-full bg-white/35 blur-3xl" />
-              <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-[#1A1A1A]/18 to-transparent" />
+            <div className="relative min-h-[620px] sm:aspect-[4/5] sm:min-h-0 rounded-3xl overflow-hidden bg-gradient-to-br from-[#161616] via-[#121212] to-[#0A0A0A] ring-1 ring-[#C9A84C]/15 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.55)] flex items-center justify-center">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(201,168,76,0.18),transparent_32%),radial-gradient(circle_at_82%_10%,rgba(201,168,76,0.12),transparent_28%),linear-gradient(145deg,#161616_0%,#121212_52%,#0A0A0A_100%)]" />
+              <div className="absolute inset-x-8 top-8 h-36 rounded-full bg-[#C9A84C]/10 blur-3xl" />
+              <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black/40 to-transparent" />
+              <div
+                className="pointer-events-none absolute inset-0 opacity-[0.04]"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(#C9A84C 1px, transparent 1px), linear-gradient(90deg, #C9A84C 1px, transparent 1px)",
+                  backgroundSize: "48px 48px",
+                }}
+              />
 
               <div className="relative z-10 flex h-full w-full flex-col p-5 sm:p-6">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#1A1A1A] shadow-xl shadow-[#1A1A1A]/10">
+                    <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#C9A84C]/12 ring-1 ring-[#C9A84C]/35 shadow-xl shadow-black/30">
                       <span className="text-sm font-bold tracking-[0.18em] text-[#E2C97E]">
                         AN
                       </span>
                     </div>
-                    <p className="text-sm font-semibold text-[#1A1A1A]">
+                    <p className="text-sm font-semibold text-white">
                       Aurum Nova Wellness Clinic
                     </p>
-                    <p className="mt-1 text-[11px] font-medium text-[#6B6B6B]">
+                    <p className="mt-1 text-[11px] font-medium text-[#9A9A9A]">
                       Arecibo Medical Plaza · Suite 201
                     </p>
                   </div>
-                  <div className="rounded-full border border-white/70 bg-white/70 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-[#C9A84C] shadow-sm">
+                  <div className="rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-[#E2C97E] shadow-sm">
                     Premium wellness
                   </div>
                 </div>
 
-                <div className="mt-7 rounded-[1.75rem] border border-white/70 bg-white/85 p-4 shadow-2xl shadow-[#1A1A1A]/10 backdrop-blur">
+                <div className="mt-7 rounded-[1.75rem] border border-[#C9A84C]/15 bg-[#171717]/85 p-4 shadow-2xl shadow-black/30 backdrop-blur">
                   <div className="flex items-center justify-between gap-3">
                     <div>
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-[#C9A84C]">
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-[#E2C97E]">
                         Ruta inicial
                       </p>
-                      <h2 className="mt-1 text-lg font-semibold leading-tight text-[#1A1A1A]">
+                      <h2 className="mt-1 text-lg font-semibold leading-tight text-white">
                         Evaluar antes de recomendar
                       </h2>
                     </div>
-                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#C9A84C]/10">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#C9A84C]/12 ring-1 ring-[#C9A84C]/30">
                       <Activity className="h-5 w-5 text-[#C9A84C]" />
                     </div>
                   </div>
@@ -247,15 +255,15 @@ export default function HomeHero() {
                       return (
                         <div
                           key={item.label}
-                          className="min-h-[92px] rounded-2xl border border-[#E8E4DA] bg-[#FAF8F4] p-3"
+                          className="min-h-[92px] rounded-2xl border border-[#2A2A2A] bg-[#121212] p-3"
                         >
-                          <div className="mb-3 flex h-8 w-8 items-center justify-center rounded-xl bg-[#C9A84C]/10">
+                          <div className="mb-3 flex h-8 w-8 items-center justify-center rounded-xl bg-[#C9A84C]/12 ring-1 ring-[#C9A84C]/25">
                             <Icon className="h-4 w-4 text-[#C9A84C]" />
                           </div>
-                          <p className="text-[11px] font-semibold leading-snug text-[#1A1A1A]">
+                          <p className="text-[11px] font-semibold leading-snug text-white">
                             {item.label}
                           </p>
-                          <p className="mt-1 text-[10px] leading-snug text-[#8A8173]">
+                          <p className="mt-1 text-[10px] leading-snug text-[#9A9A9A]">
                             {item.detail}
                           </p>
                         </div>
@@ -299,15 +307,15 @@ export default function HomeHero() {
                 </div>
 
                 <div className="mt-auto grid grid-cols-2 gap-3 pt-4">
-                  <div className="rounded-2xl border border-white/65 bg-white/75 p-3 shadow-lg shadow-[#1A1A1A]/5 backdrop-blur">
+                  <div className="rounded-2xl border border-[#2A2A2A] bg-[#171717]/85 p-3 shadow-lg shadow-black/20 backdrop-blur">
                     <p className="text-[10px] font-bold uppercase tracking-widest text-[#9A9A9A]">
                       Enfoque
                     </p>
-                    <p className="mt-1 text-sm font-semibold leading-tight text-[#1A1A1A]">
+                    <p className="mt-1 text-sm font-semibold leading-tight text-white">
                       Clínico y humano
                     </p>
                   </div>
-                  <div className="rounded-2xl border border-[#C9A84C]/25 bg-[#1A1A1A] p-3 shadow-lg shadow-[#1A1A1A]/10">
+                  <div className="rounded-2xl border border-[#C9A84C]/30 bg-[#C9A84C]/[0.06] p-3 shadow-lg shadow-black/30">
                     <p className="text-[10px] font-bold uppercase tracking-widest text-[#E2C97E]">
                       Próximo paso
                     </p>
@@ -323,7 +331,7 @@ export default function HomeHero() {
                 initial={reduce ? false : { opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={reduce ? { duration: 0 } : { delay: 1.1 }}
-                className="hidden sm:block absolute top-6 right-4 bg-white rounded-2xl shadow-lg p-4 max-w-[160px]"
+                className="hidden sm:block absolute top-6 right-4 bg-white/95 backdrop-blur-md ring-1 ring-black/5 rounded-2xl shadow-xl shadow-black/30 p-4 max-w-[160px]"
               >
                 <p className="text-[10px] text-[#9A9A9A] font-semibold uppercase tracking-wider mb-1">
                   Inicio
@@ -331,14 +339,14 @@ export default function HomeHero() {
                 <p className="text-sm font-bold leading-tight text-[#1A1A1A]">
                   Quiz metabólico
                 </p>
-                <p className="text-xs text-[#C9A84C] font-medium">Educativo</p>
+                <p className="text-xs text-[#A8872E] font-semibold">Educativo</p>
               </motion.div>
 
               <motion.div
                 initial={reduce ? false : { opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={reduce ? { duration: 0 } : { delay: 1.3 }}
-                className="hidden sm:block absolute bottom-8 left-4 bg-white rounded-2xl shadow-lg p-4 max-w-[160px]"
+                className="hidden sm:block absolute bottom-8 left-4 bg-white/95 backdrop-blur-md ring-1 ring-black/5 rounded-2xl shadow-xl shadow-black/30 p-4 max-w-[160px]"
               >
                 <p className="text-[10px] text-[#9A9A9A] font-semibold uppercase tracking-wider mb-1">
                   Método
@@ -346,7 +354,7 @@ export default function HomeHero() {
                 <p className="text-sm font-bold text-[#1A1A1A] leading-tight">
                   Evaluar · Orientar · Medir
                 </p>
-                <p className="text-xs text-[#C9A84C] font-medium mt-0.5">
+                <p className="text-xs text-[#A8872E] font-semibold mt-0.5">
                   Supervisión clínica
                 </p>
               </motion.div>

@@ -70,7 +70,7 @@ export default function QuizMetabolicoPage() {
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.1] text-[#1A1A1A] mb-5">
               Descubre tu Perfil Metabólico Inicial{" "}
-              <span className="gold-text-gradient">en minutos</span>
+              <span className="text-[#A8872E]">en minutos</span>
             </h1>
 
             <p className="text-lg text-[#6B6B6B] leading-relaxed mb-8 max-w-2xl">

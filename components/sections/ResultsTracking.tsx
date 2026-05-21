@@ -33,7 +33,7 @@ export default function ResultsTracking() {
             <h2 className="text-3xl sm:text-4xl font-semibold text-[#1A1A1A] mb-4">
               El progreso que
               <br />
-              <span className="gold-text-gradient">no se puede ignorar</span>
+              <span className="text-[#A8872E]">no se puede ignorar</span>
             </h2>
             <p className="text-base text-[#6B6B6B] leading-relaxed mb-6">
               En Aurum Nova no dependemos de cómo te "sientes" ese día ni de fotos de antes

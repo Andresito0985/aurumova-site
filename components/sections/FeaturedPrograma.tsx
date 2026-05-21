@@ -37,7 +37,7 @@ export default function FeaturedPrograma() {
             <h2 className="text-3xl sm:text-4xl font-semibold text-[#1A1A1A] mb-4 leading-tight">
               Programa Metabólico
               <br />
-              <span className="gold-text-gradient">Integral</span>
+              <span className="text-[#A8872E]">Integral</span>
             </h2>
 
             <p className="text-base text-[#6B6B6B] leading-relaxed mb-6">
@@ -97,7 +97,7 @@ export default function FeaturedPrograma() {
 
               <div className="flex items-end gap-1 mb-1">
                 <span className="text-sm text-[#9A9A9A]">desde</span>
-                <span className="text-5xl font-bold gold-text-gradient">$400</span>
+                <span className="text-5xl font-bold text-[#E2C97E]">$400</span>
                 <span className="text-sm text-[#9A9A9A] mb-1">/mes</span>
               </div>
 
