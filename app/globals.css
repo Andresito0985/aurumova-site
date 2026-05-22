@@ -134,6 +134,15 @@
     @apply max-w-6xl mx-auto;
   }
 
+  /* Hide native scrollbar on horizontal scroll containers (e.g. mobile carousels). */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
   .gold-gradient {
     background: linear-gradient(135deg, #C9A84C 0%, #E2C97E 50%, #A8872E 100%);
   }

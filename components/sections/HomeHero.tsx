@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   Activity,
@@ -226,10 +227,15 @@ export default function HomeHero() {
               <div className="relative z-10 flex h-full w-full flex-col p-5 sm:p-6">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#C9A84C]/12 ring-1 ring-[#C9A84C]/35 shadow-xl shadow-black/30">
-                      <span className="text-sm font-bold tracking-[0.18em] text-[#E2C97E]">
-                        AN
-                      </span>
+                    <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#1A1A1A] p-1.5 ring-1 ring-[#C9A84C]/35 shadow-xl shadow-black/30">
+                      <Image
+                        src="/brand/aurum-nova-logo-transparent-4096.png"
+                        alt="Aurum Nova"
+                        width={56}
+                        height={56}
+                        priority
+                        className="h-full w-full object-contain"
+                      />
                     </div>
                     <p className="text-sm font-semibold text-white">
                       Aurum Nova Wellness Clinic
