@@ -211,7 +211,7 @@ export default function HomeHero() {
             transition={reduce ? { duration: 0 } : { duration: 0.8, delay: 0.3 }}
             className="relative hidden lg:block"
           >
-            <div className="relative min-h-[620px] sm:aspect-[4/5] sm:min-h-0 rounded-3xl overflow-hidden bg-gradient-to-br from-[#161616] via-[#121212] to-[#0A0A0A] ring-1 ring-[#C9A84C]/15 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.55)] flex items-center justify-center">
+            <div className="relative lg:h-[680px] rounded-3xl overflow-hidden bg-gradient-to-br from-[#161616] via-[#121212] to-[#0A0A0A] ring-1 ring-[#C9A84C]/15 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.55)] flex items-center justify-center">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(201,168,76,0.18),transparent_32%),radial-gradient(circle_at_82%_10%,rgba(201,168,76,0.12),transparent_28%),linear-gradient(145deg,#161616_0%,#121212_52%,#0A0A0A_100%)]" />
               <div className="absolute inset-x-8 top-8 h-36 rounded-full bg-[#C9A84C]/10 blur-3xl" />
               <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black/40 to-transparent" />
@@ -224,15 +224,15 @@ export default function HomeHero() {
                 }}
               />
 
-              <div className="relative z-10 flex h-full w-full flex-col p-5 sm:p-6">
+              <div className="relative z-10 flex h-full w-full flex-col p-5 sm:p-6 lg:p-7">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#1A1A1A] p-1.5 ring-1 ring-[#C9A84C]/35 shadow-xl shadow-black/30">
+                    <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#1A1A1A] p-1 ring-1 ring-[#C9A84C]/35 shadow-xl shadow-black/30">
                       <Image
                         src="/brand/aurum-nova-logo-transparent-4096.png"
                         alt="Aurum Nova"
-                        width={56}
-                        height={56}
+                        width={64}
+                        height={64}
                         priority
                         className="h-full w-full object-contain"
                       />
@@ -249,7 +249,7 @@ export default function HomeHero() {
                   </div>
                 </div>
 
-                <div className="mt-7 rounded-[1.75rem] border border-[#C9A84C]/15 bg-[#171717]/85 p-4 shadow-2xl shadow-black/30 backdrop-blur">
+                <div className="mt-6 rounded-[1.75rem] border border-[#C9A84C]/15 bg-[#171717]/85 p-4 shadow-2xl shadow-black/30 backdrop-blur">
                   <div className="flex items-center justify-between gap-3">
                     <div>
                       <p className="text-[10px] font-bold uppercase tracking-widest text-[#E2C97E]">
@@ -321,7 +321,7 @@ export default function HomeHero() {
                   </div>
                 </div>
 
-                <div className="mt-auto grid grid-cols-2 gap-3 pt-4">
+                <div className="mt-auto grid grid-cols-2 gap-3 pt-5">
                   <div className="rounded-2xl border border-[#2A2A2A] bg-[#171717]/85 p-3 shadow-lg shadow-black/20 backdrop-blur">
                     <p className="text-[10px] font-bold uppercase tracking-widest text-[#9A9A9A]">
                       Enfoque
