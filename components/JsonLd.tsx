@@ -18,7 +18,7 @@ export function JsonLdScript({ data, id }: JsonLdScriptProps) {
   );
 }
 
-const brandLogoPath = "/brand/logo.png";
+const brandLogoPath = "/brand/aurum-nova-logo-transparent-4096.png";
 const brandLogoUrl = existsSync(`${process.cwd()}/public${brandLogoPath}`)
   ? `${siteConfig.url}${brandLogoPath}`
   : undefined;
