@@ -10,9 +10,11 @@ import {
   Syringe,
   Sparkles,
   Leaf,
+  Zap,
   ArrowRight,
   type LucideIcon,
 } from "lucide-react";
+import HeadlineReveal from "@/components/motion/HeadlineReveal";
 
 type Service = {
   icon: LucideIcon;
@@ -97,21 +99,83 @@ export default function HomeWellnessGrid() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={reduce ? { duration: 0 } : undefined}
-          className="max-w-3xl mb-12"
+          className="max-w-3xl mb-10 sm:mb-12"
         >
           <span className="inline-block text-xs font-semibold tracking-widest uppercase text-[#C9A84C] mb-3">
-            Todos los servicios
+            Más servicios
           </span>
-          <h2 className="text-3xl sm:text-4xl font-semibold text-[#1A1A1A] mb-3 leading-tight">
+          <HeadlineReveal
+            as="h2"
+            onMount={false}
+            delay={0.05}
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.02em] text-[#1A1A1A] mb-3 leading-[1.05]"
+          >
             Más allá del control de peso
-          </h2>
+          </HeadlineReveal>
           <p className="text-base text-[#6B6B6B] max-w-xl leading-relaxed">
-            Aurum Nova ofrece servicios clínicos para distintos objetivos de salud y
-            bienestar, todos con evaluación, seguimiento y experiencia premium.
+            Servicios clínicos para distintos objetivos de salud y bienestar,
+            todos con evaluación, seguimiento y experiencia premium.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {/* Featured: Láser Diodo (secondary feature — PM is already featured above in FeaturedPrograma) */}
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={reduce ? { duration: 0 } : undefined}
+            className="sm:col-span-2 lg:col-span-2"
+          >
+            <Link
+              href="/laser-diodo"
+              className="group relative flex h-full min-h-[180px] flex-col overflow-hidden rounded-3xl border border-[#1A1A1A] bg-[#1A1A1A] p-6 sm:p-7 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_60px_-24px_rgba(0,0,0,0.6)]"
+            >
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 opacity-30 pointer-events-none"
+                style={{
+                  backgroundImage:
+                    "radial-gradient(ellipse at 85% 18%, rgba(201,168,76,0.4) 0%, transparent 55%), radial-gradient(ellipse at 12% 90%, rgba(201,168,76,0.15) 0%, transparent 50%)",
+                }}
+              />
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 opacity-[0.04]"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(#C9A84C 1px, transparent 1px), linear-gradient(90deg, #C9A84C 1px, transparent 1px)",
+                  backgroundSize: "44px 44px",
+                }}
+              />
+              <div className="relative z-10 flex h-full flex-col">
+                <div className="mb-6 flex items-start justify-between gap-4">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#C9A84C]/12 ring-1 ring-[#C9A84C]/30">
+                    <Zap className="h-5 w-5 text-[#C9A84C]" />
+                  </div>
+                  <span className="rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[#E2C97E]">
+                    Servicio estético principal
+                  </span>
+                </div>
+                <p className="mb-2 text-[10px] font-semibold uppercase tracking-widest text-[#C9A84C]">
+                  Estética clínica
+                </p>
+                <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3 leading-tight tracking-[-0.01em]">
+                  Láser Diodo High-Tech
+                </h3>
+                <p className="text-sm text-[#BDB7AA] leading-relaxed flex-1 max-w-xl">
+                  Reducción progresiva del vello con evaluación por zona, plan
+                  personalizado y experiencia clínica privada. Resultados
+                  pueden variar según piel, vello y adherencia.
+                </p>
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#E2C97E] group-hover:text-[#C9A84C] transition-colors">
+                  Ver Láser Diodo
+                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                </span>
+              </div>
+            </Link>
+          </motion.div>
+
           {services.map((service, i) => {
             const Icon = service.icon;
             return (
@@ -120,7 +184,7 @@ export default function HomeWellnessGrid() {
                 initial={reduce ? false : { opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={reduce ? { duration: 0 } : { delay: i * 0.05 }}
+                transition={reduce ? { duration: 0 } : { delay: 0.05 + i * 0.05 }}
                 className={service.priority ? "" : "hidden sm:block"}
               >
                 <Link
@@ -150,51 +214,6 @@ export default function HomeWellnessGrid() {
               </motion.div>
             );
           })}
-
-          {/* Featured: link back to the primary funnel */}
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={reduce ? { duration: 0 } : { delay: services.length * 0.05 }}
-          >
-            <Link
-              href="/programa-metabolico"
-              className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[#1A1A1A] bg-[#1A1A1A] p-5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl"
-            >
-              <div
-                className="absolute inset-0 opacity-25 pointer-events-none"
-                style={{
-                  backgroundImage:
-                    "radial-gradient(ellipse at 80% 20%, rgba(201,168,76,0.4) 0%, transparent 60%)",
-                }}
-              />
-              <div className="relative z-10 flex h-full flex-col">
-                <div className="mb-5 flex items-start justify-between gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#C9A84C]/15 border border-[#C9A84C]/30">
-                    <ArrowRight className="h-5 w-5 text-[#C9A84C]" />
-                  </div>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#C9A84C]">
-                    Principal
-                  </span>
-                </div>
-                <p className="mb-2 text-[10px] font-semibold uppercase tracking-widest text-[#C9A84C]">
-                  Servicio destacado
-                </p>
-                <h3 className="text-base font-semibold text-white mb-2 leading-snug">
-                  Programa Metabólico Integral
-                </h3>
-                <p className="text-xs text-[#9A9A9A] leading-relaxed flex-1">
-                  Evaluación clínica, plan personalizado y seguimiento para metas de peso,
-                  apetito y hábitos.
-                </p>
-                <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-[#C9A84C]">
-                  Ver programa
-                  <ArrowRight className="h-3 w-3" />
-                </span>
-              </div>
-            </Link>
-          </motion.div>
         </div>
 
         {/* Mobile-only: el resto de servicios vive en /servicios para evitar scroll largo */}

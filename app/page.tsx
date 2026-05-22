@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 import HomeHero from "@/components/sections/HomeHero";
 import HomeJourney from "@/components/sections/HomeJourney";
-import StatsSection from "@/components/sections/StatsSection";
 import FeaturedPrograma from "@/components/sections/FeaturedPrograma";
 import HomeQuizCTA from "@/components/sections/HomeQuizCTA";
 import HomeCalculatorBridge from "@/components/sections/HomeCalculatorBridge";
 import HomeWellnessGrid from "@/components/sections/HomeWellnessGrid";
-import MetodoAurum from "@/components/sections/MetodoAurum";
-import ResultsTracking from "@/components/sections/ResultsTracking";
+import MetodoYMetricas from "@/components/sections/MetodoYMetricas";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import HomeFAQPreview from "@/components/sections/HomeFAQPreview";
 import CTASection from "@/components/sections/CTASection";
@@ -49,17 +47,25 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
+      {/* 1 — Hero (cream) */}
       <HomeHero />
+      {/* 2 — Primary commercial funnel: Programa Metabólico (white) */}
       <FeaturedPrograma />
+      {/* 3 — Visitor journey: 3 pasos (white) */}
       <HomeJourney />
-      <StatsSection />
-      <HomeQuizCTA />
-      <HomeCalculatorBridge />
+      {/* 4 — Método clínico + métricas (dark) — merged section, replaces MetodoAurum + ResultsTracking */}
+      <MetodoYMetricas />
+      {/* 5 — Service ecosystem with Láser as secondary feature (white) */}
       <HomeWellnessGrid />
-      <MetodoAurum />
-      <ResultsTracking />
+      {/* 6 — Quiz entry (dark) */}
+      <HomeQuizCTA />
+      {/* 7 — Calculator bridge (cream) */}
+      <HomeCalculatorBridge />
+      {/* 8 — Launch-safe experience section, no patient testimonials */}
       <TestimonialsSection />
+      {/* 9 — FAQ preview */}
       <HomeFAQPreview />
+      {/* 10 — Final dark CTA */}
       <CTASection />
     </>
   );

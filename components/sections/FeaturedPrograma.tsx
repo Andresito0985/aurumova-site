@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { whatsappLink } from "@/content/site";
 import MagneticCTA from "@/components/motion/MagneticCTA";
+import HeadlineReveal from "@/components/motion/HeadlineReveal";
 
 const includes = [
   "Consulta médica mensual incluida",
@@ -35,11 +36,15 @@ export default function FeaturedPrograma() {
               </span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl font-semibold text-[#1A1A1A] mb-4 leading-tight">
-              Programa Metabólico
-              <br />
+            <HeadlineReveal
+              as="h2"
+              onMount={false}
+              delay={0.05}
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.02em] text-[#1A1A1A] mb-4 leading-[1.05]"
+            >
+              Programa Metabólico{" "}
               <span className="text-[#A8872E]">Integral</span>
-            </h2>
+            </HeadlineReveal>
 
             <p className="text-base text-[#6B6B6B] leading-relaxed mb-6">
               Un programa médico mensual completo: evaluación clínica, plan personalizado,
@@ -89,9 +94,18 @@ export default function FeaturedPrograma() {
             viewport={{ once: true }}
             transition={reduce ? { duration: 0 } : undefined}
           >
-            <div className="bg-gradient-to-br from-[#1A1A1A] to-[#2D2D2D] rounded-3xl p-8 text-white relative overflow-hidden">
+            <div className="bg-gradient-to-br from-[#1A1A1A] to-[#2D2D2D] rounded-3xl p-7 sm:p-8 text-white relative overflow-hidden ring-1 ring-[#C9A84C]/20 shadow-[0_28px_70px_-28px_rgba(0,0,0,0.6)]">
               {/* Gold accent */}
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#C9A84C] via-[#E2C97E] to-[#A8872E]" />
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 opacity-[0.04]"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(#C9A84C 1px, transparent 1px), linear-gradient(90deg, #C9A84C 1px, transparent 1px)",
+                  backgroundSize: "44px 44px",
+                }}
+              />
               <div className="absolute -bottom-8 -right-8 w-40 h-40 rounded-full bg-[#C9A84C]/5 blur-2xl" />
 
               <p className="text-xs font-semibold uppercase tracking-widest text-[#C9A84C] mb-4">

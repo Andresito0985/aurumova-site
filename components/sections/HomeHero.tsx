@@ -139,39 +139,39 @@ export default function HomeHero() {
               transition={reduce ? { duration: 0 } : { delay: 0.75 }}
               className="flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:gap-3"
             >
+              {/* Primary: Quiz */}
               <MagneticCTA strength={6}>
-                <a
-                  href={whatsappLink(HERO_WHATSAPP_MESSAGE)}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/quiz-metabolico"
                   className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 shadow-[0_10px_30px_-10px_rgba(201,168,76,0.55)] hover:shadow-[0_16px_40px_-10px_rgba(201,168,76,0.7)] ring-1 ring-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A1A1A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAF8F4]"
                 >
-                  <MessageCircle className="w-4 h-4" />
-                  Agendar por WhatsApp
-                </a>
+                  <ClipboardList className="w-4 h-4" />
+                  Hacer quiz metabólico
+                </Link>
               </MagneticCTA>
-              <Link
-                href="/servicios"
-                className="inline-flex items-center justify-center gap-2 bg-white border border-[#E8E4DA] hover:border-[#C9A84C] text-[#1A1A1A] hover:text-[#C9A84C] font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200"
+              {/* Secondary: WhatsApp (still primary contact intent, just demoted visually) */}
+              <a
+                href={whatsappLink(HERO_WHATSAPP_MESSAGE)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 bg-white border border-[#E8E4DA] hover:border-[#C9A84C] text-[#1A1A1A] hover:text-[#A8872E] font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A1A1A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAF8F4]"
               >
-                Ver servicios
+                <MessageCircle className="w-4 h-4" />
+                WhatsApp
+              </a>
+              <Link
+                href="/programa-metabolico"
+                className="hidden sm:inline-flex items-center justify-center gap-2 bg-transparent text-[#3D3D3D] hover:text-[#A8872E] font-semibold px-3 py-3.5 rounded-full text-base transition-colors duration-200"
+              >
+                Ver programa
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <a
                 href={callLink()}
-                className="hidden sm:inline-flex items-center justify-center gap-2 bg-white border border-[#E8E4DA] hover:border-[#C9A84C] text-[#1A1A1A] hover:text-[#C9A84C] font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200"
+                className="hidden lg:inline-flex items-center justify-center gap-2 bg-transparent text-[#3D3D3D] hover:text-[#A8872E] font-semibold px-3 py-3.5 rounded-full text-base transition-colors duration-200"
               >
                 <Phone className="w-4 h-4" />
                 Llamar
-              </a>
-              <a
-                href={siteConfig.mapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden sm:inline-flex items-center justify-center gap-2 bg-white border border-[#E8E4DA] hover:border-[#C9A84C] text-[#1A1A1A] hover:text-[#C9A84C] font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200"
-              >
-                <MapPin className="w-4 h-4" />
-                Ver ubicación
               </a>
             </motion.div>
 
