@@ -13,6 +13,8 @@ import {
 } from "lucide-react";
 import CTABanner from "@/components/ui/CTABanner";
 import MedicalDisclaimer from "@/components/ui/MedicalDisclaimer";
+import HeadlineReveal from "@/components/motion/HeadlineReveal";
+import MagneticCTA from "@/components/motion/MagneticCTA";
 import { LAB_ANALYSIS_WORDING } from "@/content/metabolic-protocols";
 import { siteConfig } from "@/content/site";
 
@@ -204,22 +206,28 @@ export default function AnalisisLaboratoriosPage() {
               <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#E8E4DA] bg-white px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#C9A84C]">
                 Análisis de Laboratorios
               </span>
-              <h1 className="max-w-3xl text-4xl font-semibold leading-tight text-[#1A1A1A] sm:text-5xl lg:text-6xl">
+              <HeadlineReveal
+                as="h1"
+                delay={0.15}
+                className="max-w-3xl text-4xl sm:text-5xl lg:text-7xl font-bold tracking-[-0.025em] leading-[1.02] text-[#1A1A1A]"
+              >
                 Datos clínicos para entender tu metabolismo
-              </h1>
+              </HeadlineReveal>
               <p className="mt-5 max-w-2xl text-base leading-relaxed text-[#6B6B6B] sm:text-lg">
                 En Aurum Nova usamos laboratorios como una herramienta educativa y clínica para
                 entender mejor tu punto de partida, identificar áreas de seguimiento y orientar
                 próximos pasos durante la evaluación.
               </p>
               <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                <Link
-                  href="/agendar-evaluacion"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-7 py-3.5 text-sm font-semibold text-[#1A1A1A] shadow-md transition-colors hover:bg-[#A8872E] sm:text-base"
-                >
-                  Agendar evaluación
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
+                <MagneticCTA strength={6}>
+                  <Link
+                    href="/agendar-evaluacion"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-7 py-3.5 text-sm font-semibold text-[#1A1A1A] shadow-[0_10px_30px_-10px_rgba(201,168,76,0.55)] hover:shadow-[0_14px_40px_-10px_rgba(201,168,76,0.7)] ring-1 ring-black/5 transition-all hover:bg-[#A8872E] sm:text-base"
+                  >
+                    Agendar evaluación
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </MagneticCTA>
                 <Link
                   href="/programa-metabolico"
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-[#E8E4DA] bg-white px-7 py-3.5 text-sm font-semibold text-[#1A1A1A] transition-colors hover:border-[#C9A84C] hover:text-[#C9A84C] sm:text-base"

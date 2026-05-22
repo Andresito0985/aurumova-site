@@ -84,76 +84,92 @@ The site should not feel like:
 - a weight-loss shock-marketing funnel
 - an influencer transformation page
 
-## 6. Modern tech + motion direction
+## 6. Modern tech + motion direction (Editorial Premium)
 
-The site should feel more like a premium medical technology and telehealth platform than a static clinic brochure.
+The site is moving from "subtle/calm" to **editorial premium** — the visual language of Linear, Vercel, Klim Type Foundry, and high-end editorial fashion sites — applied to a clinical wellness brand. Aurum Nova should feel like a luxury health editorial that happens to convert.
 
-Desired motion style:
-- subtle
-- smooth
-- premium
-- purposeful
-- calm
-- not flashy
-- not gimmicky
-- not overanimated
+Motion is now a primary brand asset, not a decoration. It must be **slow, choreographed, intentional, and refined.** No flashy SaaS reflexes; no acid maximalism. Think Apple product page meets a luxury hotel meets a clinical journal.
 
-Use motion to:
-- guide attention to CTAs
-- reveal sections gently
-- make dashboards feel alive
-- improve perceived quality
-- create a modern digital health experience
-- support user understanding
+### Desired motion style (revised)
 
-Avoid:
-- excessive parallax
-- spinning decorative elements
-- distracting animations
-- animations that delay content
-- large bouncy movements
-- aggressive scale effects
-- motion that makes the site feel like a generic SaaS template
-- motion that hurts mobile performance
+- slow, choreographed, deliberate
+- staggered cascades over scattered micro-interactions
+- magnetic / cursor-aware microinteractions on primary CTAs
+- typographic reveals (word-by-word headline cascades)
+- smooth section-to-section transitions
+- premium glass + ring + shadow layering
+- consistent easing language (ease-out-quart / ease-out-expo)
+- silence in between movements — restraint is part of the rhythm
 
-Recommended motion patterns:
-- soft fade + slight upward reveal
-- staggered card entrances
-- subtle hover lift
-- gentle dashboard count/metric reveal
-- active card highlight transitions
-- smooth accordion open/close
-- sticky CTA appearing after scroll
-- swipe-friendly mobile interactions
-- before/after slider interaction
-- reduced-motion safe alternatives
+### Use motion to
 
-Tech visual language:
-- premium telehealth dashboard
-- clinical data cards
-- glass-like panels used sparingly
-- dark graphite sections with gold accents
-- abstract metric interfaces
-- clean status chips
-- soft gradients
-- precise spacing
-- product-quality interactions
+- create one strong arrival moment per page (hero choreography)
+- reveal content in editorial cascades (word → line → block)
+- guide eyes to CTAs with magnetic / proximity-aware micro-attraction
+- bring dashboards alive with count-ups, progress fills, status pulses
+- transition between pages with continuity (View Transitions where supported)
+- treat hover as a moment, not a state change
+- support clinical trust through *measured* movement, not jitter
 
-Performance rules:
-- Motion must not hurt mobile performance.
-- Respect prefers-reduced-motion.
-- Prefer CSS/framer-motion microinteractions already in the project.
-- Do not add heavy animation libraries unless approved.
-- Avoid large 3D or video backgrounds before launch.
-- Keep Core Web Vitals in mind.
-- Animate opacity/transform, not layout-heavy properties.
-- Do not animate large image-heavy sections unnecessarily.
+### Recommended motion patterns
 
-Accessibility rules:
-- All motion must be optional or reduced when prefers-reduced-motion is enabled.
-- Content should be visible immediately in reduced-motion mode.
-- Interactive animated elements must remain keyboard accessible.
-- Focus states must stay visible.
+- word-by-word or line-by-line headline reveal on first paint (≤900ms total)
+- staggered scroll-into-view reveals with 60–100ms delay between siblings
+- magnetic hover on primary CTAs (cursor pulls the button ≤6px)
+- soft lift + ring fade on card hover (≤4px translate, ≤200ms)
+- count-up / progress-fill on numeric stats and dashboard metrics
+- glass shimmer on key panels when entering viewport (one-shot)
+- accordion / details expand at ease-out-quart, 250–350ms
+- header that gains shadow + backdrop blur on scroll
+- sticky CTA that arrives after threshold
+- before/after slider with hint nudge on first viewport entry
+
+### Style of easing
+
+- **ease-out-quart**: `cubic-bezier(0.22, 1, 0.36, 1)` for most reveals.
+- **ease-out-expo**: `cubic-bezier(0.16, 1, 0.3, 1)` for hero choreography.
+- **Never** `ease-in`, `ease-in-out` on entry. **Never** spring with bounce ≥1.2. **Never** elastic.
+
+### Permissions (what's now allowed)
+
+- Headline split-text reveals (word or line stagger).
+- Magnetic CTA hover (desktop only).
+- Subtle scroll-linked parallax on background gradients (≤12px range).
+- Cursor-aware soft highlights on dark surfaces.
+- Section-level orchestrated reveals tied to viewport entry.
+- Glass panel shimmer on first paint of dashboards.
+- View Transitions API for cross-page continuity (if supported by the runtime — progressive enhancement only).
+- Number count-up on stats, dashboard metrics, calculator results.
+
+### Still forbidden
+
+- Bounce / elastic / spring with overshoot.
+- Spinning or rotating decorative elements.
+- Scroll-jacking (taking control of scroll velocity).
+- Mouse-locked WebGL / shader-heavy effects on first load.
+- Lottie or large animation libraries (use what's already installed).
+- Animations that hide content from users on slow connections (always render fallback).
+- 3D models on `/laser-diodo` (held per project memory).
+- Motion that hurts mobile performance — animate transform/opacity only.
+- Hover-only affordances on touch devices (always have a tap-equivalent).
+
+### Performance rules
+
+- All motion must respect `prefers-reduced-motion`. In reduced-motion mode: content renders at final state instantly, hover effects fall back to color/border only, no transforms.
+- Magnetic and cursor-aware effects gate behind `(hover: hover) and (pointer: fine)` — never on touch.
+- Animate `transform` and `opacity` only. Never animate `width`, `height`, `top`, `left`, or layout properties.
+- No new animation dependencies. Framer Motion + Tailwind + CSS only.
+- No video backgrounds before launch.
+- IntersectionObserver-based reveals must use `once: true` so they don't re-trigger.
+- View Transitions are progressive enhancement only — site must work without them.
+
+### Accessibility rules
+
+- Reduced-motion users get the final state immediately. No reduced-amplitude fallbacks that still translate or scale.
+- Focus rings always visible, always crossing the new motion layer.
+- Magnetic/proximity effects must not interfere with keyboard focus.
+- Headline word/line splits must remain a single accessible string for screen readers.
+- Count-ups must announce their final value, not the intermediate ticks.
 
 ## 7. Anti-references
 
@@ -165,14 +181,15 @@ Avoid:
 - unrealistic fitness bodies
 - exaggerated transformations
 - crowded promotional flyers
-- overuse of gradients
-- too many badges
-- excessive icons
 - low-contrast gold buttons
 - text-heavy mobile sections
-- noisy animation
-- flashy tech gimmicks
-- stock-photo overload
+- bouncy, elastic, or scroll-jacked motion
+- 3D-for-3D's-sake on /laser-diodo
+- generic SaaS reflexes: hero with three identical metric tiles, gradient mesh in the background, dark blue + purple, marquee logo strips, "rocket" iconography
+- editorial-magazine clichés used as default: drop-cap italics, big serif numerals, Klim-style rule-separated columns, tracked-uppercase kicker above every section heading
+- crypto/maximalist tells: neon on black, animated particles, mouse-trailing cursor
+- spa/wellness tells: leaf icons everywhere, pastel green gradients, script fonts
+- the same fade-up reveal pattern applied indiscriminately to every block
 
 ## 8. Core funnels
 

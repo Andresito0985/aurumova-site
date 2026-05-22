@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { whatsappLink } from "@/content/site";
+import MagneticCTA from "@/components/motion/MagneticCTA";
 
 const includes = [
   "Consulta médica mensual incluida",
@@ -56,15 +57,17 @@ export default function FeaturedPrograma() {
             </ul>
 
             <div className="flex flex-col sm:flex-row gap-3">
-              <a
-                href={whatsappLink("Hola, me interesa el Programa Metabólico Integral de Aurum Nova. Me gustaría consultar disponibilidad para evaluación.")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold px-7 py-3.5 rounded-full transition-all duration-200 shadow-md"
-              >
-                Consultar disponibilidad
-                <ArrowRight className="w-4 h-4" />
-              </a>
+              <MagneticCTA strength={6}>
+                <a
+                  href={whatsappLink("Hola, me interesa el Programa Metabólico Integral de Aurum Nova. Me gustaría consultar disponibilidad para evaluación.")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold px-7 py-3.5 rounded-full transition-all duration-200 shadow-[0_10px_30px_-10px_rgba(201,168,76,0.55)] hover:shadow-[0_14px_40px_-10px_rgba(201,168,76,0.7)] ring-1 ring-black/5"
+                >
+                  Consultar disponibilidad
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+              </MagneticCTA>
               <Link
                 href="/programa-metabolico"
                 className="inline-flex items-center justify-center gap-2 border border-[#E8E4DA] hover:border-[#C9A84C] text-[#1A1A1A] hover:text-[#C9A84C] font-semibold px-7 py-3.5 rounded-full transition-all"
@@ -117,14 +120,16 @@ export default function FeaturedPrograma() {
                 ))}
               </div>
 
-              <a
-                href={whatsappLink("Hola, me interesa el Programa Metabólico Integral de Aurum Nova desde $400/mes. ¿Cuál es el proceso?")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full text-center bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold py-3.5 rounded-full transition-all duration-200"
-              >
-                Comenzar evaluación
-              </a>
+              <MagneticCTA strength={5} className="block w-full">
+                <a
+                  href={whatsappLink("Hola, me interesa el Programa Metabólico Integral de Aurum Nova desde $400/mes. ¿Cuál es el proceso?")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full text-center bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold py-3.5 rounded-full transition-all duration-200 shadow-[0_12px_36px_-10px_rgba(201,168,76,0.5)] hover:shadow-[0_16px_44px_-10px_rgba(201,168,76,0.7)] ring-1 ring-black/5"
+                >
+                  Comenzar evaluación
+                </a>
+              </MagneticCTA>
 
               <p className="mt-3 text-[10px] text-[#6B6B6B] text-center leading-relaxed">
                 El precio base puede variar. Terapias formuladas bajo prescripción tienen costo adicional.

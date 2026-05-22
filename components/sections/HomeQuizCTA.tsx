@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, ClipboardList, ShieldCheck, Sparkles } from "lucide-react";
+import MagneticCTA from "@/components/motion/MagneticCTA";
+import HeadlineReveal from "@/components/motion/HeadlineReveal";
 
 const bullets = [
   {
@@ -44,9 +46,14 @@ export default function HomeQuizCTA() {
             <span className="inline-flex items-center gap-2 bg-[#C9A84C]/10 border border-[#C9A84C]/20 text-[#C9A84C] text-xs font-semibold px-3.5 py-1.5 rounded-full uppercase tracking-wider mb-5">
               Quiz Metabólico
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white leading-tight mb-5">
+            <HeadlineReveal
+              as="h2"
+              onMount={false}
+              delay={0.1}
+              className="text-3xl sm:text-4xl lg:text-6xl font-bold tracking-[-0.02em] text-white leading-[1.05] mb-5"
+            >
               No tienes que decidir solo/a tu próximo paso.
-            </h2>
+            </HeadlineReveal>
             <p className="text-base text-[#9A9A9A] leading-relaxed mb-8 max-w-xl">
               El Quiz de Perfil Metabólico organiza lo básico — peso, apetito, hábitos,
               historial y objetivos — para darte una orientación inicial. La candidatura
@@ -54,13 +61,15 @@ export default function HomeQuizCTA() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3">
-              <Link
-                href="/quiz-metabolico"
-                className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 shadow-md hover:shadow-lg"
-              >
-                Hacer quiz metabólico
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+              <MagneticCTA strength={6}>
+                <Link
+                  href="/quiz-metabolico"
+                  className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 shadow-[0_12px_36px_-10px_rgba(201,168,76,0.55)] hover:shadow-[0_16px_44px_-10px_rgba(201,168,76,0.7)] ring-1 ring-black/5"
+                >
+                  Hacer quiz metabólico
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </MagneticCTA>
               <Link
                 href="/programa-metabolico"
                 className="inline-flex items-center justify-center gap-2 border border-white/15 hover:border-[#C9A84C]/60 text-white hover:text-[#C9A84C] font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200"

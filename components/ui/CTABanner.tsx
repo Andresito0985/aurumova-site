@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { whatsappLink } from "@/content/site";
 import { trackWhatsAppClick } from "@/lib/tracking";
+import MagneticCTA from "@/components/motion/MagneticCTA";
 
 interface CTABannerProps {
   title?: string;
@@ -64,36 +65,40 @@ export default function CTABanner({
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             {ctaHref ? (
-              <Link
-                href={ctaHref}
-                className={`inline-flex items-center justify-center gap-2 font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 shadow-sm hover:shadow-md ${
-                  isDark
-                    ? "bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A]"
-                    : isGold
-                    ? "bg-[#1A1A1A] hover:bg-[#0A0A0A] text-white"
-                    : "bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A]"
-                }`}
-              >
-                <ArrowRight className="w-4 h-4" />
-                {ctaText}
-              </Link>
+              <MagneticCTA strength={6}>
+                <Link
+                  href={ctaHref}
+                  className={`inline-flex items-center justify-center gap-2 font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 ring-1 ring-black/5 ${
+                    isDark
+                      ? "bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] shadow-[0_12px_36px_-10px_rgba(201,168,76,0.55)] hover:shadow-[0_16px_44px_-10px_rgba(201,168,76,0.7)]"
+                      : isGold
+                      ? "bg-[#1A1A1A] hover:bg-[#0A0A0A] text-white shadow-[0_12px_36px_-10px_rgba(0,0,0,0.4)]"
+                      : "bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] shadow-[0_10px_30px_-10px_rgba(201,168,76,0.55)] hover:shadow-[0_14px_40px_-10px_rgba(201,168,76,0.7)]"
+                  }`}
+                >
+                  <ArrowRight className="w-4 h-4" />
+                  {ctaText}
+                </Link>
+              </MagneticCTA>
             ) : (
-              <a
-                href={whatsappLink(ctaMessage)}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackWhatsAppClick(trackingSource)}
-                className={`inline-flex items-center justify-center gap-2 font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 shadow-sm hover:shadow-md ${
-                isDark
-                  ? "bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A]"
-                  : isGold
-                  ? "bg-[#1A1A1A] hover:bg-[#0A0A0A] text-white"
-                  : "bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A]"
-                }`}
-              >
-                <MessageCircle className="w-4 h-4" />
-                {ctaText}
-              </a>
+              <MagneticCTA strength={6}>
+                <a
+                  href={whatsappLink(ctaMessage)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackWhatsAppClick(trackingSource)}
+                  className={`inline-flex items-center justify-center gap-2 font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 ring-1 ring-black/5 ${
+                  isDark
+                    ? "bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] shadow-[0_12px_36px_-10px_rgba(201,168,76,0.55)] hover:shadow-[0_16px_44px_-10px_rgba(201,168,76,0.7)]"
+                    : isGold
+                    ? "bg-[#1A1A1A] hover:bg-[#0A0A0A] text-white shadow-[0_12px_36px_-10px_rgba(0,0,0,0.4)]"
+                    : "bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] shadow-[0_10px_30px_-10px_rgba(201,168,76,0.55)] hover:shadow-[0_14px_40px_-10px_rgba(201,168,76,0.7)]"
+                  }`}
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  {ctaText}
+                </a>
+              </MagneticCTA>
             )}
             {secondaryHref && secondaryText && (
               <a

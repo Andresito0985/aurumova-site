@@ -4,6 +4,9 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ChevronLeft, ShieldCheck, TrendingDown, Activity } from "lucide-react";
 import Link from "next/link";
 import { whatsappLink } from "@/content/site";
+import HeadlineReveal from "@/components/motion/HeadlineReveal";
+import MagneticCTA from "@/components/motion/MagneticCTA";
+import { DUR, EASE_OUT_EXPO } from "@/components/motion/easing";
 
 const CTA_MESSAGE = "Hola, me interesa comenzar una evaluación para discutir el Programa Metabólico de Aurum Nova. ¿Cuáles son los próximos pasos?";
 
@@ -56,26 +59,15 @@ export default function MetabolicHero() {
           </motion.div>
 
           {/* Headline */}
-          <motion.h1
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={reduce ? { duration: 0 } : { duration: 0.6, delay: 0.05 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white leading-tight mb-5"
+          <HeadlineReveal
+            as="h1"
+            delay={0.15}
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.05] tracking-[-0.02em] mb-6"
           >
             Manejo del peso con{" "}
-            <span
-              className="gold-text-gradient"
-              style={{
-                background: "linear-gradient(135deg, #C9A84C 0%, #E2C97E 50%, #C9A84C 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              supervisión clínica
-            </span>{" "}
+            <span className="text-[#E2C97E]">supervisión clínica</span>{" "}
             continua
-          </motion.h1>
+          </HeadlineReveal>
 
           <motion.p
             initial={reduce ? false : { opacity: 0, y: 12 }}
@@ -91,21 +83,23 @@ export default function MetabolicHero() {
           <motion.div
             initial={reduce ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={reduce ? { duration: 0 } : { duration: 0.5, delay: 0.15 }}
+            transition={reduce ? { duration: 0 } : { duration: DUR.slow, delay: 0.55, ease: EASE_OUT_EXPO }}
             className="flex flex-col sm:flex-row gap-3 mb-10"
           >
-            <a
-              href={whatsappLink(CTA_MESSAGE)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold px-6 py-3.5 rounded-full text-sm transition-all duration-200 shadow-lg shadow-[#C9A84C]/20"
-            >
-              Comenzar evaluación
-              <ArrowRight className="w-4 h-4" />
-            </a>
+            <MagneticCTA strength={6}>
+              <a
+                href={whatsappLink(CTA_MESSAGE)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold px-7 py-3.5 rounded-full text-sm transition-all duration-200 shadow-[0_10px_30px_-10px_rgba(201,168,76,0.55)] hover:shadow-[0_14px_38px_-10px_rgba(201,168,76,0.7)] ring-1 ring-black/5"
+              >
+                Comenzar evaluación
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            </MagneticCTA>
             <a
               href="#calcular-progreso"
-              className="inline-flex items-center justify-center gap-2 border border-[#3D3D3D] hover:border-[#C9A84C]/40 text-[#E8E4DA] hover:text-[#C9A84C] font-medium px-6 py-3.5 rounded-full text-sm transition-all duration-200"
+              className="inline-flex items-center justify-center gap-2 border border-[#3D3D3D] hover:border-[#C9A84C]/60 text-[#E8E4DA] hover:text-[#E2C97E] font-medium px-7 py-3.5 rounded-full text-sm transition-all duration-200"
             >
               Calcular mi progreso
             </a>

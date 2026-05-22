@@ -74,7 +74,7 @@ export default function CalculatorShell({
             </div>
 
             <h1 className="mb-5 text-4xl font-semibold leading-[1.1] text-[#1A1A1A] sm:text-5xl lg:text-6xl">
-              {title} <span className="gold-text-gradient">{highlight}</span>
+              {title} <span className="text-[#A8872E]">{highlight}</span>
             </h1>
             <p className="mb-8 max-w-2xl text-lg leading-relaxed text-[#6B6B6B]">{subtitle}</p>
 

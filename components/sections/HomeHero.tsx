@@ -15,6 +15,9 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { callLink, siteConfig, whatsappLink } from "@/content/site";
+import HeadlineReveal from "@/components/motion/HeadlineReveal";
+import MagneticCTA from "@/components/motion/MagneticCTA";
+import { DUR, EASE_OUT_EXPO } from "@/components/motion/easing";
 
 const trust = [
   "Evaluación clínica individualizada",
@@ -85,18 +88,22 @@ export default function HomeHero() {
               </span>
             </motion.div>
 
-            <h1 className="text-[2.25rem] leading-[1.08] sm:text-5xl lg:text-6xl font-semibold text-[#1A1A1A] mb-4 sm:mb-6">
+            <HeadlineReveal
+              as="h1"
+              delay={0.15}
+              className="text-[2.5rem] sm:text-5xl lg:text-7xl font-bold tracking-[-0.025em] leading-[1.02] text-[#1A1A1A] mb-3 sm:mb-4"
+            >
               Control metabólico y{" "}
               <span className="text-[#A8872E]">láser diodo</span>
-              <span className="block sm:inline">
-                <span className="hidden sm:inline">
-                  <br />
-                </span>
-                <span className="text-xl sm:text-4xl lg:text-5xl font-normal text-[#6B6B6B]">
-                  {" "}con seguimiento médico real.
-                </span>
-              </span>
-            </h1>
+            </HeadlineReveal>
+            <HeadlineReveal
+              as="p"
+              delay={0.55}
+              y={16}
+              className="text-xl sm:text-3xl lg:text-4xl font-normal text-[#6B6B6B] leading-[1.15] tracking-tight mb-5 sm:mb-6"
+            >
+              con seguimiento médico real.
+            </HeadlineReveal>
 
             <p className="text-base sm:text-lg text-[#6B6B6B] leading-relaxed mb-6 sm:mb-8 max-w-xl">
               <span className="sm:hidden">
@@ -132,15 +139,17 @@ export default function HomeHero() {
               transition={reduce ? { duration: 0 } : { delay: 0.75 }}
               className="flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:gap-3"
             >
-              <a
-                href={whatsappLink(HERO_WHATSAPP_MESSAGE)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 shadow-[0_8px_24px_-10px_rgba(201,168,76,0.55)] hover:shadow-[0_12px_32px_-10px_rgba(201,168,76,0.65)] ring-1 ring-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A1A1A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAF8F4]"
-              >
-                <MessageCircle className="w-4 h-4" />
-                Agendar por WhatsApp
-              </a>
+              <MagneticCTA strength={6}>
+                <a
+                  href={whatsappLink(HERO_WHATSAPP_MESSAGE)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 shadow-[0_10px_30px_-10px_rgba(201,168,76,0.55)] hover:shadow-[0_16px_40px_-10px_rgba(201,168,76,0.7)] ring-1 ring-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A1A1A] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FAF8F4]"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  Agendar por WhatsApp
+                </a>
+              </MagneticCTA>
               <Link
                 href="/servicios"
                 className="inline-flex items-center justify-center gap-2 bg-white border border-[#E8E4DA] hover:border-[#C9A84C] text-[#1A1A1A] hover:text-[#C9A84C] font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200"

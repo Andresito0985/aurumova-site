@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import { MessageCircle, Phone, MapPin } from "lucide-react";
 import { callLink, siteConfig, whatsappLink } from "@/content/site";
+import HeadlineReveal from "@/components/motion/HeadlineReveal";
+import MagneticCTA from "@/components/motion/MagneticCTA";
 
 export default function CTASection() {
   return (
@@ -19,28 +21,32 @@ export default function CTASection() {
             <span className="inline-block text-xs font-semibold tracking-widest uppercase text-[#C9A84C] mb-4">
               Da el Primer Paso
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-white mb-6 leading-tight">
-              Tu transformación comienza
-              <br />
-              <span className="gold-text-gradient">con una evaluación médica</span>
-            </h2>
+            <HeadlineReveal
+              as="h2"
+              onMount={false}
+              delay={0.1}
+              className="text-3xl sm:text-4xl lg:text-6xl font-bold tracking-[-0.02em] text-white mb-6 leading-[1.05]"
+            >
+              Tu transformación comienza con{" "}
+              <span className="text-[#E2C97E]">una evaluación médica</span>
+            </HeadlineReveal>
             <p className="text-base text-[#9A9A9A] leading-relaxed max-w-xl mx-auto mb-10">
               Agenda tu consulta inicial con nuestro equipo clínico. Evaluaremos tu historial,
               objetivos y perfil metabólico para diseñar el programa que mejor se adapta a ti.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.a
-                href={whatsappLink("Hola, quisiera agendar mi consulta inicial en Aurum Nova Wellness Clinic para comenzar mi evaluación médica.")}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center justify-center gap-3 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold px-8 py-4 rounded-full text-base transition-all duration-200 shadow-lg shadow-[#C9A84C]/20"
-              >
-                <MessageCircle className="w-5 h-5" />
-                Agendar por WhatsApp
-              </motion.a>
+              <MagneticCTA strength={7}>
+                <a
+                  href={whatsappLink("Hola, quisiera agendar mi consulta inicial en Aurum Nova Wellness Clinic para comenzar mi evaluación médica.")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-3 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold px-8 py-4 rounded-full text-base transition-all duration-200 shadow-[0_14px_42px_-12px_rgba(201,168,76,0.6)] hover:shadow-[0_18px_50px_-12px_rgba(201,168,76,0.75)] ring-1 ring-black/10"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  Agendar por WhatsApp
+                </a>
+              </MagneticCTA>
               <a
                 href={callLink()}
                 className="inline-flex items-center justify-center gap-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[#C9A84C]/40 text-white font-semibold px-8 py-4 rounded-full text-base transition-all duration-200"

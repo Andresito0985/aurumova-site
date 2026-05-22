@@ -5,6 +5,8 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { whatsappLink } from "@/content/site";
 import { trackWhatsAppClick } from "@/lib/tracking";
+import HeadlineReveal from "@/components/motion/HeadlineReveal";
+import MagneticCTA from "@/components/motion/MagneticCTA";
 
 interface PageHeroProps {
   badge?: string;
@@ -86,20 +88,19 @@ export default function PageHero({
             </motion.div>
           )}
 
-          <motion.h1
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15, duration: 0.6 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.1] text-[#1A1A1A] mb-5"
+          <HeadlineReveal
+            as="h1"
+            delay={0.15}
+            className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-[-0.025em] leading-[1.02] text-[#1A1A1A] mb-5"
           >
             {title}
             {highlight && (
               <>
                 {" "}
-                <span className="gold-text-gradient">{highlight}</span>
+                <span className="text-[#A8872E]">{highlight}</span>
               </>
             )}
-          </motion.h1>
+          </HeadlineReveal>
 
           <motion.p
             initial={{ opacity: 0, y: 12 }}
@@ -116,16 +117,18 @@ export default function PageHero({
             transition={{ delay: 0.35 }}
             className="flex flex-col sm:flex-row gap-3"
           >
-            <a
-              href={whatsappLink(ctaMessage)}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackWhatsAppClick(trackingSource)}
-              className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 shadow-md hover:shadow-lg"
-            >
-              {ctaText}
-              <ArrowRight className="w-4 h-4" />
-            </a>
+            <MagneticCTA strength={6}>
+              <a
+                href={whatsappLink(ctaMessage)}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackWhatsAppClick(trackingSource)}
+                className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 shadow-[0_10px_30px_-10px_rgba(201,168,76,0.55)] hover:shadow-[0_14px_40px_-10px_rgba(201,168,76,0.7)] ring-1 ring-black/5"
+              >
+                {ctaText}
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            </MagneticCTA>
             {secondaryCtaHref && secondaryCtaText && (
               <Link
                 href={secondaryCtaHref}

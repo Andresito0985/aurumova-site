@@ -6,6 +6,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { whatsappLink } from "@/content/site";
 import { laserVisualByPlacement } from "@/content/laser-visuals";
+import HeadlineReveal from "@/components/motion/HeadlineReveal";
+import MagneticCTA from "@/components/motion/MagneticCTA";
+import { DUR, EASE_OUT_EXPO } from "@/components/motion/easing";
 
 const CTA_MSG =
   "Hola, me interesa agendar una evaluación para Láser Diodo High-Tech en Aurum Nova. Me gustaría conocer los planes disponibles.";
@@ -79,17 +82,14 @@ export default function LaserHero() {
             </span>
           </motion.div>
 
-          <motion.h1
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={reduce ? { duration: 0 } : { duration: 0.6, delay: 0.05 }}
-            className="mb-5 text-4xl font-semibold leading-tight text-white sm:text-5xl lg:text-6xl"
+          <HeadlineReveal
+            as="h1"
+            delay={0.15}
+            className="mb-6 text-4xl sm:text-5xl lg:text-7xl font-bold leading-[1.05] tracking-[-0.02em] text-white"
           >
             Reducción de vello con{" "}
-            <span className="bg-gradient-to-r from-[#C9A84C] via-[#F2D987] to-[#C9A84C] bg-clip-text text-transparent">
-              tecnología diodo
-            </span>
-          </motion.h1>
+            <span className="text-[#E2C97E]">tecnología diodo</span>
+          </HeadlineReveal>
 
           <motion.p
             initial={reduce ? false : { opacity: 0, y: 12 }}
@@ -107,15 +107,17 @@ export default function LaserHero() {
             transition={reduce ? { duration: 0 } : { duration: 0.5, delay: 0.15 }}
             className="mb-8 flex flex-col gap-3 sm:flex-row"
           >
-            <a
-              href={whatsappLink(CTA_MSG)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-7 py-3.5 text-sm font-semibold text-[#1A1A1A] shadow-xl shadow-[#C9A84C]/25 transition-all duration-200 hover:bg-[#A8872E]"
-            >
-              Agendar evaluación
-              <ArrowRight className="h-4 w-4" />
-            </a>
+            <MagneticCTA strength={6}>
+              <a
+                href={whatsappLink(CTA_MSG)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-7 py-3.5 text-sm font-semibold text-[#1A1A1A] shadow-[0_12px_36px_-10px_rgba(201,168,76,0.6)] hover:shadow-[0_16px_44px_-10px_rgba(201,168,76,0.75)] transition-all duration-200 hover:bg-[#A8872E] ring-1 ring-black/5"
+              >
+                Agendar evaluación
+                <ArrowRight className="h-4 w-4" />
+              </a>
+            </MagneticCTA>
             <a
               href="#planes-laser"
               className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-black/25 px-7 py-3.5 text-sm font-medium text-[#F4EFE5] backdrop-blur transition-all duration-200 hover:border-[#C9A84C]/50 hover:text-[#C9A84C]"

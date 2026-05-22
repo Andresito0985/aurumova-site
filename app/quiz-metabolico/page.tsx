@@ -4,6 +4,8 @@ import { ArrowRight, MessageCircle, ShieldCheck } from "lucide-react";
 import MetabolicProfileQuiz from "@/components/quiz/MetabolicProfileQuiz";
 import CTABanner from "@/components/ui/CTABanner";
 import MedicalDisclaimer from "@/components/ui/MedicalDisclaimer";
+import HeadlineReveal from "@/components/motion/HeadlineReveal";
+import MagneticCTA from "@/components/motion/MagneticCTA";
 import { whatsappLink } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -68,10 +70,14 @@ export default function QuizMetabolicoPage() {
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.1] text-[#1A1A1A] mb-5">
+            <HeadlineReveal
+              as="h1"
+              delay={0.15}
+              className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-[-0.025em] leading-[1.02] text-[#1A1A1A] mb-5"
+            >
               Descubre tu Perfil Metabólico Inicial{" "}
               <span className="text-[#A8872E]">en minutos</span>
-            </h1>
+            </HeadlineReveal>
 
             <p className="text-lg text-[#6B6B6B] leading-relaxed mb-8 max-w-2xl">
               Contesta unas preguntas simples sobre peso, apetito, hábitos, historial y
@@ -79,13 +85,15 @@ export default function QuizMetabolicoPage() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3">
-              <Link
-                href="#quiz-metabolico"
-                className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 shadow-md hover:shadow-lg"
-              >
-                Comenzar quiz
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+              <MagneticCTA strength={6}>
+                <Link
+                  href="#quiz-metabolico"
+                  className="inline-flex items-center justify-center gap-2 bg-[#C9A84C] hover:bg-[#A8872E] text-[#1A1A1A] font-semibold px-7 py-3.5 rounded-full text-base transition-all duration-200 shadow-[0_10px_30px_-10px_rgba(201,168,76,0.55)] hover:shadow-[0_14px_40px_-10px_rgba(201,168,76,0.7)] ring-1 ring-black/5"
+                >
+                  Comenzar quiz
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </MagneticCTA>
               <a
                 href={whatsappLink(CTA_MESSAGE)}
                 target="_blank"

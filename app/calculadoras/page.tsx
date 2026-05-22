@@ -15,6 +15,8 @@ import CTABanner from "@/components/ui/CTABanner";
 import MedicalDisclaimer from "@/components/ui/MedicalDisclaimer";
 import { JsonLdScript } from "@/components/JsonLd";
 import FAQBlock from "@/components/seo/FAQBlock";
+import HeadlineReveal from "@/components/motion/HeadlineReveal";
+import MagneticCTA from "@/components/motion/MagneticCTA";
 import {
   buildBreadcrumbSchema,
   buildFaqPageSchema,
@@ -125,10 +127,14 @@ export default function CalculadorasPage() {
               </span>
             </div>
 
-            <h1 className="mb-5 text-4xl font-semibold leading-[1.1] text-[#1A1A1A] sm:text-5xl lg:text-6xl">
+            <HeadlineReveal
+              as="h1"
+              delay={0.15}
+              className="mb-5 text-4xl sm:text-5xl lg:text-7xl font-bold tracking-[-0.025em] leading-[1.02] text-[#1A1A1A]"
+            >
               Conoce tu punto de partida{" "}
               <span className="text-[#A8872E]">antes de comenzar</span>
-            </h1>
+            </HeadlineReveal>
 
             <p className="mb-8 max-w-2xl text-lg leading-relaxed text-[#6B6B6B]">
               Usa herramientas educativas para entender mejor tu peso, metas, hidratación y
@@ -136,13 +142,15 @@ export default function CalculadorasPage() {
             </p>
 
             <div className="flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/quiz-metabolico"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-7 py-3.5 text-base font-semibold text-[#1A1A1A] shadow-md transition-all duration-200 hover:bg-[#A8872E] hover:shadow-lg focus:outline-none focus:ring-3 focus:ring-[#C9A84C]/30"
-              >
-                Hacer quiz metabólico
-                <ArrowRight className="h-4 w-4" />
-              </Link>
+              <MagneticCTA strength={6}>
+                <Link
+                  href="/quiz-metabolico"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#C9A84C] px-7 py-3.5 text-base font-semibold text-[#1A1A1A] shadow-[0_10px_30px_-10px_rgba(201,168,76,0.55)] hover:shadow-[0_14px_40px_-10px_rgba(201,168,76,0.7)] ring-1 ring-black/5 transition-all duration-200 hover:bg-[#A8872E] focus:outline-none focus:ring-3 focus:ring-[#C9A84C]/30"
+                >
+                  Hacer quiz metabólico
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </MagneticCTA>
               <Link
                 href="/programa-metabolico"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-[#E8E4DA] bg-white px-7 py-3.5 text-base font-semibold text-[#1A1A1A] transition-all duration-200 hover:border-[#C9A84C] hover:text-[#C9A84C] focus:outline-none focus:ring-3 focus:ring-[#C9A84C]/20"
