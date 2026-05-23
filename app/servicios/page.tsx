@@ -8,6 +8,7 @@ import {
   CheckCircle2,
   ClipboardList,
   Droplets,
+  FlaskConical,
   Heart,
   MessageCircle,
   Sparkles,
@@ -154,6 +155,15 @@ const services = [
     href: "/wellness-mujer",
     cta: "Ver wellness mujer",
     icon: Heart,
+  },
+  {
+    title: "Evaluación Metabólica Avanzada",
+    goal: "Quiero entender mi metabolismo con precisión clínica",
+    description:
+      "Selección personalizada de paneles según tu perfil — más allá de un panel general. Educativa, orientativa y supeditada a evaluación clínica.",
+    href: "/evaluacion-metabolica-avanzada",
+    cta: "Conocer evaluación",
+    icon: FlaskConical,
   },
 ];
 

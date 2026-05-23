@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 // Section imports — order below the metadata reflects new educate-before-price flow
+import Link from "next/link";
+import { ArrowRight, FlaskConical } from "lucide-react";
 import MetabolicHero from "@/components/sections/programa-metabolico/MetabolicHero";
 import MetabolicWhatIs from "@/components/sections/programa-metabolico/MetabolicWhatIs";
 import MetabolicWho from "@/components/sections/programa-metabolico/MetabolicWho";
@@ -103,6 +105,44 @@ export default function ProgramaMetabolicoPage() {
       <MetabolicPricing />
       <MetabolicProfileQuiz />
       <MetabolicCalculatorLinks />
+      {/* Subtle related-resource card pointing to the advanced evaluation page */}
+      <section className="bg-[#FAF8F4] px-4 pb-12 sm:px-6 lg:px-8">
+        <div className="container-max">
+          <Link
+            href="/evaluacion-metabolica-avanzada"
+            className="group relative flex flex-col gap-4 overflow-hidden rounded-3xl border border-[#1A1A1A] bg-[#1A1A1A] p-5 sm:p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_60px_-24px_rgba(0,0,0,0.6)] lg:flex-row lg:items-center lg:gap-6"
+          >
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 opacity-25"
+              style={{
+                backgroundImage:
+                  "radial-gradient(ellipse at 88% 18%, rgba(201,168,76,0.35) 0%, transparent 55%)",
+              }}
+            />
+            <div className="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#C9A84C]/12 ring-1 ring-[#C9A84C]/30">
+              <FlaskConical className="h-5 w-5 text-[#C9A84C]" />
+            </div>
+            <div className="relative z-10 flex-1">
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-[#E2C97E]">
+                Recurso relacionado
+              </p>
+              <h3 className="mt-1.5 text-lg sm:text-xl font-semibold leading-tight text-white">
+                Evaluación Metabólica Avanzada
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-[#BDB7AA] max-w-2xl">
+                Más allá de un panel general: cómo seleccionamos paneles
+                clínicos según perfil, historial, síntomas y factores de riesgo
+                — educativo, orientativo y supeditado a evaluación clínica.
+              </p>
+            </div>
+            <span className="relative z-10 inline-flex shrink-0 items-center gap-2 self-start lg:self-center rounded-full border border-[#C9A84C]/35 bg-[#C9A84C]/10 px-4 py-2 text-xs font-semibold text-[#E2C97E] transition-colors group-hover:border-[#C9A84C] group-hover:text-white">
+              Conocer la evaluación
+              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+            </span>
+          </Link>
+        </div>
+      </section>
       <MetabolicProgressCalculator />
       <MetabolicDashboard />
       <MetabolicSafety />

@@ -52,6 +52,11 @@ const mobileNavGroups: MobileNavGroup[] = [
     items: [
       { label: "Calculadoras educativas", href: "/calculadoras", badge: "Recurso" },
       { label: "Análisis de laboratorios", href: "/analisis-laboratorios", badge: "Recurso" },
+      {
+        label: "Evaluación Metabólica Avanzada",
+        href: "/evaluacion-metabolica-avanzada",
+        badge: "Nuevo",
+      },
       { label: "Sobre Aurum Nova", href: "/sobre-nosotros" },
       { label: "Preguntas Frecuentes", href: "/preguntas-frecuentes" },
     ],
