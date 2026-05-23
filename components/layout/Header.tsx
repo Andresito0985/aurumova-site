@@ -1,21 +1,77 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, Phone, ChevronRight, MapPin, MessageCircle } from "lucide-react";
+import {
+  Menu,
+  X,
+  Phone,
+  ChevronRight,
+  ChevronDown,
+  MapPin,
+  MessageCircle,
+} from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { callLink, siteConfig } from "@/content/site";
 import { getIntentForPath, getWhatsAppUrl } from "@/lib/whatsapp-intents";
 
-const desktopNav = [
-  { label: "Programa Metabólico", href: "/programa-metabolico" },
-  { label: "Quiz", href: "/quiz-metabolico" },
-  { label: "Láser Diodo", href: "/laser-diodo" },
-  { label: "Servicios", href: "/servicios" },
-  { label: "Resultados", href: "/resultados" },
-  { label: "Contacto", href: "/contacto" },
+// Top-level desktop navigation. Most items are direct links; `Recursos` is a
+// dropdown trigger that opens a grouped resources menu (see `resourceGroups`).
+type DesktopNavItem =
+  | { kind: "link"; label: string; href: string }
+  | { kind: "dropdown"; label: string };
+
+const desktopNav: DesktopNavItem[] = [
+  { kind: "link", label: "Programa Metabólico", href: "/programa-metabolico" },
+  { kind: "link", label: "Láser Diodo", href: "/laser-diodo" },
+  { kind: "link", label: "Servicios", href: "/servicios" },
+  { kind: "dropdown", label: "Recursos" },
+  { kind: "link", label: "Contacto", href: "/contacto" },
+];
+
+// Resources dropdown content (desktop). Three columns of clinically themed
+// links. Keep this lean — premium medical resource panel, not a corporate
+// mega menu.
+type ResourceGroupItem = {
+  label: string;
+  href: string;
+  badge?: string;
+  description?: string;
+};
+type ResourceGroup = { title: string; items: ResourceGroupItem[] };
+
+const resourceGroups: ResourceGroup[] = [
+  {
+    title: "Evaluación clínica",
+    items: [
+      {
+        label: "Evaluación Metabólica Avanzada",
+        href: "/evaluacion-metabolica-avanzada",
+        badge: "Nuevo",
+        description: "Selección de paneles según tu perfil clínico.",
+      },
+      { label: "Perfil Metabólico Integral", href: "/perfil-metabolico" },
+      { label: "Análisis de Laboratorios", href: "/analisis-laboratorios" },
+    ],
+  },
+  {
+    title: "Herramientas",
+    items: [
+      { label: "Quiz Metabólico", href: "/quiz-metabolico" },
+      { label: "Calculadoras", href: "/calculadoras" },
+      { label: "Resultados y seguimiento", href: "/resultados" },
+    ],
+  },
+  {
+    title: "Información",
+    items: [
+      { label: "Enfoque Clínico", href: "/enfoque-clinico" },
+      { label: "Seguridad y Elegibilidad", href: "/seguridad-elegibilidad" },
+      { label: "Preguntas Frecuentes", href: "/preguntas-frecuentes" },
+    ],
+  },
 ];
 
 type MobileNavItem = { label: string; href: string; badge?: string };
@@ -25,40 +81,35 @@ const mobileNavGroups: MobileNavGroup[] = [
   {
     title: "Principal",
     items: [
-      { label: "Programa Metabólico Integral", href: "/programa-metabolico", badge: "Principal" },
-      { label: "Quiz Metabólico", href: "/quiz-metabolico", badge: "Nuevo" },
+      { label: "Inicio", href: "/" },
+      { label: "Programa Metabólico", href: "/programa-metabolico", badge: "Principal" },
       { label: "Láser Diodo", href: "/laser-diodo" },
       { label: "Servicios", href: "/servicios" },
-      { label: "Resultados Medibles", href: "/resultados" },
-      { label: "Contacto", href: "/contacto" },
+      { label: "Agendar Evaluación", href: "/agendar-evaluacion" },
     ],
   },
   {
-    title: "Servicios",
+    title: "Recursos clínicos",
     items: [
-      { label: "Wellness Mujer", href: "/wellness-mujer" },
-      { label: "Wellness Hombre", href: "/wellness-hombre" },
-      { label: "Nutrición Personalizada", href: "/nutricion" },
-      { label: "Suplementación", href: "/suplementacion" },
-      { label: "Sueroterapia NAD+ & Myers", href: "/sueroterapia" },
-      { label: "Inyectables Metabólicos", href: "/inyectables-metabolicos" },
-      { label: "Skin & Glow", href: "/skin-glow" },
-      { label: "Hair Support", href: "/hair-support" },
-      { label: "Coaching & Seguimiento", href: "/coaching-seguimiento" },
-    ],
-  },
-  {
-    title: "Recursos",
-    items: [
-      { label: "Calculadoras educativas", href: "/calculadoras", badge: "Recurso" },
-      { label: "Análisis de laboratorios", href: "/analisis-laboratorios", badge: "Recurso" },
       {
         label: "Evaluación Metabólica Avanzada",
         href: "/evaluacion-metabolica-avanzada",
         badge: "Nuevo",
       },
+      { label: "Perfil Metabólico Integral", href: "/perfil-metabolico" },
+      { label: "Análisis de Laboratorios", href: "/analisis-laboratorios" },
+      { label: "Quiz Metabólico", href: "/quiz-metabolico" },
+      { label: "Calculadoras", href: "/calculadoras" },
+    ],
+  },
+  {
+    title: "Confianza y soporte",
+    items: [
+      { label: "Enfoque Clínico", href: "/enfoque-clinico" },
+      { label: "Seguridad y Elegibilidad", href: "/seguridad-elegibilidad" },
       { label: "Sobre Aurum Nova", href: "/sobre-nosotros" },
       { label: "Preguntas Frecuentes", href: "/preguntas-frecuentes" },
+      { label: "Contacto", href: "/contacto" },
     ],
   },
 ];
@@ -66,8 +117,11 @@ const mobileNavGroups: MobileNavGroup[] = [
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isResourcesOpen, setIsResourcesOpen] = useState(false);
   const pathname = usePathname();
   const reduce = useReducedMotion();
+  const resourcesTriggerRef = useRef<HTMLButtonElement | null>(null);
+  const resourcesMenuRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -83,6 +137,40 @@ export default function Header() {
     }
     return () => { document.body.style.overflow = ""; };
   }, [isOpen]);
+
+  // Close resources dropdown when route changes (link inside menu was clicked).
+  useEffect(() => {
+    setIsResourcesOpen(false);
+  }, [pathname]);
+
+  // Click-outside + Escape close for the desktop resources dropdown.
+  useEffect(() => {
+    if (!isResourcesOpen) return;
+    const handleMousedown = (e: MouseEvent) => {
+      const target = e.target as Node | null;
+      if (!target) return;
+      if (resourcesMenuRef.current?.contains(target)) return;
+      if (resourcesTriggerRef.current?.contains(target)) return;
+      setIsResourcesOpen(false);
+    };
+    const handleKeydown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsResourcesOpen(false);
+        resourcesTriggerRef.current?.focus();
+      }
+    };
+    document.addEventListener("mousedown", handleMousedown);
+    document.addEventListener("keydown", handleKeydown);
+    return () => {
+      document.removeEventListener("mousedown", handleMousedown);
+      document.removeEventListener("keydown", handleKeydown);
+    };
+  }, [isResourcesOpen]);
+
+  // Active state for the desktop "Recursos" trigger — highlights gold when
+  // the current route lives inside any resource group.
+  const resourceHrefs = resourceGroups.flatMap((g) => g.items.map((i) => i.href));
+  const isInResources = resourceHrefs.includes(pathname);
 
   return (
     <>
@@ -121,20 +209,117 @@ export default function Header() {
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center gap-5 xl:gap-6">
-              {desktopNav.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`text-sm font-medium tracking-wide transition-colors ${
-                    pathname === link.href
-                      ? "text-[#C9A84C]"
-                      : "text-[#3D3D3D] hover:text-[#C9A84C]"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
+            <nav
+              aria-label="Navegación principal"
+              className="hidden lg:flex items-center gap-5 xl:gap-7"
+            >
+              {desktopNav.map((item) => {
+                if (item.kind === "dropdown") {
+                  const triggerActive = isInResources || isResourcesOpen;
+                  return (
+                    <div key="resources-dropdown" className="relative">
+                      <button
+                        ref={resourcesTriggerRef}
+                        type="button"
+                        onClick={() => setIsResourcesOpen((v) => !v)}
+                        aria-expanded={isResourcesOpen}
+                        aria-controls="resources-menu"
+                        aria-haspopup="menu"
+                        className={`inline-flex items-center gap-1.5 text-sm font-medium tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A84C] focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded-md py-1 ${
+                          triggerActive
+                            ? "text-[#C9A84C]"
+                            : "text-[#3D3D3D] hover:text-[#C9A84C]"
+                        }`}
+                      >
+                        {item.label}
+                        <ChevronDown
+                          aria-hidden="true"
+                          className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                            isResourcesOpen ? "rotate-180" : "rotate-0"
+                          }`}
+                        />
+                      </button>
+                      <AnimatePresence>
+                        {isResourcesOpen && (
+                          <motion.div
+                            id="resources-menu"
+                            ref={resourcesMenuRef}
+                            role="menu"
+                            aria-label="Recursos clínicos"
+                            initial={reduce ? { opacity: 0 } : { opacity: 0, y: -6 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={reduce ? { opacity: 0 } : { opacity: 0, y: -6 }}
+                            transition={reduce ? { duration: 0.1 } : { duration: 0.18, ease: "easeOut" }}
+                            className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[700px] max-w-[calc(100vw-2rem)] bg-white border border-[#E8E4DA] rounded-2xl shadow-2xl shadow-black/15 p-6 z-50"
+                          >
+                            <div
+                              aria-hidden="true"
+                              className="absolute -top-2 left-1/2 -translate-x-1/2 h-3 w-3 rotate-45 bg-white border-t border-l border-[#E8E4DA]"
+                            />
+                            <div className="relative grid grid-cols-3 gap-6">
+                              {resourceGroups.map((group) => (
+                                <div key={group.title}>
+                                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#C9A84C] mb-3">
+                                    {group.title}
+                                  </p>
+                                  <ul className="space-y-2.5">
+                                    {group.items.map((res) => {
+                                      const isCurrent = pathname === res.href;
+                                      return (
+                                        <li key={res.href}>
+                                          <Link
+                                            href={res.href}
+                                            role="menuitem"
+                                            onClick={() => setIsResourcesOpen(false)}
+                                            className={`block rounded-lg px-2 py-1.5 -mx-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A84C] focus-visible:ring-offset-2 focus-visible:ring-offset-white ${
+                                              isCurrent
+                                                ? "bg-[#C9A84C]/10 text-[#C9A84C]"
+                                                : "text-[#1A1A1A] hover:bg-[#FAF8F4] hover:text-[#A8872E]"
+                                            }`}
+                                          >
+                                            <div className="flex items-center gap-2">
+                                              <span className="text-sm font-medium leading-snug">
+                                                {res.label}
+                                              </span>
+                                              {res.badge && (
+                                                <span className="text-[9px] font-semibold bg-[#C9A84C] text-[#1A1A1A] px-1.5 py-0.5 rounded-full uppercase tracking-wide leading-none">
+                                                  {res.badge}
+                                                </span>
+                                              )}
+                                            </div>
+                                            {res.description && (
+                                              <p className="mt-1 text-[11px] leading-relaxed text-[#6B6B6B]">
+                                                {res.description}
+                                              </p>
+                                            )}
+                                          </Link>
+                                        </li>
+                                      );
+                                    })}
+                                  </ul>
+                                </div>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                }
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`text-sm font-medium tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A84C] focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded-md py-1 ${
+                      pathname === item.href
+                        ? "text-[#C9A84C]"
+                        : "text-[#3D3D3D] hover:text-[#C9A84C]"
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
             </nav>
 
             {/* Desktop CTA */}

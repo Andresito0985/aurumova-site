@@ -6,6 +6,7 @@ import { callLink, siteConfig, whatsappLink } from "@/content/site";
 const programs = [
   { label: "Programa Metabólico Integral", href: "/programa-metabolico" },
   { label: "Láser Diodo High-Tech", href: "/laser-diodo" },
+  { label: "Servicios", href: "/servicios" },
   { label: "Sueroterapia Médica", href: "/sueroterapia" },
   { label: "Inyectables Metabólicos", href: "/inyectables-metabolicos" },
   { label: "Wellness Mujer", href: "/wellness-mujer" },
@@ -15,23 +16,24 @@ const programs = [
   { label: "Coaching y Seguimiento", href: "/coaching-seguimiento" },
 ];
 
+// Legal column — kept tight per launch nav strategy. Enfoque Clínico,
+// Seguridad y Elegibilidad and Preguntas Frecuentes moved into `resources`
+// since they're informational/clinical references, not legal docs.
 const legal = [
-  { label: "Enfoque Clínico", href: "/enfoque-clinico" },
-  { label: "Seguridad y Elegibilidad", href: "/seguridad-elegibilidad" },
-  { label: "Preguntas Frecuentes", href: "/preguntas-frecuentes" },
   { label: "Aviso Médico", href: "/disclaimer-medico" },
   { label: "Privacidad", href: "/privacidad" },
   { label: "Términos", href: "/terminos" },
 ];
 
 const resources = [
-  { label: "Perfil metabólico integral", href: "/perfil-metabolico" },
   { label: "Evaluación metabólica avanzada", href: "/evaluacion-metabolica-avanzada" },
+  { label: "Perfil metabólico integral", href: "/perfil-metabolico" },
   { label: "Análisis de laboratorios", href: "/analisis-laboratorios" },
+  { label: "Quiz metabólico", href: "/quiz-metabolico" },
   { label: "Calculadoras", href: "/calculadoras" },
-  { label: "Calculadora IMC", href: "/calculadoras/imc" },
-  { label: "Meta de peso", href: "/calculadoras/meta-de-peso" },
-  { label: "Hidratación", href: "/calculadoras/hidratacion-electrolitos" },
+  { label: "Enfoque clínico", href: "/enfoque-clinico" },
+  { label: "Seguridad y elegibilidad", href: "/seguridad-elegibilidad" },
+  { label: "Preguntas frecuentes", href: "/preguntas-frecuentes" },
 ];
 
 export default function Footer() {
