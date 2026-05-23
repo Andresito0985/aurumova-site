@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import LaserHero from "@/components/sections/laser-diodo/LaserHero";
-import LaserValueProps from "@/components/sections/laser-diodo/LaserValueProps";
-import LaserVisualStory from "@/components/sections/laser-diodo/LaserVisualStory";
-import LaserResultsSection from "@/components/sections/laser-diodo/LaserResultsSection";
-import LaserZones from "@/components/sections/laser-diodo/LaserZones";
+import LaserTechnologyShowcase from "@/components/sections/laser-diodo/LaserTechnologyShowcase";
+import DiodeTechnologyComparison from "@/components/sections/laser-diodo/DiodeTechnologyComparison";
+import LaserCoolingComfort from "@/components/sections/laser-diodo/LaserCoolingComfort";
 import LaserPackages from "@/components/sections/laser-diodo/LaserPackages";
+import LaserZones from "@/components/sections/laser-diodo/LaserZones";
+import LaserResultsSection from "@/components/sections/laser-diodo/LaserResultsSection";
+import LaserVisualStory from "@/components/sections/laser-diodo/LaserVisualStory";
 import LaserPrepAftercare from "@/components/sections/laser-diodo/LaserPrepAftercare";
 import FAQSection from "@/components/sections/FAQSection";
 import CTABanner from "@/components/ui/CTABanner";
@@ -79,8 +81,12 @@ const CTA_MSG =
 export default function LaserDiodoPage() {
   return (
     <>
+      {/* Technology-first narrative: establish what the equipment is and
+          why diode before showing packages, zones, and results. */}
       <LaserHero />
-      <LaserValueProps />
+      <LaserTechnologyShowcase />
+      <DiodeTechnologyComparison />
+      <LaserCoolingComfort />
       <LaserPackages />
       <LaserZones />
       <LaserResultsSection />

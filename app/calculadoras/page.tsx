@@ -17,6 +17,9 @@ import { JsonLdScript } from "@/components/JsonLd";
 import FAQBlock from "@/components/seo/FAQBlock";
 import HeadlineReveal from "@/components/motion/HeadlineReveal";
 import MagneticCTA from "@/components/motion/MagneticCTA";
+import CalculatorPreviewVisual, {
+  type CalculatorPreviewType,
+} from "@/components/calculators/CalculatorPreviewVisual";
 import {
   buildBreadcrumbSchema,
   buildFaqPageSchema,
@@ -55,7 +58,16 @@ export const metadata: Metadata = {
   },
 };
 
-const calculatorCards = [
+type CalculatorCard = {
+  href: string;
+  title: string;
+  description: string;
+  cta: string;
+  icon: typeof Calculator;
+  preview: CalculatorPreviewType;
+};
+
+const calculatorCards: CalculatorCard[] = [
   {
     href: "/calculadoras/imc",
     title: "Calculadora de IMC",
@@ -63,6 +75,7 @@ const calculatorCards = [
       "Calcula tu índice de masa corporal y entiende tu categoría de forma orientativa.",
     cta: "Calcular IMC",
     icon: Calculator,
+    preview: "imc",
   },
   {
     href: "/calculadoras/meta-de-peso",
@@ -71,6 +84,7 @@ const calculatorCards = [
       "Evalúa cuántas libras deseas perder y qué ritmo semanal implicaría tu meta.",
     cta: "Calcular meta",
     icon: Target,
+    preview: "meta",
   },
   {
     href: "/calculadoras/deficit-calorico",
@@ -79,6 +93,7 @@ const calculatorCards = [
       "Estima mantenimiento y déficit moderado usando datos básicos y nivel de actividad.",
     cta: "Estimar déficit",
     icon: Flame,
+    preview: "deficit",
   },
   {
     href: "/calculadoras/hidratacion-electrolitos",
@@ -87,6 +102,7 @@ const calculatorCards = [
       "Estima un rango general de hidratación diaria según peso, actividad y sudoración.",
     cta: "Estimar hidratación",
     icon: Droplets,
+    preview: "hidratacion",
   },
 ];
 
@@ -230,33 +246,32 @@ export default function CalculadorasPage() {
           </Link>
 
           <div className="grid gap-4 md:grid-cols-2">
-            {calculatorCards.map((calculator) => {
-              const Icon = calculator.icon;
-              return (
-                <Link
-                  key={calculator.href}
-                  href={calculator.href}
-                  className="group flex h-full flex-col rounded-2xl border border-[#E8E4DA] bg-white p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#C9A84C]/50 hover:shadow-lg hover:shadow-[#1A1A1A]/5 sm:p-6"
-                >
-                  <div className="mb-5 flex items-start justify-between gap-4">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#C9A84C]/10">
-                      <Icon className="h-5 w-5 text-[#C9A84C]" />
-                    </div>
-                    <ArrowRight className="h-4 w-4 text-[#C9A84C] opacity-45 transition-all duration-200 group-hover:translate-x-1 group-hover:opacity-100" />
+            {calculatorCards.map((calculator) => (
+              <Link
+                key={calculator.href}
+                href={calculator.href}
+                className="group flex h-full flex-col rounded-2xl border border-[#E8E4DA] bg-white p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#C9A84C]/50 hover:shadow-lg hover:shadow-[#1A1A1A]/5 sm:p-6"
+              >
+                <div className="mb-5 flex items-start justify-between gap-4">
+                  {/* Mini health-tech preview visual replaces the plain icon
+                      tile. SVG-based, no chart lib, respects reduced-motion. */}
+                  <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[#FAF8F4] to-[#F0EDE6] ring-1 ring-[#E8E4DA] group-hover:ring-[#C9A84C]/30 transition-colors">
+                    <CalculatorPreviewVisual type={calculator.preview} />
                   </div>
-                  <h3 className="text-xl font-semibold leading-snug text-[#1A1A1A]">
-                    {calculator.title}
-                  </h3>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-[#6B6B6B]">
-                    {calculator.description}
-                  </p>
-                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#C9A84C]">
-                    {calculator.cta}
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </span>
-                </Link>
-              );
-            })}
+                  <ArrowRight className="h-4 w-4 text-[#C9A84C] opacity-45 transition-all duration-200 group-hover:translate-x-1 group-hover:opacity-100" />
+                </div>
+                <h3 className="text-xl font-semibold leading-snug text-[#1A1A1A]">
+                  {calculator.title}
+                </h3>
+                <p className="mt-3 flex-1 text-sm leading-relaxed text-[#6B6B6B]">
+                  {calculator.description}
+                </p>
+                <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#C9A84C]">
+                  {calculator.cta}
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>

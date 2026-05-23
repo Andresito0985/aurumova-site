@@ -25,10 +25,12 @@ const legal = [
   { label: "Términos", href: "/terminos" },
 ];
 
+// /analisis-laboratorios route stays alive for SEO/backlinks but is demoted
+// from prominent surfaces — /evaluacion-metabolica-avanzada is now the
+// primary lab/metabolic education entry point.
 const resources = [
   { label: "Evaluación metabólica avanzada", href: "/evaluacion-metabolica-avanzada" },
   { label: "Perfil metabólico integral", href: "/perfil-metabolico" },
-  { label: "Análisis de laboratorios", href: "/analisis-laboratorios" },
   { label: "Quiz metabólico", href: "/quiz-metabolico" },
   { label: "Calculadoras", href: "/calculadoras" },
   { label: "Enfoque clínico", href: "/enfoque-clinico" },

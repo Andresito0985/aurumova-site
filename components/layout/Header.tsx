@@ -53,7 +53,6 @@ const resourceGroups: ResourceGroup[] = [
         description: "Selección de paneles según tu perfil clínico.",
       },
       { label: "Perfil Metabólico Integral", href: "/perfil-metabolico" },
-      { label: "Análisis de Laboratorios", href: "/analisis-laboratorios" },
     ],
   },
   {
@@ -97,7 +96,6 @@ const mobileNavGroups: MobileNavGroup[] = [
         badge: "Nuevo",
       },
       { label: "Perfil Metabólico Integral", href: "/perfil-metabolico" },
-      { label: "Análisis de Laboratorios", href: "/analisis-laboratorios" },
       { label: "Quiz Metabólico", href: "/quiz-metabolico" },
       { label: "Calculadoras", href: "/calculadoras" },
     ],

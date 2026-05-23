@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/sections/PageHero";
 import GeneralLeadForm from "@/components/forms/GeneralLeadForm";
+import GoogleMapsLocationCard from "@/components/ui/GoogleMapsLocationCard";
 import { MapPin, Phone, Mail, AtSign, MessageCircle } from "lucide-react";
 import { callLink, siteConfig, whatsappLink } from "@/content/site";
 
@@ -115,30 +116,24 @@ export default function ContactoPage() {
             })}
           </div>
 
-          {/* Address */}
-          <div className="bg-[#FAF8F4] border border-[#E8E4DA] rounded-2xl p-6 flex flex-col gap-4 sm:flex-row sm:items-start">
-            <div className="w-10 h-10 rounded-xl bg-[#C9A84C]/10 flex items-center justify-center shrink-0">
-              <MapPin className="w-5 h-5 text-[#C9A84C]" />
-            </div>
-            <div className="flex-1">
-              <p className="text-xs font-semibold uppercase tracking-wider text-[#9A9A9A] mb-1">Ubicación</p>
-              <p className="text-sm font-semibold text-[#1A1A1A]">Aurum Nova Wellness Clinic</p>
-              <p className="mt-1 text-sm leading-relaxed text-[#3D3D3D]">
-                Ave. Barbosa 65, Arecibo Medical Plaza, Suite 201
-                <br />
-                Arecibo, Puerto Rico
+          {/* Premium location preview card — opens Google Maps in a new tab.
+              Replaces the old text-only address block with a stylized map
+              visual; cleanly clickable, no external script, no API key. */}
+          <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-5 items-start">
+            <GoogleMapsLocationCard />
+            <div className="bg-[#FAF8F4] border border-[#E8E4DA] rounded-3xl p-6">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-[#A8872E] mb-2">
+                Antes de visitarnos
               </p>
-              <p className="text-xs text-[#9A9A9A] mt-1">
-                Confirma disponibilidad de cita antes de visitarnos.
+              <p className="text-sm leading-relaxed text-[#3D3D3D] mb-3">
+                Confirma disponibilidad de cita antes de visitarnos. La
+                evaluación clínica es el primer paso para coordinar cualquier
+                programa o servicio.
               </p>
-              <a
-                href={siteConfig.mapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-flex min-h-11 items-center justify-center rounded-full bg-[#C9A84C] px-5 py-3 text-sm font-semibold text-[#1A1A1A] transition-colors hover:bg-[#A8872E]"
-              >
-                Ver ubicación en Google Maps
-              </a>
+              <p className="text-xs leading-relaxed text-[#6B6B6B]">
+                Estacionamiento disponible en Arecibo Medical Plaza. La clínica
+                está en el segundo piso, Suite 201.
+              </p>
             </div>
           </div>
         </div>

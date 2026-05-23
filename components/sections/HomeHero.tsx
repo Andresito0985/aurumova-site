@@ -70,7 +70,7 @@ export default function HomeHero() {
       <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#C9A84C]/50 to-transparent" />
 
       <div className="container-max px-4 sm:px-6 lg:px-8 relative z-10 pt-20 pb-10 sm:pt-24 lg:pb-20">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-[1fr_1.05fr] gap-10 lg:gap-12 items-center">
           {/* Left */}
           <motion.div
             initial={reduce ? false : { opacity: 0, y: 30 }}
@@ -206,9 +206,9 @@ export default function HomeHero() {
 
           {/* Right — visual */}
           <motion.div
-            initial={reduce ? false : { opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={reduce ? { duration: 0 } : { duration: 0.8, delay: 0.3 }}
+            initial={reduce ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={reduce ? { duration: 0 } : { duration: 0.55, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="relative hidden lg:block"
           >
             <div className="relative lg:h-[680px] rounded-3xl overflow-hidden bg-gradient-to-br from-[#161616] via-[#121212] to-[#0A0A0A] ring-1 ring-[#C9A84C]/15 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.55)] flex items-center justify-center">
@@ -341,12 +341,14 @@ export default function HomeHero() {
                 </div>
               </div>
 
-              {/* Floating stat */}
+              {/* Floating "Quiz metabólico" badge — inside the rounded
+                  dashboard container so overflow-hidden keeps it safely
+                  framed. Sits over the dashboard content via z-20. */}
               <motion.div
-                initial={reduce ? false : { opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={reduce ? { duration: 0 } : { delay: 1.1 }}
-                className="hidden sm:block absolute top-6 right-4 bg-white/95 backdrop-blur-md ring-1 ring-black/5 rounded-2xl shadow-xl shadow-black/30 p-4 max-w-[160px]"
+                initial={reduce ? false : { opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={reduce ? { duration: 0 } : { duration: 0.4, delay: 0.85, ease: [0.22, 1, 0.36, 1] }}
+                className="hidden lg:block absolute top-5 right-5 z-20 bg-white/95 backdrop-blur-md ring-1 ring-black/5 rounded-2xl shadow-xl shadow-black/30 p-3.5 max-w-[156px]"
               >
                 <p className="text-[10px] text-[#9A9A9A] font-semibold uppercase tracking-wider mb-1">
                   Inicio
@@ -357,11 +359,12 @@ export default function HomeHero() {
                 <p className="text-xs text-[#A8872E] font-semibold">Educativo</p>
               </motion.div>
 
+              {/* Floating "Método" badge — same inside-the-card pattern */}
               <motion.div
-                initial={reduce ? false : { opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={reduce ? { duration: 0 } : { delay: 1.3 }}
-                className="hidden sm:block absolute bottom-8 left-4 bg-white/95 backdrop-blur-md ring-1 ring-black/5 rounded-2xl shadow-xl shadow-black/30 p-4 max-w-[160px]"
+                initial={reduce ? false : { opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={reduce ? { duration: 0 } : { duration: 0.4, delay: 1.0, ease: [0.22, 1, 0.36, 1] }}
+                className="hidden lg:block absolute bottom-6 left-5 z-20 bg-white/95 backdrop-blur-md ring-1 ring-black/5 rounded-2xl shadow-xl shadow-black/30 p-3.5 max-w-[176px]"
               >
                 <p className="text-[10px] text-[#9A9A9A] font-semibold uppercase tracking-wider mb-1">
                   Método
@@ -374,9 +377,6 @@ export default function HomeHero() {
                 </p>
               </motion.div>
             </div>
-
-            <div className="absolute -bottom-6 -right-6 w-32 h-32 rounded-full bg-[#C9A84C] opacity-8 blur-3xl" />
-            <div className="absolute -top-6 -left-6 w-40 h-40 rounded-full bg-[#C9A84C] opacity-6 blur-3xl" />
           </motion.div>
         </div>
       </div>
