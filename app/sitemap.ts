@@ -35,12 +35,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/calculadoras/hidratacion-electrolitos",
     "/perfil-metabolico",
     "/analisis-laboratorios",
+    "/evaluacion-metabolica-avanzada",
   ].map((path) => ({
     url: `${BASE_URL}${path}`,
     lastModified: now,
     changeFrequency: "monthly" as const,
     priority:
-      path === "/perfil-metabolico"
+      path === "/perfil-metabolico" || path === "/evaluacion-metabolica-avanzada"
         ? 0.9
         : path === "/calculadoras"
           ? 0.85
