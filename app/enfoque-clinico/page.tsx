@@ -45,7 +45,7 @@ const steps = [
     num: "03",
     title: "Terapia médica para candidatos calificados",
     desc: "Cuando el paciente es candidato y la terapia está clínicamente indicada, se prescribe e inicia bajo supervisión. Esto puede incluir terapias formuladas, inyectables de apoyo u otras intervenciones según el programa. Los pacientes que no son candidatos son informados con claridad.",
-    detail: "Solo para pacientes candidatos · Prescripción profesional · Dosis clínicamente determinada · Sin auto-selección de terapia",
+    detail: "Solo para pacientes candidatos · Prescripción profesional · Cantidad clínicamente determinada · Sin auto-selección de terapia",
   },
   {
     icon: Salad,

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { AtSign, Mail, Phone, MapPin, MessageCircle } from "lucide-react";
 import { callLink, siteConfig, whatsappLink } from "@/content/site";
 
@@ -41,6 +42,13 @@ export default function Footer() {
           {/* Brand + disclaimer excerpt */}
           <div className="lg:col-span-1">
             <div className="mb-4">
+              <Image
+                src="/brand/aurum-nova-logo-transparent-4096.png"
+                alt="Aurum Nova"
+                width={40}
+                height={40}
+                className="h-10 w-10 object-contain mb-3"
+              />
               <span className="text-xl font-semibold tracking-wide text-white">Aurum Nova</span>
               <span className="block text-xs tracking-[0.2em] uppercase text-[#C9A84C] font-medium mt-0.5">
                 Wellness Clinic

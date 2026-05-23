@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, Phone, ChevronRight, MapPin, MessageCircle } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
@@ -90,12 +91,27 @@ export default function Header() {
         <div className="container-max px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
-            <Link href="/" className="flex flex-col leading-none group" onClick={() => setIsOpen(false)}>
-              <span className="text-lg md:text-xl font-semibold tracking-wide text-[#1A1A1A] group-hover:text-[#C9A84C] transition-colors">
-                Aurum Nova
-              </span>
-              <span className="text-[10px] md:text-xs tracking-[0.2em] uppercase text-[#C9A84C] font-medium">
-                Wellness Clinic
+            <Link
+              href="/"
+              className="flex items-center gap-2.5 leading-none group"
+              onClick={() => setIsOpen(false)}
+              aria-label="Aurum Nova Wellness Clinic — Inicio"
+            >
+              <Image
+                src="/brand/aurum-nova-logo-transparent-4096.png"
+                alt="Aurum Nova"
+                width={32}
+                height={32}
+                priority
+                className="h-8 w-8 object-contain"
+              />
+              <span className="flex flex-col leading-none">
+                <span className="text-lg md:text-xl font-semibold tracking-wide text-[#1A1A1A] group-hover:text-[#C9A84C] transition-colors">
+                  Aurum Nova
+                </span>
+                <span className="text-[10px] md:text-xs tracking-[0.2em] uppercase text-[#C9A84C] font-medium">
+                  Wellness Clinic
+                </span>
               </span>
             </Link>
 

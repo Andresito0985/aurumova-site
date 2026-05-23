@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
+// Section imports — order below the metadata reflects new educate-before-price flow
 import MetabolicHero from "@/components/sections/programa-metabolico/MetabolicHero";
 import MetabolicWhatIs from "@/components/sections/programa-metabolico/MetabolicWhatIs";
 import MetabolicWho from "@/components/sections/programa-metabolico/MetabolicWho";
 import MetabolicIncludes from "@/components/sections/programa-metabolico/MetabolicIncludes";
 import MetabolicPricing from "@/components/sections/programa-metabolico/MetabolicPricing";
-import MetabolicDashboard from "@/components/sections/programa-metabolico/MetabolicDashboard";
-import MetabolicProgressCalculator from "@/components/calculators/metabolic-progress-calculator";
 import MetabolicProfileQuiz from "@/components/quiz/MetabolicProfileQuiz";
 import MetabolicCalculatorLinks from "@/components/sections/programa-metabolico/MetabolicCalculatorLinks";
+import MetabolicProgressCalculator from "@/components/calculators/metabolic-progress-calculator";
+import MetabolicDashboard from "@/components/sections/programa-metabolico/MetabolicDashboard";
 import MetabolicSafety from "@/components/sections/programa-metabolico/MetabolicSafety";
 import MetabolicCompounding from "@/components/sections/programa-metabolico/MetabolicCompounding";
-import MetabolicLeadForm from "@/components/forms/MetabolicLeadForm";
 import FAQSection from "@/components/sections/FAQSection";
+import MetabolicLeadForm from "@/components/forms/MetabolicLeadForm";
 import CTABanner from "@/components/ui/CTABanner";
 
 export const metadata: Metadata = {
@@ -94,13 +95,14 @@ const CTA_MESSAGE =
 export default function ProgramaMetabolicoPage() {
   return (
     <>
+      {/* Educate-before-price flow — reordered per launch audit */}
       <MetabolicHero />
-      <MetabolicPricing />
-      <MetabolicProfileQuiz />
-      <MetabolicCalculatorLinks />
       <MetabolicWhatIs />
       <MetabolicWho />
       <MetabolicIncludes />
+      <MetabolicPricing />
+      <MetabolicProfileQuiz />
+      <MetabolicCalculatorLinks />
       <MetabolicProgressCalculator />
       <MetabolicDashboard />
       <MetabolicSafety />

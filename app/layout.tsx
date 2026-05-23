@@ -73,7 +73,7 @@ export default function RootLayout({
   const siteLocked = process.env.NEXT_PUBLIC_SITE_LOCKED === "true";
 
   return (
-    <html lang="es" className={`${geistSans.variable} h-full`}>
+    <html lang="es-PR" className={`${geistSans.variable} h-full`}>
       <body className="min-h-full flex flex-col bg-white text-[#1A1A1A]">
         <AnalyticsScripts />
         <JsonLd />
