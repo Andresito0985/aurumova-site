@@ -16,6 +16,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/wellness-mujer",
     "/wellness-hombre",
     "/skin-glow",
+    "/faciales-hydrafacial",
+    "/brows-cejas",
     "/hair-support",
     "/nutricion",
     "/suplementacion",

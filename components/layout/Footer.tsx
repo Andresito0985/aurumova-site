@@ -12,6 +12,8 @@ const programs = [
   { label: "Wellness Mujer", href: "/wellness-mujer" },
   { label: "Wellness Hombre", href: "/wellness-hombre" },
   { label: "Skin Glow", href: "/skin-glow" },
+  { label: "Faciales & Hydrafacial", href: "/faciales-hydrafacial" },
+  { label: "Cejas & Brow Wellness", href: "/brows-cejas" },
   { label: "Hair Support", href: "/hair-support" },
   { label: "Coaching y Seguimiento", href: "/coaching-seguimiento" },
 ];

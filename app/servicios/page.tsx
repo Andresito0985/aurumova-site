@@ -8,8 +8,10 @@ import {
   CheckCircle2,
   ClipboardList,
   Droplets,
+  Eye,
   FlaskConical,
   Heart,
+  Leaf,
   MessageCircle,
   Sparkles,
   Syringe,
@@ -128,6 +130,24 @@ const services = [
     href: "/skin-glow",
     cta: "Ver Skin & Glow",
     icon: Sparkles,
+  },
+  {
+    title: "Faciales Profundos & Hydrafacial",
+    goal: "Quiero un facial profesional para mi piel",
+    description:
+      "Limpieza facial profunda, Hydrafacial, skin glow facial, mantenimiento y pre-evento. Protocolos según tipo de piel y evaluación.",
+    href: "/faciales-hydrafacial",
+    cta: "Ver faciales",
+    icon: Leaf,
+  },
+  {
+    title: "Cejas & Brow Wellness",
+    goal: "Quiero diseño y cuidado de cejas y pestañas",
+    description:
+      "Brow shaping, brow tint, brow lamination y lash lifting. Boutique brow menu para realzar tu forma natural.",
+    href: "/brows-cejas",
+    cta: "Ver brow menu",
+    icon: Eye,
   },
   {
     title: "Hair Support",
