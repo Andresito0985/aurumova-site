@@ -227,12 +227,12 @@ export default function HomeHero() {
               <div className="relative z-10 flex h-full w-full flex-col p-5 sm:p-6 lg:p-7">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#1A1A1A] p-1 ring-1 ring-[#C9A84C]/35 shadow-xl shadow-black/30">
+                    <div className="mb-3 flex h-[68px] w-[68px] items-center justify-center rounded-2xl bg-[#1A1A1A] ring-1 ring-[#C9A84C]/35 shadow-xl shadow-black/30">
                       <Image
                         src="/brand/aurum-nova-logo-transparent-4096.png"
                         alt="Aurum Nova"
-                        width={64}
-                        height={64}
+                        width={68}
+                        height={68}
                         priority
                         className="h-full w-full object-contain"
                       />
@@ -244,12 +244,20 @@ export default function HomeHero() {
                       Arecibo Medical Plaza · Suite 201
                     </p>
                   </div>
-                  <div className="rounded-full border border-[#C9A84C]/30 bg-[#C9A84C]/10 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-[#E2C97E] shadow-sm">
-                    Premium wellness
+                  {/* Integrated quiz chip — replaces the old "Premium wellness"
+                      pill + the previous floating top-right card. Compact and
+                      part of the brand-header layout, not a detached overlay. */}
+                  <div className="rounded-xl border border-[#C9A84C]/25 bg-[#1A1A1A]/70 px-3 py-2 backdrop-blur-sm shadow-sm max-w-[148px]">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-[#E2C97E] leading-tight">
+                      Quiz metabólico
+                    </p>
+                    <p className="mt-0.5 text-[9px] font-medium text-[#A8A8A8]">
+                      Educativo
+                    </p>
                   </div>
                 </div>
 
-                <div className="mt-6 rounded-[1.75rem] border border-[#C9A84C]/15 bg-[#171717]/85 p-4 shadow-2xl shadow-black/30 backdrop-blur">
+                <div className="mt-7 rounded-[1.75rem] border border-[#C9A84C]/15 bg-[#171717]/85 p-4 shadow-2xl shadow-black/30 backdrop-blur">
                   <div className="flex items-center justify-between gap-3">
                     <div>
                       <p className="text-[10px] font-bold uppercase tracking-widest text-[#E2C97E]">
@@ -258,6 +266,12 @@ export default function HomeHero() {
                       <h2 className="mt-1 text-lg font-semibold leading-tight text-white">
                         Evaluar antes de recomendar
                       </h2>
+                      {/* Inline method tagline — replaces the old floating
+                          bottom-left "Método" overlay so it no longer covers
+                          the Perfil orientativo module. */}
+                      <p className="mt-1.5 text-[10px] font-medium tracking-wide text-[#8A8A8A]">
+                        Método clínico · Evaluar · Orientar · Medir
+                      </p>
                     </div>
                     <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#C9A84C]/12 ring-1 ring-[#C9A84C]/30">
                       <Activity className="h-5 w-5 text-[#C9A84C]" />
@@ -286,7 +300,7 @@ export default function HomeHero() {
                     })}
                   </div>
 
-                  <div className="mt-5 rounded-2xl border border-[#2D2D2D] bg-[#1A1A1A] p-4">
+                  <div className="mt-5 rounded-2xl border border-[#2D2D2D] bg-[#1A1A1A] p-5">
                     <div className="mb-4 flex items-center justify-between">
                       <p className="text-[10px] font-bold uppercase tracking-widest text-[#E2C97E]">
                         Perfil orientativo
@@ -295,7 +309,7 @@ export default function HomeHero() {
                         No diagnóstico
                       </span>
                     </div>
-                    <div className="space-y-3">
+                    <div className="space-y-3.5">
                       {visualMetrics.map((metric) => (
                         <div
                           key={metric.label}
@@ -341,41 +355,12 @@ export default function HomeHero() {
                 </div>
               </div>
 
-              {/* Floating "Quiz metabólico" badge — inside the rounded
-                  dashboard container so overflow-hidden keeps it safely
-                  framed. Sits over the dashboard content via z-20. */}
-              <motion.div
-                initial={reduce ? false : { opacity: 0, y: -8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={reduce ? { duration: 0 } : { duration: 0.4, delay: 0.85, ease: [0.22, 1, 0.36, 1] }}
-                className="hidden lg:block absolute top-5 right-5 z-20 bg-white/95 backdrop-blur-md ring-1 ring-black/5 rounded-2xl shadow-xl shadow-black/30 p-3.5 max-w-[156px]"
-              >
-                <p className="text-[10px] text-[#9A9A9A] font-semibold uppercase tracking-wider mb-1">
-                  Inicio
-                </p>
-                <p className="text-sm font-bold leading-tight text-[#1A1A1A]">
-                  Quiz metabólico
-                </p>
-                <p className="text-xs text-[#A8872E] font-semibold">Educativo</p>
-              </motion.div>
-
-              {/* Floating "Método" badge — same inside-the-card pattern */}
-              <motion.div
-                initial={reduce ? false : { opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={reduce ? { duration: 0 } : { duration: 0.4, delay: 1.0, ease: [0.22, 1, 0.36, 1] }}
-                className="hidden lg:block absolute bottom-6 left-5 z-20 bg-white/95 backdrop-blur-md ring-1 ring-black/5 rounded-2xl shadow-xl shadow-black/30 p-3.5 max-w-[176px]"
-              >
-                <p className="text-[10px] text-[#9A9A9A] font-semibold uppercase tracking-wider mb-1">
-                  Método
-                </p>
-                <p className="text-sm font-bold text-[#1A1A1A] leading-tight">
-                  Evaluar · Orientar · Medir
-                </p>
-                <p className="text-xs text-[#A8872E] font-semibold mt-0.5">
-                  Supervisión clínica
-                </p>
-              </motion.div>
+              {/* Floating overlay badges removed — both the top-right "Quiz
+                  metabólico" overlay and the bottom-left "Método" overlay are
+                  now integrated into the dashboard chrome itself: a compact
+                  quiz chip in the brand-header row and an inline method
+                  tagline under "Evaluar antes de recomendar". The card now
+                  reads as one cohesive dashboard, not a collage. */}
             </div>
           </motion.div>
         </div>
