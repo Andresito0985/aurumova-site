@@ -5,6 +5,7 @@
 //   - "Resultados pueden variar según vello, piel, cuidado posterior y técnica"
 //   - No promises of perfect symmetry, no permanent results, no exaggerated
 //     beauty claims
+//   - No ecommerce language, no product brand names, no "buy now"
 
 export const BROWS_WHATSAPP_MESSAGE =
   "Hola, quiero información sobre los servicios de cejas y pestañas en Aurum Nova.";
@@ -15,6 +16,22 @@ export interface BrowService {
   /** Price string without dollar sign (rendered with $ prefix). */
   price: string;
   description: string;
+  /**
+   * Editorial procedure detail rendered in the "Trabajos y detalle del
+   * procedimiento" section. Short, descriptive — what happens during the
+   * service without making outcome promises.
+   */
+  procedureDetail?: string;
+  /**
+   * The Aurum Nova touch — what makes this service feel boutique. Avoids
+   * superlatives like "el mejor" or "perfecto" by design.
+   */
+  aurumTouch?: string;
+  /**
+   * Care note — short orientative line about maintenance and care after the
+   * service. Defers to the in-clinic team for full instructions.
+   */
+  careNote?: string;
 }
 
 export const browServices: BrowService[] = [
@@ -24,6 +41,12 @@ export const browServices: BrowService[] = [
     price: "20",
     description:
       "Diseño y limpieza de cejas para definir la forma natural según tu rostro.",
+    procedureDetail:
+      "Evaluamos la forma natural, mapeamos puntos guía y limpiamos el contorno con técnica cuidada.",
+    aurumTouch:
+      "Diseño orientado a tu estructura facial, sin sobreajustes ni formas estandarizadas.",
+    careNote:
+      "Mantenimiento sugerido cada 3 a 4 semanas según el ritmo individual del vello.",
   },
   {
     id: "shaping-tint",
@@ -31,6 +54,12 @@ export const browServices: BrowService[] = [
     price: "45",
     description:
       "Diseño, limpieza y tinte para realzar la definición y el color de las cejas.",
+    procedureDetail:
+      "Diseño y limpieza combinados con un tinte profesional para acentuar densidad visual y color.",
+    aurumTouch:
+      "Selección de tono adaptada a tu cabello, piel y estilo personal.",
+    careNote:
+      "El tinte puede atenuarse gradualmente según el tipo de piel, vello y rutina diaria.",
   },
   {
     id: "lamination",
@@ -38,6 +67,12 @@ export const browServices: BrowService[] = [
     price: "75",
     description:
       "Efecto lift & set para cejas más ordenadas, pulidas y con dirección.",
+    procedureDetail:
+      "Técnica de lift & set que reorganiza el vello en una dirección uniforme con productos profesionales.",
+    aurumTouch:
+      "Acabado pulido y natural, no rígido — pensado para verse elegante en el día a día.",
+    careNote:
+      "Evita agua, vapor y exfoliantes potentes las primeras horas según la indicación del equipo.",
   },
   {
     id: "lash-lifting",
@@ -45,6 +80,12 @@ export const browServices: BrowService[] = [
     price: "85",
     description:
       "Elevación y curvatura natural de pestañas, sin extensiones ni adhesivos.",
+    procedureDetail:
+      "Elevación y curvatura de la pestaña natural mediante una técnica controlada, sin adhesivos ni extensiones.",
+    aurumTouch:
+      "Curvatura suave y orientada a un acabado natural, no exagerado.",
+    careNote:
+      "Las primeras horas evita maquillaje en el área y respeta las indicaciones de cierre de la sesión.",
   },
 ];
 
