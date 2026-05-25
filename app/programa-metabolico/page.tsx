@@ -1,19 +1,27 @@
 import type { Metadata } from "next";
-// Section imports — order below the metadata reflects new educate-before-price flow
-import Link from "next/link";
-import { ArrowRight, FlaskConical } from "lucide-react";
+// Refactored /programa-metabolico flow — Apple-inspired visual system.
+//
+// Page narrative: "No es solo bajar peso. Es medir, interpretar, ajustar
+// y acompañar." Nine sections, each carrying one main idea.
+//
+// Sections removed from this page (files retained in repo for future use):
+//   - MetabolicWhatIs           → folded into MetabolicHowWeWork
+//   - MetabolicWho              → folded into MetabolicSafetyEligibility
+//   - MetabolicIncludes         → folded into MetabolicHowWeWork
+//   - MetabolicDashboard        → replaced by MetabolicDashboardSection
+//   - MetabolicSafety           → folded into MetabolicSafetyEligibility
+//   - MetabolicCompounding      → folded into MetabolicSafetyEligibility
+//   - MetabolicCalculatorLinks  → demoted; calculators have their own routes
+//   - MetabolicProgressCalculator → demoted; available on its own surface
+//   - Related-resource card to /evaluacion-metabolica-avanzada → demoted
+
 import MetabolicHero from "@/components/sections/programa-metabolico/MetabolicHero";
-import MetabolicWhatIs from "@/components/sections/programa-metabolico/MetabolicWhatIs";
-import MetabolicWho from "@/components/sections/programa-metabolico/MetabolicWho";
-import MetabolicIncludes from "@/components/sections/programa-metabolico/MetabolicIncludes";
+import MetabolicHowWeWork from "@/components/sections/programa-metabolico/MetabolicHowWeWork";
+import MetabolicDashboardSection from "@/components/sections/programa-metabolico/MetabolicDashboardSection";
+import MetabolicGlucoseMonitoring from "@/components/sections/programa-metabolico/MetabolicGlucoseMonitoring";
 import MetabolicPricing from "@/components/sections/programa-metabolico/MetabolicPricing";
 import MetabolicProfileQuiz from "@/components/quiz/MetabolicProfileQuiz";
-import MetabolicCalculatorLinks from "@/components/sections/programa-metabolico/MetabolicCalculatorLinks";
-import MetabolicProgressCalculator from "@/components/calculators/metabolic-progress-calculator";
-import MetabolicDashboard from "@/components/sections/programa-metabolico/MetabolicDashboard";
-import MetabolicGlucoseMonitoring from "@/components/sections/programa-metabolico/MetabolicGlucoseMonitoring";
-import MetabolicSafety from "@/components/sections/programa-metabolico/MetabolicSafety";
-import MetabolicCompounding from "@/components/sections/programa-metabolico/MetabolicCompounding";
+import MetabolicSafetyEligibility from "@/components/sections/programa-metabolico/MetabolicSafetyEligibility";
 import FAQSection from "@/components/sections/FAQSection";
 import MetabolicLeadForm from "@/components/forms/MetabolicLeadForm";
 import CTABanner from "@/components/ui/CTABanner";
@@ -95,60 +103,29 @@ const faqs = [
 const CTA_MESSAGE =
   "Hola, me interesa comenzar una evaluación para discutir el Programa Metabólico de Aurum Nova. ¿Cuáles son los próximos pasos?";
 
+/**
+ * Programa Metabólico — Apple-inspired visual system.
+ *
+ *   1. MetabolicHero               — dark hero + DeviceDashboardMockup
+ *   2. MetabolicHowWeWork          — Evaluamos / Personalizamos / Medimos / Ajustamos
+ *   3. MetabolicDashboardSection   — official dashboard mockup
+ *   4. MetabolicGlucoseMonitoring  — patrones de glucosa + ClinicalMetricGraph
+ *   5. MetabolicPricing            — protocols (unchanged)
+ *   6. MetabolicProfileQuiz        — quiz (unchanged)
+ *   7. MetabolicSafetyEligibility  — Safety + Eligibility + Compounding
+ *   8. FAQSection                  — unchanged FAQ list
+ *   9. MetabolicLeadForm + CTABanner — final conversion surface
+ */
 export default function ProgramaMetabolicoPage() {
   return (
     <>
-      {/* Educate-before-price flow — reordered per launch audit */}
       <MetabolicHero />
-      <MetabolicWhatIs />
-      <MetabolicWho />
-      <MetabolicIncludes />
+      <MetabolicHowWeWork />
+      <MetabolicDashboardSection />
+      <MetabolicGlucoseMonitoring />
       <MetabolicPricing />
       <MetabolicProfileQuiz />
-      <MetabolicCalculatorLinks />
-      {/* Subtle related-resource card pointing to the advanced evaluation page */}
-      <section className="bg-[#FAF8F4] px-4 pb-12 sm:px-6 lg:px-8">
-        <div className="container-max">
-          <Link
-            href="/evaluacion-metabolica-avanzada"
-            className="group relative flex flex-col gap-4 overflow-hidden rounded-3xl border border-[#1A1A1A] bg-[#1A1A1A] p-5 sm:p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_60px_-24px_rgba(0,0,0,0.6)] lg:flex-row lg:items-center lg:gap-6"
-          >
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0 opacity-25"
-              style={{
-                backgroundImage:
-                  "radial-gradient(ellipse at 88% 18%, rgba(201,168,76,0.35) 0%, transparent 55%)",
-              }}
-            />
-            <div className="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#C9A84C]/12 ring-1 ring-[#C9A84C]/30">
-              <FlaskConical className="h-5 w-5 text-[#C9A84C]" />
-            </div>
-            <div className="relative z-10 flex-1">
-              <p className="text-[10px] font-semibold uppercase tracking-widest text-[#E2C97E]">
-                Recurso relacionado
-              </p>
-              <h3 className="mt-1.5 text-lg sm:text-xl font-semibold leading-tight text-white">
-                Evaluación Metabólica Avanzada
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-[#BDB7AA] max-w-2xl">
-                Más allá de un panel general: cómo seleccionamos paneles
-                clínicos según perfil, historial, síntomas y factores de riesgo
-                — educativo, orientativo y supeditado a evaluación clínica.
-              </p>
-            </div>
-            <span className="relative z-10 inline-flex shrink-0 items-center gap-2 self-start lg:self-center rounded-full border border-[#C9A84C]/35 bg-[#C9A84C]/10 px-4 py-2 text-xs font-semibold text-[#E2C97E] transition-colors group-hover:border-[#C9A84C] group-hover:text-white">
-              Conocer la evaluación
-              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-            </span>
-          </Link>
-        </div>
-      </section>
-      <MetabolicProgressCalculator />
-      <MetabolicDashboard />
-      <MetabolicGlucoseMonitoring />
-      <MetabolicSafety />
-      <MetabolicCompounding />
+      <MetabolicSafetyEligibility />
       <FAQSection
         faqs={faqs}
         title="Preguntas frecuentes sobre el programa"
