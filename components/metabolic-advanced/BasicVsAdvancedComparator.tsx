@@ -1,39 +1,92 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
-import { CheckCircle2, Circle, Info } from "lucide-react";
+import { CheckCircle2, Minus } from "lucide-react";
 import HeadlineReveal from "@/components/motion/HeadlineReveal";
-import { DUR, EASE_OUT_QUART } from "@/components/motion/easing";
 
-const basicPanel = [
-  "Glucosa",
-  "Electrolitos",
-  "Creatinina",
-  "Enzimas hepáticas básicas",
-  "Colesterol general",
-  "Información útil, pero limitada",
+// Comparison rows — clinical-safe language only.
+//   yes      → check icon (gold for Aurum Nova column, neutral for Panel general)
+//   no       → neutral dash icon
+//   limited  → small neutral pill labeled "Limitada"
+//
+// Aurum Nova column always shows yes; the differentiation lives in the
+// Panel general column. Each cell's icon has an sr-only label so screen
+// readers receive an explicit value, not just an icon.
+type GeneralValue = "yes" | "no" | "limited";
+
+type ComparisonRow = {
+  label: string;
+  general: GeneralValue;
+};
+
+const rows: ComparisonRow[] = [
+  { label: "Selección personalizada según historial y objetivos", general: "no" },
+  { label: "Glucosa y HbA1c", general: "yes" },
+  { label: "Insulina en ayunas / HOMA-IR cuando aplica", general: "no" },
+  { label: "Lípidos avanzados como ApoB y Lp(a) cuando aplica", general: "no" },
+  { label: "Inflamación cardiometabólica como hsCRP cuando aplica", general: "no" },
+  { label: "Riesgo renal temprano con UACR cuando aplica", general: "no" },
+  { label: "Riesgo hepático metabólico con FIB-4 / GGT cuando aplica", general: "no" },
+  { label: "Panel hormonal-metabólico femenino / SOP cuando aplica", general: "no" },
+  { label: "Interpretación clínica orientada a próximos pasos", general: "limited" },
+  {
+    label: "Integración con control de peso, wellness o composición corporal",
+    general: "no",
+  },
 ];
 
-const advancedPanel = [
-  "Resistencia a la insulina",
-  "ApoB y carga real de partículas aterogénicas",
-  "Lipoproteína(a) como riesgo genético cardiovascular",
-  "hsCRP como inflamación cardiometabólica",
-  "UACR para riesgo renal temprano",
-  "FIB-4 para riesgo de fibrosis hepática metabólica",
-  "Marcadores tiroideos y nutricionales según caso",
-  "Selección personalizada según condición",
-];
+function AurumCell() {
+  return (
+    <span className="inline-flex items-center justify-center">
+      <CheckCircle2
+        className="h-5 w-5 text-[#C9A84C]"
+        aria-hidden="true"
+        strokeWidth={2.25}
+      />
+      <span className="sr-only">Incluido en Evaluación Avanzada Aurum Nova</span>
+    </span>
+  );
+}
+
+function GeneralCell({ value }: { value: GeneralValue }) {
+  if (value === "yes") {
+    return (
+      <span className="inline-flex items-center justify-center">
+        <CheckCircle2
+          className="h-5 w-5 text-[#9A9A9A]"
+          aria-hidden="true"
+          strokeWidth={2}
+        />
+        <span className="sr-only">También incluido en panel general</span>
+      </span>
+    );
+  }
+  if (value === "limited") {
+    return (
+      <span className="inline-flex items-center rounded-full bg-[#F0EDE6] px-3 py-1 text-[11px] font-medium text-[#6B6B6B]">
+        Limitada
+      </span>
+    );
+  }
+  return (
+    <span className="inline-flex items-center justify-center">
+      <Minus
+        className="h-5 w-5 text-[#C9C5BD]"
+        aria-hidden="true"
+        strokeWidth={2.5}
+      />
+      <span className="sr-only">No incluido en panel general</span>
+    </span>
+  );
+}
 
 export default function BasicVsAdvancedComparator() {
-  const reduce = useReducedMotion();
-
   return (
     <section className="section-padding bg-[#FAF8F4]" id="comparativa">
       <div className="container-max">
-        <div className="max-w-2xl mb-10 sm:mb-12">
+        {/* Centered editorial header */}
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
           <span className="inline-block text-xs font-semibold tracking-widest uppercase text-[#C9A84C] mb-3">
-            Panel general vs evaluación avanzada
+            Comparación clínica
           </span>
           <HeadlineReveal
             as="h2"
@@ -41,109 +94,128 @@ export default function BasicVsAdvancedComparator() {
             delay={0.05}
             className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.02em] text-[#1A1A1A] leading-[1.05] mb-4"
           >
-            Un panel básico no siempre cuenta la{" "}
-            <span className="text-[#A8872E]">historia completa</span>
+            Más precisión clínica que un{" "}
+            <span className="text-[#A8872E]">panel general</span>
           </HeadlineReveal>
-          <p className="text-base text-[#6B6B6B] leading-relaxed max-w-xl">
-            Lo básico puede estar dentro de rango y aun así existir riesgo
-            metabólico que merece evaluación más específica. La pregunta no es
-            si pedir más pruebas, sino qué pruebas tienen sentido para tu caso.
+          <p className="text-base text-[#6B6B6B] leading-relaxed">
+            Un panel básico puede ser útil como punto de partida. La diferencia
+            está en seleccionar marcadores según tu perfil, tus objetivos y tus
+            factores de riesgo.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-4 lg:gap-5">
-          {/* Basic panel card */}
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px 0px" }}
-            transition={reduce ? { duration: 0 } : { duration: DUR.base, ease: EASE_OUT_QUART }}
-            className="rounded-3xl border border-[#E8E4DA] bg-white p-6 sm:p-7 shadow-[0_20px_40px_-30px_rgba(0,0,0,0.15)]"
-          >
-            <div className="flex items-center gap-3 mb-5">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#FAF8F4] border border-[#E8E4DA]">
-                <Circle className="h-4 w-4 text-[#9A9A9A]" />
-              </div>
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-[#9A9A9A]">
-                  Panel metabólico general
-                </p>
-                <p className="text-base font-semibold text-[#1A1A1A]">
-                  Punto de partida útil
-                </p>
-              </div>
-            </div>
-            <ul className="space-y-2.5">
-              {basicPanel.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-start gap-2.5 text-sm text-[#3D3D3D] leading-relaxed"
+        {/* Comparison card */}
+        <div
+          className="mx-auto max-w-[960px] overflow-hidden rounded-3xl border border-[#E8E4DA] bg-white shadow-[0_30px_70px_-40px_rgba(0,0,0,0.18)]"
+          aria-label="Comparación entre Evaluación Avanzada Aurum Nova y un panel general"
+        >
+          {/* Desktop semantic table */}
+          <table className="hidden w-full md:table">
+            <caption className="sr-only">
+              Qué puede evaluar la Evaluación Avanzada Aurum Nova frente a un
+              panel general
+            </caption>
+            <thead>
+              <tr>
+                <th
+                  scope="col"
+                  className="border-b border-[#E8E4DA] px-6 py-5 text-left align-bottom"
                 >
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#9A9A9A]" />
-                  <span>{item}</span>
-                </li>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#9A9A9A]">
+                    Qué puede evaluar
+                  </span>
+                </th>
+                <th
+                  scope="col"
+                  className="relative border-b border-l border-r border-[#E8E4DA] bg-[#FAF8F4] px-6 py-5 align-bottom text-center"
+                >
+                  {/* Gold accent line at the top of the highlighted column */}
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#E2C97E] via-[#C9A84C] to-[#E2C97E]"
+                  />
+                  <span className="block text-[10px] font-bold uppercase tracking-widest text-[#A8872E]">
+                    Evaluación Avanzada
+                  </span>
+                  <span className="mt-0.5 block text-base font-semibold text-[#1A1A1A]">
+                    Aurum Nova
+                  </span>
+                </th>
+                <th
+                  scope="col"
+                  className="border-b border-[#E8E4DA] px-6 py-5 align-bottom text-center"
+                >
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#9A9A9A]">
+                    Panel general
+                  </span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((row, idx) => (
+                <tr
+                  key={row.label}
+                  className={`group transition-colors hover:bg-[#FAF8F4]/45 ${
+                    idx !== rows.length - 1 ? "border-b border-[#F0EDE6]" : ""
+                  }`}
+                >
+                  <th
+                    scope="row"
+                    className="max-w-[420px] px-6 py-4 text-left text-sm font-medium leading-snug text-[#1A1A1A]"
+                  >
+                    {row.label}
+                  </th>
+                  <td className="border-l border-r border-[#E8E4DA] bg-[#FAF8F4]/55 px-6 py-4 text-center group-hover:bg-[#FAF8F4]/80">
+                    <AurumCell />
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    <GeneralCell value={row.general} />
+                  </td>
+                </tr>
               ))}
-            </ul>
-          </motion.div>
+            </tbody>
+          </table>
 
-          {/* Advanced evaluation card — highlighted */}
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px 0px" }}
-            transition={
-              reduce
-                ? { duration: 0 }
-                : { duration: DUR.base, delay: 0.08, ease: EASE_OUT_QUART }
-            }
-            className="relative rounded-3xl border border-[#C9A84C]/40 bg-gradient-to-br from-[#1A1A1A] via-[#161616] to-[#0E0E0E] p-6 sm:p-7 shadow-[0_24px_60px_-24px_rgba(201,168,76,0.30)] ring-1 ring-[#C9A84C]/15"
+          {/* Mobile stacked card list */}
+          <ul
+            className="divide-y divide-[#F0EDE6] md:hidden"
+            aria-label="Comparación por fila"
           >
-            <div
-              aria-hidden="true"
-              className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#C9A84C]/60 to-transparent"
-            />
-            <div className="flex items-center gap-3 mb-5">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#C9A84C]/12 ring-1 ring-[#C9A84C]/30">
-                <CheckCircle2 className="h-4 w-4 text-[#E2C97E]" />
-              </div>
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-[#E2C97E]">
-                  Evaluación metabólica avanzada
+            {rows.map((row) => (
+              <li key={row.label} className="px-5 py-5">
+                <p className="mb-3 text-sm font-medium leading-snug text-[#1A1A1A]">
+                  {row.label}
                 </p>
-                <p className="text-base font-semibold text-white">
-                  Selección personalizada
-                </p>
-              </div>
-            </div>
-            <ul className="space-y-2.5">
-              {advancedPanel.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-start gap-2.5 text-sm text-[#D8D2C7] leading-relaxed"
-                >
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#C9A84C]" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
+                <div className="grid grid-cols-2 gap-2.5">
+                  <div className="rounded-xl border border-[#C9A84C]/25 bg-[#FAF8F4] px-3 py-2.5 shadow-[0_4px_12px_-8px_rgba(201,168,76,0.35)]">
+                    <p className="mb-1 text-[9px] font-bold uppercase tracking-widest text-[#A8872E]">
+                      Aurum Nova
+                    </p>
+                    <div className="flex items-center">
+                      <AurumCell />
+                    </div>
+                  </div>
+                  <div className="rounded-xl border border-[#E8E4DA] bg-white px-3 py-2.5">
+                    <p className="mb-1 text-[9px] font-bold uppercase tracking-widest text-[#9A9A9A]">
+                      Panel general
+                    </p>
+                    <div className="flex items-center">
+                      <GeneralCell value={row.general} />
+                    </div>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        {/* Key message banner */}
-        <div className="mt-8 rounded-2xl border border-[#E8E4DA] bg-white p-5 sm:p-6 flex items-start gap-3 max-w-3xl">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#C9A84C]/10">
-            <Info className="h-4 w-4 text-[#C9A84C]" />
-          </div>
-          <p className="text-sm leading-relaxed text-[#3D3D3D]">
-            <span className="font-semibold text-[#1A1A1A]">
-              El objetivo no es ordenar más pruebas, sino ordenar las pruebas
-              correctas.
-            </span>{" "}
-            La selección depende de tu historial, síntomas, medicamentos,
-            objetivos y factores de riesgo — y se confirma durante la
-            evaluación clínica.
-          </p>
-        </div>
+        {/* Educational disclaimer */}
+        <p className="mx-auto mt-8 max-w-3xl text-center text-xs leading-relaxed text-[#6B6B6B]">
+          Esta comparación es educativa. La selección final de laboratorios
+          depende del historial clínico, síntomas, medicamentos, factores de
+          riesgo y criterio profesional. No todos los pacientes requieren todos
+          los marcadores.
+        </p>
       </div>
     </section>
   );
