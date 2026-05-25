@@ -1,13 +1,9 @@
 import type { Metadata } from "next";
 import HomeHero from "@/components/sections/HomeHero";
-import HomeJourney from "@/components/sections/HomeJourney";
 import FeaturedPrograma from "@/components/sections/FeaturedPrograma";
-import HomeQuizCTA from "@/components/sections/HomeQuizCTA";
-import HomeCalculatorBridge from "@/components/sections/HomeCalculatorBridge";
-import HomeWellnessGrid from "@/components/sections/HomeWellnessGrid";
-import MetodoYMetricas from "@/components/sections/MetodoYMetricas";
-import TestimonialsSection from "@/components/sections/TestimonialsSection";
-import HomeFAQPreview from "@/components/sections/HomeFAQPreview";
+import HomeLaserFeature from "@/components/sections/HomeLaserFeature";
+import HomeBoutiqueWellness from "@/components/sections/HomeBoutiqueWellness";
+import HomeAdvancedEvaluation from "@/components/sections/HomeAdvancedEvaluation";
 import CTASection from "@/components/sections/CTASection";
 
 export const metadata: Metadata = {
@@ -44,28 +40,31 @@ export const metadata: Metadata = {
   },
 };
 
+/**
+ * Home — Apple-inspired Aurum Nova visual system (Phase 3).
+ *
+ * Six sections, each carrying one main idea, presented at section-scale
+ * with the cream / graphite / champagne-gold rhythm:
+ *
+ *   1. HomeHero            — cream "what is Aurum Nova" hero
+ *   2. FeaturedPrograma    — dark Programa Metabólico product feature
+ *   3. HomeLaserFeature    — dark Láser Diodo technology feature
+ *   4. HomeBoutiqueWellness — cream Brows + Faciales editorial split
+ *   5. HomeAdvancedEvaluation — dark Evaluación Metabólica Avanzada feature
+ *   6. CTASection          — dark final conversion surface
+ *
+ * Sections removed from Home: HomeJourney, MetodoYMetricas, HomeWellnessGrid,
+ * HomeQuizCTA, HomeCalculatorBridge, TestimonialsSection, HomeFAQPreview.
+ * Their files are kept in the repo so they remain available for future use.
+ */
 export default function HomePage() {
   return (
     <>
-      {/* 1 — Hero (cream) */}
       <HomeHero />
-      {/* 2 — Primary commercial funnel: Programa Metabólico (white) */}
       <FeaturedPrograma />
-      {/* 3 — Visitor journey: 3 pasos (white) */}
-      <HomeJourney />
-      {/* 4 — Método clínico + métricas (dark) — merged section, replaces MetodoAurum + ResultsTracking */}
-      <MetodoYMetricas />
-      {/* 5 — Service ecosystem with Láser as secondary feature (white) */}
-      <HomeWellnessGrid />
-      {/* 6 — Quiz entry (dark) */}
-      <HomeQuizCTA />
-      {/* 7 — Calculator bridge (cream) */}
-      <HomeCalculatorBridge />
-      {/* 8 — Launch-safe experience section, no patient testimonials */}
-      <TestimonialsSection />
-      {/* 9 — FAQ preview */}
-      <HomeFAQPreview />
-      {/* 10 — Final dark CTA */}
+      <HomeLaserFeature />
+      <HomeBoutiqueWellness />
+      <HomeAdvancedEvaluation />
       <CTASection />
     </>
   );
