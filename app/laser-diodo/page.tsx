@@ -1,4 +1,18 @@
 import type { Metadata } from "next";
+// Refactored /laser-diodo flow — Apple-inspired visual system.
+//
+// Core narrative: "Aurum Nova uses diode technology because it offers a
+// clinically guided balance of precision, cooling support,
+// comfort-oriented experience and progressive hair reduction."
+//
+// Removed from page flow (file kept in repo for future use):
+//   - LaserVisualStory — folded into the refactored LaserTechnologyShowcase
+//
+// Untouched (pricing sources):
+//   - LaserPackages (anchor: #planes-laser)
+//   - LaserZones (anchor: #zonas-precios)
+//   - LaserResultsSection (already on-brand)
+
 import LaserHero from "@/components/sections/laser-diodo/LaserHero";
 import LaserTechnologyShowcase from "@/components/sections/laser-diodo/LaserTechnologyShowcase";
 import DiodeTechnologyComparison from "@/components/sections/laser-diodo/DiodeTechnologyComparison";
@@ -6,7 +20,6 @@ import LaserCoolingComfort from "@/components/sections/laser-diodo/LaserCoolingC
 import LaserPackages from "@/components/sections/laser-diodo/LaserPackages";
 import LaserZones from "@/components/sections/laser-diodo/LaserZones";
 import LaserResultsSection from "@/components/sections/laser-diodo/LaserResultsSection";
-import LaserVisualStory from "@/components/sections/laser-diodo/LaserVisualStory";
 import LaserPrepAftercare from "@/components/sections/laser-diodo/LaserPrepAftercare";
 import FAQSection from "@/components/sections/FAQSection";
 import CTABanner from "@/components/ui/CTABanner";
@@ -78,11 +91,23 @@ const faqs = [
 const CTA_MSG =
   "Hola, quiero agendar una evaluación para láser diodo en Aurum Nova. Me interesa conocer planes disponibles según mi zona.";
 
+/**
+ * Láser Diodo — Apple-inspired visual system.
+ *
+ *   1. LaserHero                   — dark hero + LaserHeroVisual
+ *   2. LaserTechnologyShowcase     — consolidated machine + handpiece + features
+ *   3. DiodeTechnologyComparison   — PremiumComparisonTable (4 tech columns)
+ *   4. LaserCoolingComfort         — VisualFeatureSection (white reverse)
+ *   5. LaserPackages               — pricing (unchanged)
+ *   6. LaserZones                  — zone pricing (unchanged)
+ *   7. LaserResultsSection         — before/after (BeforeAfterSlider preserved)
+ *   8. LaserPrepAftercare          — consolidated 3-column prep/aftercare/consult
+ *   9. FAQSection                  — unchanged FAQ list
+ *  10. CTABanner                   — final conversion surface
+ */
 export default function LaserDiodoPage() {
   return (
     <>
-      {/* Technology-first narrative: establish what the equipment is and
-          why diode before showing packages, zones, and results. */}
       <LaserHero />
       <LaserTechnologyShowcase />
       <DiodeTechnologyComparison />
@@ -90,7 +115,6 @@ export default function LaserDiodoPage() {
       <LaserPackages />
       <LaserZones />
       <LaserResultsSection />
-      <LaserVisualStory />
       <LaserPrepAftercare />
       <FAQSection
         faqs={faqs}
