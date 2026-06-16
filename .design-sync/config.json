@@ -1,0 +1,43 @@
+{
+  "pkg": "aurumova-site",
+  "globalName": "AurumNova",
+  "shape": "package",
+  "projectId": "6e04b4d2-7ad6-4d92-96c5-291992e1c7e1",
+  "entry": ".design-sync/ds-entry.mjs",
+  "tsconfig": "tsconfig.json",
+  "buildCmd": "node .design-sync/compile-css.mjs",
+  "cssEntry": "ds-bundle-tmp/compiled-tailwind.css",
+  "overrides": {
+    "PremiumComparisonTable": { "cardMode": "column" }
+  },
+  "libOverrides": {
+    "bundle.mjs": "process global shim + next/* browser stubs so Next.js env checks don't crash in preview sandbox"
+  },
+  "componentSrcMap": {
+    "Button": "components/ui/button.tsx",
+    "Badge": "components/ui/badge.tsx",
+    "Card": "components/ui/card.tsx",
+    "CardHeader": "components/ui/card.tsx",
+    "CardFooter": "components/ui/card.tsx",
+    "CardTitle": "components/ui/card.tsx",
+    "CardAction": "components/ui/card.tsx",
+    "CardDescription": "components/ui/card.tsx",
+    "CardContent": "components/ui/card.tsx",
+    "Separator": "components/ui/separator.tsx",
+    "PricingCard": "components/ui/PricingCard.tsx",
+    "MedicalDisclaimer": "components/ui/MedicalDisclaimer.tsx",
+    "BeforeAfterSlider": "components/ui/BeforeAfterSlider.tsx",
+    "CTABanner": "components/ui/CTABanner.tsx",
+    "GoogleMapsLocationCard": "components/ui/GoogleMapsLocationCard.tsx",
+    "FAQSection": "components/sections/FAQSection.tsx",
+    "TeamSection": "components/sections/TeamSection.tsx",
+    "CTASection": "components/sections/CTASection.tsx",
+    "PageHero": "components/sections/PageHero.tsx",
+    "MetodoAurum": "components/sections/MetodoAurum.tsx",
+    "GroupedFAQAccordion": "components/sections/GroupedFAQAccordion.tsx",
+    "TestimonialsSection": "components/sections/TestimonialsSection.tsx",
+    "PremiumComparisonTable": "components/visual/PremiumComparisonTable.tsx",
+    "VisualFeatureSection": "components/visual/VisualFeatureSection.tsx",
+    "ServiceMenuEditorial": "components/visual/ServiceMenuEditorial.tsx"
+  }
+}
