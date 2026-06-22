@@ -29,7 +29,7 @@ const scenes: Scene[] = [
   {
     num: "01",
     title: "Evaluamos",
-    body: "Historia clínica completa, examen físico, revisión de medicamentos actuales y panel metabólico de laboratorio cuando aplica. No iniciamos ningún protocolo sin evaluación médica previa.",
+    body: "Historia clínica, examen físico, revisión de medicamentos y panel metabólico cuando aplica. Ningún protocolo comienza sin evaluación médica previa.",
   },
   {
     num: "02",

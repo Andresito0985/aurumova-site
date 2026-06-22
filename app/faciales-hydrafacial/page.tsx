@@ -320,7 +320,7 @@ export default function FacialesHydrafacialPage() {
         eyebrow="Signature · Hydrafacial"
         headline="Hidratación avanzada"
         highlight="paso a paso"
-        body="Hydrafacial combina limpieza, exfoliación, extracción suave e hidratación en un solo protocolo, con sistema de vacío y sueros personalizados según el tipo de piel del momento."
+        body="Limpieza, exfoliación, extracción suave e hidratación en un solo protocolo — con sistema de vacío y sueros ajustados a tu piel del momento."
         supportingText="No es un tratamiento médico ni reemplaza una evaluación dermatológica si tienes una condición médica de la piel."
         bullets={hydrafacialPillars}
         cta={{

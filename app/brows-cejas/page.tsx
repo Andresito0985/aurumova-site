@@ -281,7 +281,7 @@ export default function BrowsCejasPage() {
         eyebrow="Cuidado en casa recomendado"
         headline="Sosten el acabado"
         highlight="día a día"
-        body="El resultado de tu sesión se mantiene mejor con una rutina simple. El equipo orienta sobre cómo cuidar la zona, qué evitar y qué productos profesionales pueden complementar la rutina en casa."
+        body="Tu resultado dura más con una rutina simple. El equipo te orienta sobre cómo cuidar la zona, qué evitar y qué productos pueden complementarla en casa."
         supportingText="No hay receta universal. La recomendación final depende del servicio realizado, tu tipo de piel y vello, y el cuidado posterior individual."
         bullets={homeCareBullets}
         footnote="Sin venta en línea, sin marcas patrocinadas: los productos complementarios disponibles en clínica se sugieren únicamente según la evaluación individual de cada caso."
