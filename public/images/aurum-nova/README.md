@@ -36,5 +36,9 @@ Premium hero / section media for the Aurum Nova site. Drives every
 | `../../videos/aurum-nova/` | `laser-loop.mp4` | `laser.treatment` | Diode device / handpiece loop |
 | `metabolic/` | `metabolic-consult-01.webp` | `metabolic.consult` | Consultation / body-composition / follow-up |
 | `facials/` | `facial-treatment-01.webp` | `facials.treatment` | Facial room / treatment detail |
+| `brows/` | `brows-detail-01.webp` | `brows.detail` | Brow detail / tools editorial |
+| `team/` | `team-portrait-01.webp` | `team.portrait` | Provider / clinic-team editorial portrait |
 | `clinic/` | `clinic-room-01.webp` | `clinic.room` | Real clinic / Infinity Health Shared Spaces room |
 | `clinic/` | `clinic-detail-01.webp` | `clinic.detail` | Interior detail (reception, gold accents, texture) |
+| `laser/` | `laser-hero.webp` | `laser.hero` | /laser-diodo hero device/room still |
+| `../../videos/aurum-nova/` | `laser-loop.mp4` | `laser.hero` / `laser.treatment` | Diode device / handpiece loop |

@@ -10,6 +10,21 @@
 // equipment moment moves into <LaserMachineShowcase> directly below, where
 // the photograph can be presented at full scale.
 //
+// FUTURE WIRING — official visual assets
+// ---------------------------------------------------------------------------
+// The current `laserVisualByPlacement` map in content/laser-visuals.ts is
+// the legacy local registry. The long-term canonical store is
+// content/official-visual-assets.ts. When migrating, the hero visual slot
+// can be wired to:
+//   officialVisualAssets.services.laserDiodo.machine
+//   officialVisualAssets.services.laserDiodo.room   (alternate)
+// And the secondary frames inside LaserTechnologyShowcase can consume:
+//   officialVisualAssets.services.laserDiodo.handpiece
+// Until that migration, the existing `laser-visuals.ts` flow remains
+// authoritative for this page.
+// Registry: content/official-visual-assets.ts
+// Folder:   /public/images/official/services/laser-diodo/
+//
 // Compliance preserved:
 //   - "Reducción progresiva" — never "permanente" / "elimina"
 //   - "Apoyo de enfriamiento" — never "indoloro" / "sin dolor"
@@ -21,6 +36,8 @@ import Image from "next/image";
 import { ChevronLeft } from "lucide-react";
 import { whatsappLink } from "@/content/site";
 import ProductHeroBlock from "@/components/visual/ProductHeroBlock";
+import MediaSlot from "@/components/visual/MediaSlot";
+import { aurumMediaAssets } from "@/content/aurum-media-assets";
 import {
   laserVisualByPlacement,
   type LaserVisual,
@@ -107,7 +124,22 @@ export default function LaserHero() {
           Inicio
         </Link>
       }
-      visual={<LaserHeroVisual visual={heroVisual} />}
+      visual={
+        // Diode device/room loop when provided; otherwise the optimized
+        // WebP hero image frame (no downgrade, no layout shift).
+        aurumMediaAssets.laser.hero ? (
+          <MediaSlot
+            asset={aurumMediaAssets.laser.hero}
+            label="Láser diodo · experiencia clínica"
+            ratio="portrait"
+            variant="dark"
+            priority
+            sizes="(min-width: 1024px) 42vw, 100vw"
+          />
+        ) : (
+          <LaserHeroVisual visual={heroVisual} />
+        )
+      }
     />
   );
 }

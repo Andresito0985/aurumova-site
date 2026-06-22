@@ -35,10 +35,16 @@ export type AurumMediaAssets = {
     clinic: AurumMediaAsset | null;
   };
   laser: {
-    /** Laser feature. Clinical diode treatment / device detail loop or still.
+    /** Homepage laser feature. Clinical diode treatment / device detail.
+     *  Falls back to the existing optimized machine WebP until set.
      *  video  /videos/aurum-nova/laser-loop.mp4
      *  image  /images/aurum-nova/laser/laser-treatment-01.webp */
     treatment: AurumMediaAsset | null;
+    /** /laser-diodo hero. Device / room loop. Falls back to the current
+     *  laser-room/machine WebP hero frame until set.
+     *  video  /videos/aurum-nova/laser-loop.mp4
+     *  image  /images/aurum-nova/laser/laser-hero.webp */
+    hero: AurumMediaAsset | null;
   };
   metabolic: {
     /** Metabolic hero. Consultation / body-composition / follow-up still.
@@ -49,6 +55,16 @@ export type AurumMediaAssets = {
     /** Facial / aesthetic room or treatment detail still.
      *  image  /images/aurum-nova/facials/facial-treatment-01.webp */
     treatment: AurumMediaAsset | null;
+  };
+  brows: {
+    /** Brow detail / tools editorial still.
+     *  image  /images/aurum-nova/brows/brows-detail-01.webp */
+    detail: AurumMediaAsset | null;
+  };
+  team: {
+    /** Provider / clinic-team editorial portrait.
+     *  image  /images/aurum-nova/team/team-portrait-01.webp */
+    portrait: AurumMediaAsset | null;
   };
   clinic: {
     /** Real clinic / Infinity Health Shared Spaces room still.
@@ -69,12 +85,19 @@ export const aurumMediaAssets: AurumMediaAssets = {
   },
   laser: {
     treatment: null,
+    hero: null,
   },
   metabolic: {
     consult: null,
   },
   facials: {
     treatment: null,
+  },
+  brows: {
+    detail: null,
+  },
+  team: {
+    portrait: null,
   },
   clinic: {
     room: null,

@@ -15,6 +15,8 @@
 
 import Image from "next/image";
 import VisualFeatureSection from "@/components/visual/VisualFeatureSection";
+import MediaSlot from "@/components/visual/MediaSlot";
+import { aurumMediaAssets } from "@/content/aurum-media-assets";
 
 const technologyPillars = [
   "Tecnología diodo orientada por zona y tipo de piel",
@@ -32,7 +34,7 @@ function LaserMachineVisual() {
   return (
     <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl bg-gradient-to-br from-[#161616] via-[#121212] to-[#0A0A0A] ring-1 ring-[#C9A84C]/20 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.55)]">
       <Image
-        src="/images/laser/machine/laser-machine-02-clean.png"
+        src="/images/laser/machine/laser-machine-02-clean.webp"
         alt="Equipo de láser diodo en una sala de tratamiento cálida y moderna en Aurum Nova."
         fill
         sizes="(min-width: 1024px) 40vw, 100vw"
@@ -80,7 +82,21 @@ export default function HomeLaserFeature() {
         href: "/laser-diodo",
       }}
       footnote="Requiere evaluación por zona. La frecuencia y el mantenimiento se orientan según la respuesta individual."
-      visual={<LaserMachineVisual />}
+      visual={
+        // Diode treatment loop/still when provided; otherwise the optimized
+        // machine WebP frame (no downgrade, no layout shift).
+        aurumMediaAssets.laser.treatment ? (
+          <MediaSlot
+            asset={aurumMediaAssets.laser.treatment}
+            label="Láser diodo · tecnología clínica"
+            ratio="portrait"
+            variant="dark"
+            sizes="(min-width: 1024px) 40vw, 100vw"
+          />
+        ) : (
+          <LaserMachineVisual />
+        )
+      }
     />
   );
 }

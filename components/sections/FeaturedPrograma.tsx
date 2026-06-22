@@ -20,6 +20,8 @@
 
 import VisualFeatureSection from "@/components/visual/VisualFeatureSection";
 import DeviceDashboardMockup from "@/components/visual/DeviceDashboardMockup";
+import MediaSlot from "@/components/visual/MediaSlot";
+import { aurumMediaAssets } from "@/content/aurum-media-assets";
 
 // Program-level capabilities, framed as orientative pillars. No patient
 // data, no medication doses, no outcome guarantees.
@@ -63,14 +65,26 @@ export default function FeaturedPrograma() {
       }}
       footnote="Requiere evaluación médica. No todos los pacientes califican. Pricing y paquetes en la página del programa. Si prefieres orientación rápida, escríbenos por WhatsApp."
       visual={
-        <DeviceDashboardMockup
-          eyebrow="Panel de seguimiento"
-          title="Programa Metabólico Integral"
-          subtitle="Cada sesión actualiza tus métricas"
-          chips={dashboardChips}
-          metrics={dashboardMetrics}
-          footerNote="Vista ilustrativa. Los datos reales se registran en cada sesión clínica."
-        />
+        // Consultation / follow-up still when provided; otherwise the
+        // illustrative tracking dashboard (no downgrade, no layout shift).
+        aurumMediaAssets.metabolic.consult ? (
+          <MediaSlot
+            asset={aurumMediaAssets.metabolic.consult}
+            label="Consulta y seguimiento metabólico"
+            ratio="portrait"
+            variant="dark"
+            sizes="(min-width: 1024px) 45vw, 100vw"
+          />
+        ) : (
+          <DeviceDashboardMockup
+            eyebrow="Panel de seguimiento"
+            title="Programa Metabólico Integral"
+            subtitle="Cada sesión actualiza tus métricas"
+            chips={dashboardChips}
+            metrics={dashboardMetrics}
+            footerNote="Vista ilustrativa. Los datos reales se registran en cada sesión clínica."
+          />
+        )
       }
     />
   );
