@@ -292,8 +292,8 @@ These pages have `robots: { index: false }` and are excluded from the sitemap pr
 ## Contact
 
 **Aurum Nova Wellness Clinic**
-Arecibo Medical Plaza, Suite 201
+16 Calle Ana Lens Susoni, Infinity Health Shared Spaces
 Arecibo, Puerto Rico 00612
-WhatsApp: 939-641-0504
+WhatsApp / Llamadas: +1 (939) 641-0504
 Email: aurumnovawc@gmail.com
 Instagram: [@aurumnovawc](https://instagram.com/aurumnovawc)

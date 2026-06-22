@@ -69,8 +69,10 @@ export const metabolicProtocols: MetabolicProtocol[] = [
     id: "inicial",
     name: "Protocolo Inicial",
     duration: "4 semanas",
-    priceLabel: "$400",
+    priceLabel: "$350",
     packageLabel: "Paquete inicial",
+    comparisonLabel: "Precio regular: $400",
+    savingsLabel: "Precio de apertura · nuevo espacio privado",
     shortDescription:
       "Punto de partida para evaluar historial, laboratorios, tolerancia inicial y metas clínicas.",
     bestFor: [

@@ -89,7 +89,7 @@ const pages = [
   {
     slug: "sobre-nosotros",
     title: "Sobre Aurum Nova Wellness Clinic | Arecibo, Puerto Rico",
-    desc: "Conoce Aurum Nova Wellness Clinic: clínica premium de bienestar médico en Arecibo Medical Plaza, Puerto Rico. Medicina metabólica, estética y wellness con enfoque clínico.",
+    desc: "Conoce Aurum Nova Wellness Clinic: clínica premium de bienestar médico en Arecibo, Puerto Rico. Medicina metabólica, estética y wellness con enfoque clínico.",
     kw: ["clínica wellness Arecibo"],
   },
   {

@@ -65,7 +65,7 @@ export const programaMetabolico: ProgramPageContent = {
   meta: {
     title: "Programa Metabólico Integral | Aurum Nova Wellness Clinic",
     description:
-      "Programa médico mensual de control metabólico en Arecibo, Puerto Rico. Evaluación clínica, plan personalizado, seguimiento y métricas de progreso desde $400/mes.",
+      "Programa médico mensual de control metabólico en Arecibo, Puerto Rico. Evaluación clínica, plan personalizado, seguimiento y métricas de progreso. Planes desde $350/mes (precio de apertura).",
     keywords: [
       "programa metabólico Puerto Rico",
       "control de peso médico Arecibo",
@@ -136,10 +136,10 @@ export const programaMetabolico: ProgramPageContent = {
   ],
   pricing: {
     label: "Membresía mensual",
-    from: "$400",
+    from: "$350",
     period: "mes",
     description:
-      "El paquete mensual incluye tu evaluación, plan médico, seguimiento y acceso a terapias de apoyo aprobadas por tu médico.",
+      "Precio de apertura por nuestra reubicación a un nuevo espacio privado. El paquete mensual incluye tu evaluación, plan médico, seguimiento y acceso a terapias de apoyo aprobadas por tu médico.",
     includes: [
       "Consulta médica mensual incluida",
       "Plan nutricional personalizado",

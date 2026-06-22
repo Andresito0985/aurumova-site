@@ -66,7 +66,7 @@ export default function JsonLd() {
     paymentAccepted: "Cash, Credit Card",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Ave. Barbosa 65, Arecibo Medical Plaza, Suite 201",
+      streetAddress: "16 Calle Ana Lens Susoni, Infinity Health Shared Spaces",
       addressLocality: "Arecibo",
       addressRegion: "PR",
       postalCode: "00612",

@@ -23,12 +23,18 @@ type DesktopNavItem =
   | { kind: "link"; label: string; href: string }
   | { kind: "dropdown"; label: string };
 
+// Homepage-anchor-first nav: the primary links scroll to the homepage
+// conversion sections (#servicios / #metodo / #precios / #contacto). From a
+// sub-route these resolve to "/" + hash, so they navigate home and scroll.
+// The two flagship service pages keep dedicated route links.
 const desktopNav: DesktopNavItem[] = [
-  { kind: "link", label: "Programa Metabólico", href: "/programa-metabolico" },
-  { kind: "link", label: "Láser Diodo", href: "/laser-diodo" },
-  { kind: "link", label: "Servicios", href: "/servicios" },
+  { kind: "link", label: "Servicios", href: "/#servicios" },
+  { kind: "link", label: "Método", href: "/#metodo" },
+  { kind: "link", label: "Precios", href: "/#precios" },
+  { kind: "link", label: "Programa", href: "/programa-metabolico" },
+  { kind: "link", label: "Láser", href: "/laser-diodo" },
   { kind: "dropdown", label: "Recursos" },
-  { kind: "link", label: "Contacto", href: "/contacto" },
+  { kind: "link", label: "Contacto", href: "/#contacto" },
 ];
 
 // Resources dropdown content (desktop). Three columns of clinically themed
@@ -80,11 +86,13 @@ const mobileNavGroups: MobileNavGroup[] = [
   {
     title: "Principal",
     items: [
-      { label: "Inicio", href: "/" },
+      { label: "Inicio", href: "/#inicio" },
+      { label: "Servicios", href: "/#servicios" },
+      { label: "Método", href: "/#metodo" },
+      { label: "Precios", href: "/#precios" },
       { label: "Programa Metabólico", href: "/programa-metabolico", badge: "Principal" },
       { label: "Láser Diodo", href: "/laser-diodo" },
-      { label: "Servicios", href: "/servicios" },
-      { label: "Agendar Evaluación", href: "/agendar-evaluacion" },
+      { label: "Contacto", href: "/#contacto" },
     ],
   },
   {
@@ -437,7 +445,7 @@ export default function Header() {
                 </p>
                 <p>
                   <span className="font-semibold text-[#1A1A1A]">Llamadas:</span>{" "}
-                  {siteConfig.callDisplay} <span className="text-[#9A9A9A]">(solo llamadas)</span>
+                  {siteConfig.callDisplay}
                 </p>
                 <p className="mt-1">{siteConfig.addressShort}</p>
               </div>

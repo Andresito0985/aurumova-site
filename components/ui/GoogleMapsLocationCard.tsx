@@ -174,9 +174,9 @@ export default function GoogleMapsLocationCard({
                 isDark ? "text-[#9A9A9A]" : "text-[#6B6B6B]"
               }`}
             >
-              Ave. Barbosa 65, Arecibo Medical Plaza
+              16 Calle Ana Lens Susoni
               <br />
-              Suite 201, Arecibo, Puerto Rico
+              Infinity Health Shared Spaces, Arecibo, Puerto Rico
             </p>
           </div>
         </div>

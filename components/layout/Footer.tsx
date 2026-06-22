@@ -197,9 +197,9 @@ export default function Footer() {
                   <span>
                     Aurum Nova Wellness Clinic
                     <br />
-                    Ave. Barbosa 65, Arecibo Medical Plaza
+                    16 Calle Ana Lens Susoni
                     <br />
-                    Suite 201, Arecibo, PR
+                    Infinity Health Shared Spaces, Arecibo, PR
                     <span className="mt-1 block text-[#C9A84C]">Ver ubicación en Google Maps</span>
                   </span>
                 </a>

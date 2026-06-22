@@ -6,12 +6,25 @@
 // The core narrative — "No es solo bajar peso. Es medir, interpretar,
 // ajustar y acompañar." — sits as the subhead. The primary CTA routes to
 // the quiz; WhatsApp is the secondary CTA. Compliance footnote preserved.
+//
+// FUTURE WIRING — official visual assets
+// ---------------------------------------------------------------------------
+// The dashboard mockup may be supplemented (or replaced for variants) by
+// real Aurum Nova photography. Candidate registry entries:
+//   officialVisualAssets.services.programaMetabolico.consultation
+//     → editorial consultation-room photo (alternate hero visual)
+//   officialVisualAssets.services.programaMetabolico.dashboard
+//     → official anonymized dashboard screenshot
+// Registry: content/official-visual-assets.ts
+// Folder:   /public/images/official/services/programa-metabolico/
 
 import Link from "next/link";
 import { ChevronLeft, ClipboardList, MessageCircle } from "lucide-react";
 import { whatsappLink } from "@/content/site";
 import ProductHeroBlock from "@/components/visual/ProductHeroBlock";
 import DeviceDashboardMockup from "@/components/visual/DeviceDashboardMockup";
+import MediaSlot from "@/components/visual/MediaSlot";
+import { aurumMediaAssets } from "@/content/aurum-media-assets";
 
 const CTA_WHATSAPP_MESSAGE =
   "Hola, me interesa comenzar una evaluación para discutir el Programa Metabólico de Aurum Nova. ¿Cuáles son los próximos pasos?";
@@ -64,14 +77,27 @@ export default function MetabolicHero() {
         </Link>
       }
       visual={
-        <DeviceDashboardMockup
-          eyebrow="Panel de seguimiento"
-          title="Programa Metabólico Integral"
-          subtitle="Cada sesión actualiza tus métricas"
-          chips={programChips}
-          metrics={dashboardMetrics}
-          footerNote="Vista ilustrativa. Los datos reales se registran en cada sesión clínica."
-        />
+        // Consultation / follow-up photo when provided; otherwise the
+        // illustrative tracking dashboard (no downgrade, no layout shift).
+        aurumMediaAssets.metabolic.consult ? (
+          <MediaSlot
+            asset={aurumMediaAssets.metabolic.consult}
+            label="Consulta y seguimiento metabólico"
+            ratio="portrait"
+            variant="dark"
+            priority
+            sizes="(min-width: 1024px) 45vw, 100vw"
+          />
+        ) : (
+          <DeviceDashboardMockup
+            eyebrow="Panel de seguimiento"
+            title="Programa Metabólico Integral"
+            subtitle="Cada sesión actualiza tus métricas"
+            chips={programChips}
+            metrics={dashboardMetrics}
+            footerNote="Vista ilustrativa. Los datos reales se registran en cada sesión clínica."
+          />
+        )
       }
     />
   );

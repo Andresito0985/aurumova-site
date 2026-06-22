@@ -188,7 +188,7 @@ export const faqs: FAQItem[] = [
     category: "Precios",
     question: "¿Cuánto cuesta el Programa Metabólico Integral?",
     answer:
-      "El Programa Metabólico Integral tiene un precio base de $400/mes, que incluye consulta médica, plan nutricional, inyectables de apoyo cuando aplican y seguimiento de métricas. Las terapias formuladas bajo prescripción tienen costo adicional según el protocolo específico. El precio final se determina en la evaluación.",
+      "El Programa Metabólico Integral tiene un precio base de $350/mes (precio de apertura por nuestra reubicación a un nuevo espacio privado; precio regular $400/mes), que incluye consulta médica, plan nutricional, inyectables de apoyo cuando aplican y seguimiento de métricas. Las terapias formuladas bajo prescripción tienen costo adicional según el protocolo específico. El precio final se determina en la evaluación.",
   },
   {
     category: "Precios",

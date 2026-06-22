@@ -49,7 +49,7 @@ export default function HomeHero() {
         <DeviceDashboardMockup
           eyebrow="Aurum Nova · Wellness Clinic"
           title="Tu proceso, evaluado en clínica"
-          subtitle="Arecibo Medical Plaza · Suite 201"
+          subtitle="Infinity Health Shared Spaces · Arecibo"
           chips={journeyChips}
           footerNote="Visualización abstracta del recorrido clínico. La candidatura final se confirma durante la evaluación profesional."
         />

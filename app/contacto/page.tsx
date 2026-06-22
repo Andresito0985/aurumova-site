@@ -58,7 +58,7 @@ export default function ContactoPage() {
                 icon: Phone,
                 title: "Llamadas",
                 value: siteConfig.callDisplay,
-                detail: "Solo llamadas",
+                detail: "Llamadas y WhatsApp",
                 href: callLink(),
                 cta: "Llamar",
                 external: false,
@@ -66,8 +66,8 @@ export default function ContactoPage() {
               {
                 icon: MapPin,
                 title: "Ubicación",
-                value: "Arecibo Medical Plaza",
-                detail: "Suite 201",
+                value: "16 Calle Ana Lens Susoni",
+                detail: "Infinity Health Shared Spaces",
                 href: siteConfig.mapsUrl,
                 cta: "Ver mapa",
                 external: true,
@@ -131,8 +131,8 @@ export default function ContactoPage() {
                 programa o servicio.
               </p>
               <p className="text-xs leading-relaxed text-[#6B6B6B]">
-                Estacionamiento disponible en Arecibo Medical Plaza. La clínica
-                está en el segundo piso, Suite 201.
+                Estamos ubicados en Infinity Health Shared Spaces, 16 Calle Ana
+                Lens Susoni, Arecibo.
               </p>
             </div>
           </div>

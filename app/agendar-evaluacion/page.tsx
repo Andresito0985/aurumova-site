@@ -98,10 +98,9 @@ export default function AgendarEvaluacionPage() {
               </a>
             </div>
             <p className="mt-4 text-sm leading-relaxed text-[#6B6B6B]">
-              WhatsApp: {siteConfig.whatsappDisplay} · Llamadas: {siteConfig.callDisplay} solo
-              llamadas
+              WhatsApp y llamadas: {siteConfig.callDisplay}
               <br />
-              Ave. Barbosa 65, Arecibo Medical Plaza, Suite 201
+              16 Calle Ana Lens Susoni, Infinity Health Shared Spaces
             </p>
           </div>
         </div>

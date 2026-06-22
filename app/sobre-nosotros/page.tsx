@@ -1,20 +1,31 @@
 import type { Metadata } from "next";
-import PageHero from "@/components/sections/PageHero";
+import Link from "next/link";
+// /sobre-nosotros — Apple-inspired Aurum Nova visual system.
+//
+// Photo slots are now driven by the centralized official-visual-assets
+// registry. To activate any image:
+//   1. Drop the approved file into /public/images/official/clinic/.
+//   2. Set the matching `null` in content/official-visual-assets.ts.
+//   3. <OfficialImageSlot> renders the photo automatically.
+
+import { ChevronLeft, ShieldCheck } from "lucide-react";
+import CTABanner from "@/components/ui/CTABanner";
+import GoogleMapsLocationCard from "@/components/ui/GoogleMapsLocationCard";
+import ProductHeroBlock from "@/components/visual/ProductHeroBlock";
+import OfficialImageSlot from "@/components/visual/OfficialImageSlot";
 import TeamSection from "@/components/sections/TeamSection";
 import MetodoAurum from "@/components/sections/MetodoAurum";
-import CTABanner from "@/components/ui/CTABanner";
-import { MapPin, Phone, Mail, AtSign, Clock } from "lucide-react";
-import { callLink, siteConfig } from "@/content/site";
+import { officialVisualAssets } from "@/content/official-visual-assets";
 
 export const metadata: Metadata = {
   title: "Sobre Aurum Nova Wellness Clinic | Arecibo, Puerto Rico",
   description:
-    "Conoce Aurum Nova Wellness Clinic: clínica premium de bienestar médico en Arecibo Medical Plaza, Puerto Rico. Medicina metabólica, estética y wellness con enfoque clínico.",
+    "Conoce Aurum Nova Wellness Clinic: clínica premium de bienestar médico en Arecibo, Puerto Rico. Medicina metabólica, estética y wellness con enfoque clínico.",
 
   alternates: { canonical: "https://aurumnovawellnessclinic.com/sobre-nosotros" },
   openGraph: {
     title: "Sobre Aurum Nova Wellness Clinic | Arecibo, Puerto Rico",
-    description: "Conoce Aurum Nova Wellness Clinic: clínica premium de bienestar médico en Arecibo Medical Plaza, Puerto Rico. Medicina metabólica, estética y wellness con enfoque clínico.",
+    description: "Conoce Aurum Nova Wellness Clinic: clínica premium de bienestar médico en Arecibo, Puerto Rico. Medicina metabólica, estética y wellness con enfoque clínico.",
     url: "https://aurumnovawellnessclinic.com/sobre-nosotros",
     siteName: "Aurum Nova Wellness Clinic",
     locale: "es_PR",
@@ -23,129 +34,159 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Sobre Aurum Nova Wellness Clinic | Arecibo, Puerto Rico",
-    description: "Conoce Aurum Nova Wellness Clinic: clínica premium de bienestar médico en Arecibo Medical Plaza, Puerto Rico. Medicina metabólica, estética y wellness con enfoque clínico.",
+    description: "Conoce Aurum Nova Wellness Clinic: clínica premium de bienestar médico en Arecibo, Puerto Rico. Medicina metabólica, estética y wellness con enfoque clínico.",
   },
 };
+
+// Trust pillars — compliance-safe one-line statements. Rendered as a slim
+// editorial strip near the bottom of the page. No bordered tile-card forest.
+const trustPoints = [
+  "Cada plan depende de evaluación clínica profesional.",
+  "No todos los pacientes cualifican para todos los servicios.",
+  "La información del website es educativa, no reemplaza una evaluación médica.",
+  "Los resultados pueden variar según historial, adherencia y respuesta individual.",
+];
 
 export default function SobreNosotrosPage() {
   return (
     <>
-      <PageHero
-        badge="Sobre Nosotros"
-        title="Aurum Nova"
+      {/* 1 — Hero (cream ProductHeroBlock).
+              Hero visual slot → officialVisualAssets.clinic.interior.
+              Renders an editorial cream placeholder until the file at
+              /public/images/official/clinic/<filename>.jpg exists. */}
+      <ProductHeroBlock
+        variant="cream"
+        eyebrow="Sobre nosotros"
+        headline="Aurum Nova"
         highlight="Wellness Clinic"
-        subtitle="Somos una clínica de bienestar médico premium en Arecibo, Puerto Rico. Nacimos para ofrecer medicina metabólica, estética y wellness con evaluación clínica real, personalización genuina y seguimiento medible."
-        ctaText="Agendar evaluación"
-        ctaMessage="Hola, quisiera conocer más sobre Aurum Nova y agendar mi evaluación médica inicial."
-        secondaryCtaText="Ver programas"
-        secondaryCtaHref="/programa-metabolico"
+        subhead="Una clínica de wellness médico en Arecibo enfocada en evaluación, personalización y seguimiento clínico responsable."
+        supportingText="Combinamos programas metabólicos, tecnología estética y servicios wellness con una experiencia privada, moderna y orientada por evaluación profesional."
+        primaryCta={{
+          label: "Agendar evaluación",
+          href: "/agendar-evaluacion",
+        }}
+        secondaryCta={{
+          label: "Ver servicios",
+          href: "/servicios",
+        }}
+        footnote="La información de esta página es educativa. Cada servicio puede requerir evaluación clínica. Los resultados pueden variar."
+        topSlot={
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1.5 text-xs text-[#9A9A9A] hover:text-[#C9A84C] transition-colors"
+          >
+            <ChevronLeft className="h-3.5 w-3.5" />
+            Inicio
+          </Link>
+        }
+        visual={
+          <OfficialImageSlot
+            asset={officialVisualAssets.clinic.interior}
+            label="Infinity Health Shared Spaces · Arecibo"
+            ratio="portrait"
+            variant="cream"
+            priority
+            className="shadow-[0_30px_80px_-30px_rgba(0,0,0,0.18)]"
+          />
+        }
       />
 
-      {/* Mission */}
+      {/* 2 — Mission (centered editorial statement, single message) */}
       <section className="section-padding bg-white">
-        <div className="container-max max-w-3xl mx-auto text-center">
-          <span className="inline-block text-xs font-semibold tracking-widest uppercase text-[#C9A84C] mb-3">
-            Nuestra Misión
+        <div className="container-max mx-auto max-w-3xl text-center">
+          <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-widest text-[#C9A84C]">
+            Nuestra misión
           </span>
-          <h2 className="text-2xl sm:text-3xl font-semibold text-[#1A1A1A] mb-6">
-            Medicina wellness moderna, diseñada alrededor de ti
+          <h2 className="mb-6 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-[-0.02em] leading-[1.1] text-[#1A1A1A]">
+            Medicina wellness moderna, diseñada{" "}
+            <span className="text-[#A8872E]">alrededor de ti</span>
           </h2>
-          <p className="text-base text-[#6B6B6B] leading-relaxed mb-5">
-            En Aurum Nova creemos que el bienestar médico debe ser accesible, honesto y realmente
-            personalizado. No somos un spa de moda ni un vendedor de suplementos — somos un equipo
-            clínico que combina evaluación médica, tecnología avanzada y seguimiento continuo para
-            ayudarte a alcanzar objetivos de salud reales y medibles.
+          <p className="mb-5 text-base sm:text-lg leading-relaxed text-[#6B6B6B]">
+            En Aurum Nova creemos que el bienestar médico debe ser accesible,
+            honesto y realmente personalizado. No somos un spa de moda ni un
+            vendedor de suplementos — somos un equipo clínico que combina
+            evaluación médica, tecnología avanzada y seguimiento continuo
+            para ayudarte a alcanzar objetivos de salud reales y medibles.
           </p>
-          <p className="text-base text-[#6B6B6B] leading-relaxed">
-            Cada programa comienza con una pregunta honesta: ¿eres candidato para esto? Porque
-            preferimos decirte que no cuando corresponde, antes que ofrecerte algo que no es
-            apropiado para tu perfil. Esa honestidad es parte de lo que nos define.
+          <p className="text-base sm:text-lg leading-relaxed text-[#6B6B6B]">
+            Cada programa comienza con una pregunta honesta:{" "}
+            <span className="font-semibold text-[#1A1A1A]">
+              ¿eres candidato para esto?
+            </span>{" "}
+            Porque preferimos decirte que no cuando corresponde, antes que
+            ofrecerte algo que no es apropiado para tu perfil. Esa honestidad
+            es parte de lo que nos define.
           </p>
         </div>
       </section>
 
+      {/* 3 — TeamSection (photo-ready via centralized registry) */}
       <TeamSection />
+
+      {/* 4 — MetodoAurum (vertical narrative timeline) */}
       <MetodoAurum />
 
-      {/* Location & Contact */}
-      <section className="section-padding bg-white">
+      {/* 5 — Location section.
+              GoogleMapsLocationCard + clinic-exterior slot driven by
+              officialVisualAssets.clinic.exterior. */}
+      <section className="section-padding bg-[#FAF8F4]">
         <div className="container-max">
-          <div className="grid lg:grid-cols-2 gap-10">
-            <div>
-              <h2 className="text-2xl font-semibold text-[#1A1A1A] mb-6">Encuéntranos</h2>
-              <div className="space-y-4">
-                {[
-                  {
-                    icon: MapPin,
-                    label: "Dirección",
-                    value: siteConfig.address,
-                    href: siteConfig.mapsUrl,
-                  },
-                  {
-                    icon: Phone,
-                    label: "Llamadas",
-                    value: `${siteConfig.callDisplay} · solo llamadas`,
-                    href: callLink(),
-                  },
-                  {
-                    icon: Mail,
-                    label: "Email",
-                    value: siteConfig.email,
-                    href: `mailto:${siteConfig.email}`,
-                  },
-                  {
-                    icon: AtSign,
-                    label: "Instagram",
-                    value: siteConfig.instagram,
-                    href: siteConfig.instagramUrl,
-                  },
-                  {
-                    icon: Clock,
-                    label: "Horario",
-                    value: "Lunes a Viernes · Horario a confirmar",
-                  },
-                ].map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <div key={item.label} className="flex items-start gap-4">
-                      <div className="w-9 h-9 rounded-lg bg-[#C9A84C]/10 flex items-center justify-center shrink-0">
-                        <Icon className="w-4 h-4 text-[#C9A84C]" />
-                      </div>
-                      <div>
-                        <p className="text-xs font-semibold text-[#9A9A9A] uppercase tracking-wider mb-0.5">
-                          {item.label}
-                        </p>
-                        {item.href ? (
-                          <a
-                            href={item.href}
-                            target={item.href.startsWith("http") ? "_blank" : undefined}
-                            rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                            className="text-sm text-[#1A1A1A] hover:text-[#C9A84C] transition-colors"
-                          >
-                            {item.value}
-                          </a>
-                        ) : (
-                          <p className="text-sm text-[#1A1A1A]">{item.value}</p>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+          <div className="mb-10 max-w-2xl sm:mb-12">
+            <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-widest text-[#C9A84C]">
+              Encuéntranos
+            </span>
+            <h2 className="mb-4 text-3xl sm:text-4xl font-semibold tracking-[-0.02em] leading-[1.05] text-[#1A1A1A]">
+              Infinity Health{" "}
+              <span className="text-[#A8872E]">Shared Spaces</span>
+            </h2>
+            <p className="text-base leading-relaxed text-[#6B6B6B]">
+              Una sala clínica privada en Arecibo, Puerto Rico — pensada para
+              evaluación tranquila, sesiones cuidadas y seguimiento clínico
+              continuo.
+            </p>
+          </div>
 
-            {/* Map placeholder */}
-            <div className="bg-[#FAF8F4] border border-[#E8E4DA] rounded-3xl flex items-center justify-center min-h-[280px]">
-              <div className="text-center p-8">
-                <MapPin className="w-12 h-12 text-[#C9A84C]/40 mx-auto mb-3" />
-                <p className="text-sm font-semibold text-[#6B6B6B]">Mapa interactivo próximamente</p>
-                <p className="text-xs text-[#9A9A9A] mt-1">{siteConfig.address}</p>
-              </div>
-            </div>
+          <div className="grid items-start gap-5 lg:grid-cols-2 lg:gap-6">
+            <GoogleMapsLocationCard />
+            <OfficialImageSlot
+              asset={officialVisualAssets.clinic.exterior}
+              label="Fachada de la clínica"
+              ratio="landscape"
+              variant="cream"
+            />
           </div>
         </div>
       </section>
 
+      {/* 6 — Trust strip — slim editorial line, compliance language */}
+      <section className="px-4 py-12 sm:px-6 sm:py-14 lg:px-8 bg-white">
+        <div className="container-max mx-auto max-w-4xl rounded-3xl border border-[#E8E4DA] bg-[#FAF8F4] p-6 sm:p-7">
+          <div className="mb-5 flex items-center gap-3">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#C9A84C]/10 ring-1 ring-[#C9A84C]/20">
+              <ShieldCheck className="h-4 w-4 text-[#C9A84C]" />
+            </span>
+            <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-[#A8872E]">
+              Compromiso clínico
+            </p>
+          </div>
+          <ul className="grid gap-x-8 gap-y-3 sm:grid-cols-2">
+            {trustPoints.map((point) => (
+              <li
+                key={point}
+                className="flex items-start gap-3 text-sm leading-relaxed text-[#3D3D3D]"
+              >
+                <span
+                  aria-hidden="true"
+                  className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#C9A84C]"
+                />
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* 7 — Final CTA */}
       <CTABanner
         title="¿Listo para conocer Aurum Nova?"
         subtitle="Agenda tu evaluación inicial y experimenta nuestro enfoque clínico de primera mano."
